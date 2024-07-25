@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>知识图谱 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述本章首先介绍“知识与知识表示”的概念，然后介绍“谓词逻辑、产生式、框架、语义网络”等当前人工智能中应用广泛的知识表示方法。然后，简要介绍知识图谱，为后面介绍推理方法、专家系统等奠定基础。 概述 - 起源（万维网） 万维网以文本和链接描述信息，用户通过超链接浏览互联网上的各类资源，也可以通过互联网将自己的信息发布出去。 万维网(world wide web，Web1.0)：是以链接为中心的信息系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱">
+<meta property="og:url" content="https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.2%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="概述本章首先介绍“知识与知识表示”的概念，然后介绍“谓词逻辑、产生式、框架、语义网络”等当前人工智能中应用广泛的知识表示方法。然后，简要介绍知识图谱，为后面介绍推理方法、专家系统等奠定基础。 概述 - 起源（万维网） 万维网以文本和链接描述信息，用户通过超链接浏览互联网上的各类资源，也可以通过互联网将自己的信息发布出去。 万维网(world wide web，Web1.0)：是以链接为中心的信息系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-07-17T12:05:40.000Z">
+<meta property="article:modified_time" content="2024-07-25T12:55:23.860Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="人工智能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.2%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '知识图谱',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 20:55:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">知识图谱</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-17T12:05:40.000Z" title="发表于 2024-07-17 20:05:40">2024-07-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T12:55:23.860Z" title="更新于 2024-07-25 20:55:23">2024-07-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="知识图谱"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本章首先介绍“知识与知识表示”的概念，然后介绍“谓词逻辑、产生式、框架、语义网络”等当前人工智能中应用广泛的知识表示方法。然后，简要介绍知识图谱，为后面介绍推理方法、专家系统等奠定基础。</p>
+<h2 id="概述-起源（万维网）"><a href="#概述-起源（万维网）" class="headerlink" title="概述 - 起源（万维网）"></a>概述 - 起源（万维网）</h2><ul>
+<li>万维网以文本和链接描述信息，用户通过超链接浏览互联网上的各类资源，也可以通过互联网将自己的信息发布出去。</li>
+<li>万维网(world wide web，Web1.0)：是以链接为中心的信息系统(Linked information system)。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192612674.png" alt="image-20240717192612674"></p>
+<h2 id="概述-语义网络表示法"><a href="#概述-语义网络表示法" class="headerlink" title="概述 - 语义网络表示法"></a>概述 - 语义网络表示法</h2><ul>
+<li>语义网(semantic web，Web3.0)：通过给万维网上的文档（如：HTML文档、XML文档）添加能够被计算机所理解的语义“元数据”（外语：Meta data），从而使整个互联网成为一个通用的信息交换媒介。</li>
+<li>语义网是一种智能网络，它不但能够理解词语和概念，而且还能够理解它们之间的逻辑关系，可以使交流变得更有效率和价值。</li>
+</ul>
+<h3 id="语义网与万维网的主要区别"><a href="#语义网与万维网的主要区别" class="headerlink" title="语义网与万维网的主要区别"></a>语义网与万维网的主要区别</h3><ul>
+<li>万维网是关于网页链接的结构，节点是网页，节点之间通过超链接连接；</li>
+<li>语义网是关于语义内容结构化表示的图结构，节点是语义信息。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192633315.png" alt="image-20240717192633315"></p>
+<h2 id="概述-可链接数据-Linked-Data"><a href="#概述-可链接数据-Linked-Data" class="headerlink" title="概述 - 可链接数据(Linked Data)"></a>概述 - 可链接数据(Linked Data)</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192704045.png" alt="image-20240717192704045"></p>
+<h2 id="相关概念的演变"><a href="#相关概念的演变" class="headerlink" title="相关概念的演变"></a>相关概念的演变</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192723350.png" alt="image-20240717192723350"></p>
+<h2 id="知识图谱-兴起"><a href="#知识图谱-兴起" class="headerlink" title="知识图谱 - 兴起"></a>知识图谱 - 兴起</h2><p>知识图谱是一种以图结构来描述知识和建模事物之间关联关系的技术方法。由于互联网内容的大规模、异质多元、组织结构松散的特点，给有效获取信息和知识提出挑战。谷歌于2012年5月16日首先发布了知识图谱（Knowledge Graph），它是一种互联网环境下的知识表示方法。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192743379.png" alt="image-20240717192743379"></p>
+<h2 id="知识图谱-定义"><a href="#知识图谱-定义" class="headerlink" title="知识图谱 - 定义"></a>知识图谱 - 定义</h2><ul>
+<li>知识图谱(Knowledge Graph&#x2F;Vault)：又称科学知识图谱，用各种不同的图形等可视化技术描述知识资源及其载体，挖掘、分析、构建、绘制和显示知识及它们之间的相互联系。</li>
+<li>知识图谱：是一种以图结构来描述知识和建模事物之间关联关系的技术方法。</li>
+<li>知识图谱：是由一些相互连接的实体及其属性构成的。</li>
+</ul>
+<p>三元组是知识图谱的一种通用表示方式：</p>
+<ul>
+<li>(实体1-关系-实体2)：中国-首都-北京</li>
+<li>(实体-属性-属性值)：北京-人口-2069万</li>
+</ul>
+<p>知识图谱也可被看作是一张图，图中的节点表示实体或概念，而图中的边则由属性或关系构成。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192810772.png" alt="image-20240717192810772"></p>
+<h2 id="知识图谱-属性图-property-graph"><a href="#知识图谱-属性图-property-graph" class="headerlink" title="知识图谱 - 属性图(property graph)"></a>知识图谱 - 属性图(property graph)</h2><ul>
+<li>属性图由节点(Nodes)、关系(Relationships)、属性(Property)和标签(Labels)组成</li>
+<li>节点上包含属性，属性可以以任何键值形式存在。</li>
+<li>关系连接节点，每个关系都有拥有⼀个⽅向、⼀个标签、⼀个开始节点和结束节点</li>
+<li>关系也可以有属性，即边属性，可以通过在关系上增加属性提供有关边的元信息，如创建时间。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192823119.png" alt="image-20240717192823119"></p>
+<h2 id="知识图谱-资源描述框架RDF"><a href="#知识图谱-资源描述框架RDF" class="headerlink" title="知识图谱 - 资源描述框架RDF"></a>知识图谱 - 资源描述框架RDF</h2><p>RDF表示 Resource Description Framework（资源描述框架），它是国际万维网联盟W3C推动的面向Web的语义标准。</p>
+<p>RDF的基本组成单位是三元组 SPO</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192842507.png" alt="image-20240717192842507"></p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192851558.png" alt="image-20240717192851558"></p>
+<h2 id="知识图谱-体系结构"><a href="#知识图谱-体系结构" class="headerlink" title="知识图谱 - 体系结构"></a>知识图谱 - 体系结构</h2><p>知识图谱的逻辑结构：模式层与数据层。</p>
+<ul>
+<li>数据层：主要是由一系列的事实组成，而知识以事实为单位进行存储。</li>
+<li>模式层：构建在数据层之上，是知识图谱的核心。</li>
+</ul>
+<p>知识图谱的体系架构：</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192912557.png" alt="image-20240717192912557"></p>
+<ul>
+<li>结构化数据：指知识定义和表示都比较完备的数据。</li>
+<li>半结构化数据：指部分数据是结构化的，但存在大量结构化程度较低的数据。</li>
+<li>非结构化数据：指没有定义和规范约束的“自由”数据。</li>
+</ul>
+<h2 id="知识图谱-构建过程"><a href="#知识图谱-构建过程" class="headerlink" title="知识图谱- 构建过程"></a>知识图谱- 构建过程</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717192957265.png" alt="image-20240717192957265"></p>
+<h3 id="知识赋能"><a href="#知识赋能" class="headerlink" title="知识赋能"></a>知识赋能</h3><p>最初目的是增强搜索结果，改善用户搜索体验，即语义搜索。还可应用于“知识问答、领域大数据 分析、聊天机器人、金融、电商”等。</p>
+<h3 id="知识管理"><a href="#知识管理" class="headerlink" title="知识管理"></a>知识管理</h3><p>如何有效地存储和查询大规模的RDF数据集是知识管理面临的一个核心问题。RDF是典型的图结构，知识管理需要依靠图数据(如Neo4j等)来实现。</p>
+<h3 id="知识建模"><a href="#知识建模" class="headerlink" title="知识建模"></a>知识建模</h3><p>根据领域特点选择合适的知识表示方法，并基于此领域知识描述的概念、时间、规则及其相互关系建立知识图谱的概念模型。包括：概念抽取、概念层次（上下位关系）建模和属性学习。</p>
+<h3 id="知识获取"><a href="#知识获取" class="headerlink" title="知识获取"></a>知识获取</h3><p> 是对知识建模定义的知识要素进行实例化的过程。知识图谱中实例的属性描述以三元组的形式表示，其数量决定了知识图谱的丰富程度。命名实体识别、事件抽取、属性关系抽取。</p>
+<h2 id="知识图谱推理"><a href="#知识图谱推理" class="headerlink" title="知识图谱推理"></a>知识图谱推理</h2><ul>
+<li><p>知识图谱推理的主要⽅法</p>
+</li>
+<li><p>基于逻辑规则的推理（如：FOIL、AMIE）</p>
+</li>
+<li><p>基于图结构和统计学习的推理（如：PRA）</p>
+</li>
+<li><p>基于分布式表示学习的推理（如：TransE）</p>
+</li>
+<li><p>基于神经网络的推理（如：R-GCN）</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<h2 id="应用-KG辅助搜索引擎"><a href="#应用-KG辅助搜索引擎" class="headerlink" title="应用 - KG辅助搜索引擎"></a>应用 - KG辅助搜索引擎</h2><p>知识图谱(KG)可以提高搜索引擎的能力，改善用户的搜索质量以及搜索体验。</p>
+<p>Google、百度和搜狗等搜索引擎公司。</p>
+<h3 id="传统搜索"><a href="#传统搜索" class="headerlink" title="传统搜索"></a>传统搜索</h3><p>基于关键词的搜索不能很好地理解用户的搜索意图，仅能通过用户提供的关键词与待检索文档间的文本相关性来匹配结果。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717193100901.png" alt="image-20240717193100901"></p>
+<h3 id="KG辅助搜索"><a href="#KG辅助搜索" class="headerlink" title="KG辅助搜索"></a>KG辅助搜索</h3><p>利用建立大规模知识图谱的对搜索关键词和文档内容进行语义标注，提供各种类型的语义搜索，使用户能够直接获得精确度更高的答案。百度、谷歌、搜狗构建的知识图谱，分别称为知识图谱、知心和知立方。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717193104925.png" alt="image-20240717193104925"></p>
+<h2 id="应用-KG辅助金融风控"><a href="#应用-KG辅助金融风控" class="headerlink" title="应用 - KG辅助金融风控"></a>应用 - KG辅助金融风控</h2><ul>
+<li>积分套利挖掘</li>
+<li>黑产链路挖掘</li>
+<li>欺诈团伙挖掘</li>
+<li>涉赌涉诈关联</li>
+<li>…</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717193115123.png" alt="image-20240717193115123"></p>
+<h2 id="展望：知识图谱-大语言模型"><a href="#展望：知识图谱-大语言模型" class="headerlink" title="展望：知识图谱 + 大语言模型"></a>展望：知识图谱 + 大语言模型</h2><ul>
+<li><p>利用大语言模型的知识图谱</p>
+</li>
+<li><p>借助大语言模型提取知识</p>
+</li>
+<li><p>借助大语言模型辅助图谱构建</p>
+</li>
+<li><p>……</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717193142911.png" alt="image-20240717193142911"></p>
+<h2 id="展望：大语言模型-知识图谱"><a href="#展望：大语言模型-知识图谱" class="headerlink" title="展望：大语言模型 +知识图谱"></a>展望：大语言模型 +知识图谱</h2><ul>
+<li>利用知识图谱的大语言模型</li>
+<li>利用知识图谱的大语言模型（预）训练</li>
+<li>利用知识图谱的提示构建</li>
+<li>利用知识图谱减少大语言模型幻觉</li>
+<li>……</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717193155756.png" alt="image-20240717193155756"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.2%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.2%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3.%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" title="确定性推理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">确定性推理</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.1%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA/" title="知识表示"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">知识表示</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.1%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA/" title="知识表示"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">知识表示</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/1.AI%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%A6%82%E8%BF%B0/" title="绪论与概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">绪论与概述</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4.%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86%E6%96%B9%E6%B3%95/" title="不确定性推理方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">不确定性推理方法</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3.%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" title="确定性推理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">确定性推理</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/5.%E6%90%9C%E7%B4%A2%E6%B1%82%E8%A7%A3%E7%AD%96%E7%95%A5/" title="搜索求解策略"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">搜索求解策略</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6.%E4%B8%93%E5%AE%B6%E7%B3%BB%E7%BB%9F/" title="专家系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">专家系统</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0-%E8%B5%B7%E6%BA%90%EF%BC%88%E4%B8%87%E7%BB%B4%E7%BD%91%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">概述 - 起源（万维网）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0-%E8%AF%AD%E4%B9%89%E7%BD%91%E7%BB%9C%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">概述 - 语义网络表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E7%BD%91%E4%B8%8E%E4%B8%87%E7%BB%B4%E7%BD%91%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-number">3.1.</span> <span class="toc-text">语义网与万维网的主要区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0-%E5%8F%AF%E9%93%BE%E6%8E%A5%E6%95%B0%E6%8D%AE-Linked-Data"><span class="toc-number">4.</span> <span class="toc-text">概述 - 可链接数据(Linked Data)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E7%9A%84%E6%BC%94%E5%8F%98"><span class="toc-number">5.</span> <span class="toc-text">相关概念的演变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E5%85%B4%E8%B5%B7"><span class="toc-number">6.</span> <span class="toc-text">知识图谱 - 兴起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E5%AE%9A%E4%B9%89"><span class="toc-number">7.</span> <span class="toc-text">知识图谱 - 定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E5%B1%9E%E6%80%A7%E5%9B%BE-property-graph"><span class="toc-number">8.</span> <span class="toc-text">知识图谱 - 属性图(property graph)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E8%B5%84%E6%BA%90%E6%8F%8F%E8%BF%B0%E6%A1%86%E6%9E%B6RDF"><span class="toc-number">9.</span> <span class="toc-text">知识图谱 - 资源描述框架RDF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">10.</span> <span class="toc-text">知识图谱 - 体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="toc-number">11.</span> <span class="toc-text">知识图谱- 构建过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%B5%8B%E8%83%BD"><span class="toc-number">11.1.</span> <span class="toc-text">知识赋能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86"><span class="toc-number">11.2.</span> <span class="toc-text">知识管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%BB%BA%E6%A8%A1"><span class="toc-number">11.3.</span> <span class="toc-text">知识建模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E8%8E%B7%E5%8F%96"><span class="toc-number">11.4.</span> <span class="toc-text">知识获取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8E%A8%E7%90%86"><span class="toc-number">12.</span> <span class="toc-text">知识图谱推理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8-KG%E8%BE%85%E5%8A%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="toc-number">13.</span> <span class="toc-text">应用 - KG辅助搜索引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E6%90%9C%E7%B4%A2"><span class="toc-number">13.1.</span> <span class="toc-text">传统搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KG%E8%BE%85%E5%8A%A9%E6%90%9C%E7%B4%A2"><span class="toc-number">13.2.</span> <span class="toc-text">KG辅助搜索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8-KG%E8%BE%85%E5%8A%A9%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7"><span class="toc-number">14.</span> <span class="toc-text">应用 - KG辅助金融风控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%95%E6%9C%9B%EF%BC%9A%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1-%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-number">15.</span> <span class="toc-text">展望：知识图谱 + 大语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%95%E6%9C%9B%EF%BC%9A%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1"><span class="toc-number">16.</span> <span class="toc-text">展望：大语言模型 +知识图谱</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="神经网络">神经网络</a><time datetime="2024-07-18T08:00:00.000Z" title="发表于 2024-07-18 16:00:00">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/8.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" title="机器学习概述">机器学习概述</a><time datetime="2024-07-18T07:00:40.000Z" title="发表于 2024-07-18 15:00:40">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/7.%E7%BE%A4%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/" title="群智能算法">群智能算法</a><time datetime="2024-07-17T18:26:40.000Z" title="发表于 2024-07-18 02:26:40">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6.%E4%B8%93%E5%AE%B6%E7%B3%BB%E7%BB%9F/" title="专家系统">专家系统</a><time datetime="2024-07-17T15:20:40.000Z" title="发表于 2024-07-17 23:20:40">2024-07-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/5.%E6%90%9C%E7%B4%A2%E6%B1%82%E8%A7%A3%E7%AD%96%E7%95%A5/" title="搜索求解策略">搜索求解策略</a><time datetime="2024-07-17T14:18:40.000Z" title="发表于 2024-07-17 22:18:40">2024-07-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 木人舟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

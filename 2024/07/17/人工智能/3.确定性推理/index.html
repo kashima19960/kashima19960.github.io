@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>确定性推理 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述上一章：讨论了“知识与知识表示”，可以把知识用某种模式表示出来存储到计算机中，但为使计算机具有智能，还必须使它具有思维能力。 本章：1）推理是求解问题的一种重要方法。因此，推理方法成为人工智能的一个重要研究课题。2）目前已提出多种可在计算机上实现自动推理的方法。   基本概念 - 定义、要素推理：从初始证据（已知事实）出发，按某种策略或规则，不断运用知识库中的已知知识，逐步推出结论的过程，或者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="确定性推理">
+<meta property="og:url" content="https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3.%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="概述上一章：讨论了“知识与知识表示”，可以把知识用某种模式表示出来存储到计算机中，但为使计算机具有智能，还必须使它具有思维能力。 本章：1）推理是求解问题的一种重要方法。因此，推理方法成为人工智能的一个重要研究课题。2）目前已提出多种可在计算机上实现自动推理的方法。   基本概念 - 定义、要素推理：从初始证据（已知事实）出发，按某种策略或规则，不断运用知识库中的已知知识，逐步推出结论的过程，或者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-07-17T12:47:40.000Z">
+<meta property="article:modified_time" content="2024-07-25T12:53:45.801Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="人工智能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3.%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '确定性推理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 20:53:45'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">确定性推理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-17T12:47:40.000Z" title="发表于 2024-07-17 20:47:40">2024-07-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T12:53:45.801Z" title="更新于 2024-07-25 20:53:45">2024-07-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="确定性推理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>上一章：讨论了“知识与知识表示”，可以把知识用某种模式表示出来存储到计算机中，但为使计算机具有智能，还必须使它具有思维能力。</p>
+<p>本章：1）推理是求解问题的一种重要方法。因此，推理方法成为人工智能的一个重要研究课题。2）目前已提出多种可在计算机上实现自动推理的方法。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200550734.png" alt="image-20240717200550734"></p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200602703.png" alt="image-20240717200602703"></p>
+<h2 id="基本概念-定义、要素"><a href="#基本概念-定义、要素" class="headerlink" title="基本概念 - 定义、要素"></a>基本概念 - 定义、要素</h2><p>推理：从初始证据（已知事实）出发，按某种策略或规则，不断运用知识库中的已知知识，逐步推出结论的过程，或者归纳出新事实的思维过程。</p>
+<p>两个基本要素：</p>
+<ul>
+<li>事实&#x2F;证据：推理的出发点、推理时应该使用的知识</li>
+<li>知识：使推理得以向前推进，并逐步达到最终目标的依据</li>
+</ul>
+<p>推理机：在AI系统中，推理过程通常由推理机来实现，它通常是一组程序，用来控制协调整个系统。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200618312.png" alt="image-20240717200618312"></p>
+<h2 id="推理过程、案例"><a href="#推理过程、案例" class="headerlink" title="推理过程、案例"></a>推理过程、案例</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200635491.png" alt="image-20240717200635491"></p>
+<h2 id="推理方式及其分类"><a href="#推理方式及其分类" class="headerlink" title="推理方式及其分类"></a>推理方式及其分类</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200647333.png" alt="image-20240717200647333"></p>
+<h2 id="推理方式分类-按推出结论的途径"><a href="#推理方式分类-按推出结论的途径" class="headerlink" title="推理方式分类 - 按推出结论的途径"></a>推理方式分类 - 按推出结论的途径</h2><h3 id="演绎推理（从一般到个别）"><a href="#演绎推理（从一般到个别）" class="headerlink" title="演绎推理（从一般到个别）"></a>演绎推理（从一般到个别）</h3><p>由一般性知识推出适合于某一具体情况的结论。</p>
+<p>形式：三段论式</p>
+<p>大前提：已知的一般性知识或假设。</p>
+<p>小前提：关于所研究的具体情况或个别事实的判断。</p>
+<p>结论：由大前提推出的适合于小前提所式情况的新判断。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200720708.png" alt="image-20240717200720708"></p>
+<h3 id="归纳推理（从个别到一般）"><a href="#归纳推理（从个别到一般）" class="headerlink" title="归纳推理（从个别到一般）"></a>归纳推理（从个别到一般）</h3><p>从足够多的事例中归纳出一般性结论的推理过程。</p>
+<p>完全归纳推理和不完全归纳推理：</p>
+<p>完全归纳推理（必然性推理）：考察了相应事物的全部对象，就得出了结论。</p>
+<p>不完全归纳推理（非必然性推理）：考察了相应事物的部分对象，就得出了结论。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200759700.png" alt="image-20240717200759700"></p>
+<h3 id="默认推理（缺省推理）"><a href="#默认推理（缺省推理）" class="headerlink" title="默认推理（缺省推理）"></a>默认推理（缺省推理）</h3><p>是在知识不完全的情况下假设某些条件已经具备所进行的推理。发现原先所做的默认不正确，则要撤销所做的默认以及由此默认推出的所有结论，重新按新情况进行推理。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200817172.png" alt="image-20240717200817172"></p>
+<h2 id="推理方式分类-按所用的知识性质"><a href="#推理方式分类-按所用的知识性质" class="headerlink" title="推理方式分类- 按所用的知识性质"></a>推理方式分类- 按所用的知识性质</h2><h3 id="确定性推理"><a href="#确定性推理" class="headerlink" title="确定性推理"></a>确定性推理</h3><p>推理时所用的知识与证据都是确定的，推出的结论也是确定的，即真值为真或者为假。</p>
+<blockquote>
+<p>  经典逻辑推理是确定性推理</p>
+</blockquote>
+<h3 id="不确定性推理"><a href="#不确定性推理" class="headerlink" title="不确定性推理"></a>不确定性推理</h3><p>推理时所用的知识与证据不都是确定的，推出的结论也是不确定的</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717200920321.png" alt="image-20240717200920321"></p>
+<h2 id="推理方式分类–-结论接近目标的方式"><a href="#推理方式分类–-结论接近目标的方式" class="headerlink" title="推理方式分类– 结论接近目标的方式"></a>推理方式分类– 结论接近目标的方式</h2><h3 id="单调推理"><a href="#单调推理" class="headerlink" title="单调推理"></a>单调推理</h3><p>随着推理向前推进及新知识的加入，推论不断加强，推出的结论越来越接近最终目标。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201000797.png" alt="image-20240717201000797"></p>
+<h3 id="非单调推理"><a href="#非单调推理" class="headerlink" title="非单调推理"></a>非单调推理</h3><p>由于新知识的加入，不仅没有加强已推出的结论，反而要否定它，使推理退回到前面的某一步，重新开始。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201008770.png" alt="image-20240717201008770"></p>
+<h2 id="推理方式分类-是否使用启发性知识"><a href="#推理方式分类-是否使用启发性知识" class="headerlink" title="推理方式分类 - 是否使用启发性知识"></a>推理方式分类 - 是否使用启发性知识</h2><h3 id="启发性推理"><a href="#启发性推理" class="headerlink" title="启发性推理"></a>启发性推理</h3><p>运用与推理有关的启发性知识</p>
+<h3 id="非启发性推理"><a href="#非启发性推理" class="headerlink" title="非启发性推理"></a>非启发性推理</h3><p>没有运用与推理有关的启发性知识</p>
+<blockquote>
+<p>  启发性知识：与问题有关且能加快推理过程、求得问题最优解的知识。</p>
+</blockquote>
+<h2 id="推理的控制策略"><a href="#推理的控制策略" class="headerlink" title="推理的控制策略"></a>推理的控制策略</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201048463.png" alt="image-20240717201048463"></p>
+<h2 id="推理的方向"><a href="#推理的方向" class="headerlink" title="推理的方向"></a>推理的方向</h2><h3 id="正向推理"><a href="#正向推理" class="headerlink" title="正向推理"></a>正向推理</h3><p>基本思想：以已知事实作为出发点的一种推理。</p>
+<p>优点：简单，易实现。</p>
+<p>缺点：目的性不强，效率低。</p>
+<h3 id="逆向推理"><a href="#逆向推理" class="headerlink" title="逆向推理"></a>逆向推理</h3><p>基本思想：以某个假设目标作为出发点的一种推理。</p>
+<p>优点：不必使用与目标无关的知识，目的性强，还有利于向用户提供解释。</p>
+<p>缺点：起始目标的选择有盲目性。</p>
+<h3 id="混合推理"><a href="#混合推理" class="headerlink" title="混合推理"></a>混合推理</h3><p>以下情况，常需采用混合推理：已知的事实不充分。(先正后逆)正向推理退出的结论可信度不高。（先正后逆）希望得到更多的结论。(先逆后正)</p>
+<h3 id="双向推理"><a href="#双向推理" class="headerlink" title="双向推理"></a>双向推理</h3><p>基本思想：双向同时进行，且在某一步骤上“碰头”。</p>
+<p>特点：即由正向推理所得到的中间结论，恰好是逆向推理此时所要求的证据。</p>
+<h2 id="冲突消解策略"><a href="#冲突消解策略" class="headerlink" title="冲突消解策略"></a>冲突消解策略</h2><p>已知事实与知识进行匹配，可能发生的三种匹配情况:</p>
+<ul>
+<li>恰好匹配成功（一对一）</li>
+<li>不能匹配成功</li>
+<li>多种匹配成功（一对多、多对一、多对多）。这种情况会产生冲突，因此需要一定的策略解决</li>
+</ul>
+<h3 id="冲突消解策略-1"><a href="#冲突消解策略-1" class="headerlink" title="冲突消解策略"></a>冲突消解策略</h3><ol>
+<li>按规则的针对性排序</li>
+<li>按已知事实的新鲜性排序</li>
+<li>按匹配度排序</li>
+<li>按条件个数排序</li>
+</ol>
+<h2 id="自然推理-正向证明-–-分类"><a href="#自然推理-正向证明-–-分类" class="headerlink" title="自然推理(正向证明) – 分类"></a>自然推理(正向证明) – 分类</h2><h3 id="演绎推理（自上而下）"><a href="#演绎推理（自上而下）" class="headerlink" title="演绎推理（自上而下）"></a>演绎推理（自上而下）</h3><p>定义：由已知的普遍性知识或前提出发，通过推导（即 “演绎”）得出具体陈述或特殊性结论的推理（即从一般到个别）。</p>
+<p>主要包括：三段论、假言推理、选言推 理等。</p>
+<p>缺点：不能产生新知识。</p>
+<h3 id="归纳推理（自上而下）"><a href="#归纳推理（自上而下）" class="headerlink" title="归纳推理（自上而下）"></a>归纳推理（自上而下）</h3><p>定义：从大量的事例中总结出一般性结论的推理过程，是一种从个别到一般的推理，从特殊的前提推出普遍结论的推理。</p>
+<p>更一步的细分类见下页。</p>
+<h3 id="默认推理"><a href="#默认推理" class="headerlink" title="默认推理"></a>默认推理</h3><p>定义：在知识不完全的情况下作出的推理。</p>
+<p>特点：允许默认某</p>
+<p>些条件成立，摆脱了需知道全部有关事实才能进行推理的要求，使得在知识不完全的情况下也能进行推理。</p>
+<h3 id="自然演绎推理"><a href="#自然演绎推理" class="headerlink" title="自然演绎推理"></a>自然演绎推理</h3><p>基本思想：从一组已知为真的事实出发，直接运用经典逻辑（命题逻辑、谓词逻辑）中的推理规则，推出结论的过程。</p>
+<p>优点：推理过程灵活便于嵌入领域启发式知识。</p>
+<p>缺点：易产生组合爆炸，不利于复杂问题的推理</p>
+<h2 id="自然推理-归纳推理-–-细分类"><a href="#自然推理-归纳推理-–-细分类" class="headerlink" title="自然推理 - 归纳推理 – 细分类"></a>自然推理 - 归纳推理 – 细分类</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201316848.png" alt="image-20240717201316848"></p>
+<h2 id="演绎与归纳的区别与联系"><a href="#演绎与归纳的区别与联系" class="headerlink" title="演绎与归纳的区别与联系"></a>演绎与归纳的区别与联系</h2><table>
+<thead>
+<tr>
+<th>大类</th>
+<th>细项</th>
+<th>演绎推理</th>
+<th>归纳推理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>区别</td>
+<td>推理方向不同</td>
+<td>一般到个别</td>
+<td>个别到一般</td>
+</tr>
+<tr>
+<td>前提数量不同</td>
+<td>相对有限</td>
+<td>不确定</td>
+<td></td>
+</tr>
+<tr>
+<td>结论断定范围不同</td>
+<td>没有超出前提所提供的知识范围</td>
+<td>超出</td>
+<td></td>
+</tr>
+<tr>
+<td>前提与结论的联系  不同</td>
+<td>必然联系</td>
+<td>不一定有联  系</td>
+<td></td>
+</tr>
+<tr>
+<td>联系</td>
+<td>l演绎必须以归纳为基础（演绎推理如果要以一般性知识为前提，那么这些知识通常由归纳推理得出）  l归纳必须以演绎为指导  l归纳和演绎推理互相渗透和转化。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201334530.png" alt="image-20240717201334530"></p>
+<h2 id="归结推理-反向证明-基本思想和概念"><a href="#归结推理-反向证明-基本思想和概念" class="headerlink" title="归结推理(反向证明) - 基本思想和概念"></a>归结推理(反向证明) - 基本思想和概念</h2><p>基本思想：基于反证法，证明所证公式会假时会产生矛盾，从而说明所证公式为真。</p>
+<p>对比：1）自然演绎推理是从已知为真的事实出发，运用经典逻辑的推理规则导出结论；2）而归结演绎推理的思路恰好与之相反。</p>
+<p>定理证明过程：</p>
+<p>正向即证明P→Q即“(¬P∨Q)的永真性”。根据反证法，只要证明其反面“(P∧¬Q)</p>
+<p>的不可满足性”即可。</p>
+<p>海伯伦(Herbrand)定理：为自动定理证明奠定了理论基础；</p>
+<p>鲁滨逊(Robinson)归结原理：使机器定理证明成为现实。</p>
+<h3 id="海伯伦定理"><a href="#海伯伦定理" class="headerlink" title="海伯伦定理"></a>海伯伦定理</h3><p>原来：判断一个子句的不可满足性，需要对个体域上的一切解释逐</p>
+<p>个进行判定，只有当子句对任何非空个体域上的任何一个解释都是不可满足的，该子句才是不可满足的。</p>
+<p>优化后：海伯伦构造了一个特殊的域(海伯伦域)，并证明只要对这个特殊域上的一切解释进行判定，就可知子句集是否不可满足。</p>
+<p>缺点：海伯伦理论的计算量会呈指数增长，用它来计算不现实。</p>
+<h2 id="归结推理-反向证明-基本概念"><a href="#归结推理-反向证明-基本概念" class="headerlink" title="归结推理(反向证明) - 基本概念"></a>归结推理(反向证明) - 基本概念</h2><p>基本概念</p>
+<p>谓词公式的永真式（重言式，Taotology）</p>
+<p>谓词公式的可满足（Satisfiable）</p>
+<p>谓词公式的永假式（Contradiction&#x2F;Unsatisfiable）</p>
+<p>谓词公式的范式：公式的标准形式，有前束范式、斯科伦范式。</p>
+<p>谓词公式化为子句集</p>
+<p>前束范式（Prenex Normal Form）</p>
+<p>斯科伦范式（Skolem Standard Form）</p>
+<h2 id="鲁宾孙归结原理-消解原理"><a href="#鲁宾孙归结原理-消解原理" class="headerlink" title="鲁宾孙归结原理 - 消解原理"></a>鲁宾孙归结原理 - 消解原理</h2><p>原理内容：鲁滨逊在海伯伦理论的基础上，对子聚集中的子句做逐次归结来证明子句集</p>
+<p>的不可满足性（如果子句集中各子句相互矛盾），提出归结原理，成为机器证明基础。</p>
+<p>基本思想：</p>
+<p>由谓词逻辑转化的子句集中的子句之间是合取关系，只要有一个子句不满足，则整个子句集不满足；</p>
+<p>如果一个子句集中包含有空子句，则该子句集一定不可满足。</p>
+<p>实现思路：通过归结方法不断扩充判定的子句集，并设法使其包含进指示矛盾（即永假）的子句，从而说明子句集不满足。</p>
+<p>基本方法：1）检查子句集S中是否包含空子句，若包含，则S不可满足；2）若不包含，就在子句集中选择合适的子句进行归结，一旦通过归结得到空子句，就说明S是不可满足的。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201420686.png" alt="image-20240717201420686"></p>
+<h2 id="归结反演"><a href="#归结反演" class="headerlink" title="归结反演"></a>归结反演</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201433205.png" alt="image-20240717201433205"></p>
+<p>归结反演：应用归结原理证明定理的过程。</p>
+<p>一般步骤：</p>
+<p>1将“已知前提”表示为谓词公式F。</p>
+<p>2将“待证明的结论”表示为谓词公式Q ，并否定得到¬ Q 。</p>
+<p>3把谓词公式集{𝐹, ¬𝑄}化为子句集S。</p>
+<p>4应用归结原理对S中的子句进行归结，把每次归结得到的归结式都并入到S中。</p>
+<p>反复进行，若出现了空子句，则停止归结，此时就证明了Q为真。</p>
+<h2 id="归结反演-–-案例"><a href="#归结反演-–-案例" class="headerlink" title="归结反演 – 案例"></a>归结反演 – 案例</h2><p>招聘工作人员，A，B，C三人应试，经面试后公司表示如下想法：</p>
+<p>1三人中至少录取一人。</p>
+<p>2如果录取A而不录取B，则一定录取C。</p>
+<p>3如果录取B，则一定录取C。</p>
+<p>求证：公司一定录取C。</p>
+<p>一般步骤：</p>
+<p>设用谓词P(x)表示录取x，则把公司的想法用谓词公式表示为：</p>
+<p>(1)P(A)∨P(B)∨P(C) (2)P(A)∧¬P(B)→P(C) (3) P(B)→P(C)</p>
+<p>把要求证的结论用谓词公式表示出来并否定，得（4）¬P(C)</p>
+<p>把上述公式化成子句集：</p>
+<p>(1)P(A)∨P(B)∨P(C) (2) ¬P(A)∨P(B)∨P(C) (3)¬P(B)∨P(C) (4)¬P(C)</p>
+<p>应用归结原理进行归结：</p>
+<p>(5)P(B)∨P(C) (1)与(2)归结 (6)P(C) (3)与(5)归结 (7)NIL (4)与(6)归结</p>
+<p>所以公司一定录取C</p>
+<h3 id="归结树"><a href="#归结树" class="headerlink" title="归结树"></a>归结树</h3><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/ai%E5%AF%BC%E8%AE%BA/image-20240717201456303.png" alt="image-20240717201456303"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3.%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/">https://kashima19960.github.io/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3.%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4.%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86%E6%96%B9%E6%B3%95/" title="不确定性推理方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">不确定性推理方法</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.2%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/" title="知识图谱"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">知识图谱</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.1%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA/" title="知识表示"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">知识表示</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2.2%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/" title="知识图谱"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">知识图谱</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/1.AI%E7%BB%AA%E8%AE%BA%E4%B8%8E%E6%A6%82%E8%BF%B0/" title="绪论与概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">绪论与概述</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4.%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86%E6%96%B9%E6%B3%95/" title="不确定性推理方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">不确定性推理方法</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/5.%E6%90%9C%E7%B4%A2%E6%B1%82%E8%A7%A3%E7%AD%96%E7%95%A5/" title="搜索求解策略"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">搜索求解策略</div></div></a></div><div><a href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6.%E4%B8%93%E5%AE%B6%E7%B3%BB%E7%BB%9F/" title="专家系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">专家系统</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-%E5%AE%9A%E4%B9%89%E3%80%81%E8%A6%81%E7%B4%A0"><span class="toc-number">2.</span> <span class="toc-text">基本概念 - 定义、要素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E8%BF%87%E7%A8%8B%E3%80%81%E6%A1%88%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">推理过程、案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E6%96%B9%E5%BC%8F%E5%8F%8A%E5%85%B6%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">推理方式及其分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E6%96%B9%E5%BC%8F%E5%88%86%E7%B1%BB-%E6%8C%89%E6%8E%A8%E5%87%BA%E7%BB%93%E8%AE%BA%E7%9A%84%E9%80%94%E5%BE%84"><span class="toc-number">5.</span> <span class="toc-text">推理方式分类 - 按推出结论的途径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%BB%8E%E6%8E%A8%E7%90%86%EF%BC%88%E4%BB%8E%E4%B8%80%E8%88%AC%E5%88%B0%E4%B8%AA%E5%88%AB%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">演绎推理（从一般到个别）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E7%BA%B3%E6%8E%A8%E7%90%86%EF%BC%88%E4%BB%8E%E4%B8%AA%E5%88%AB%E5%88%B0%E4%B8%80%E8%88%AC%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">归纳推理（从个别到一般）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%8E%A8%E7%90%86%EF%BC%88%E7%BC%BA%E7%9C%81%E6%8E%A8%E7%90%86%EF%BC%89"><span class="toc-number">5.3.</span> <span class="toc-text">默认推理（缺省推理）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E6%96%B9%E5%BC%8F%E5%88%86%E7%B1%BB-%E6%8C%89%E6%89%80%E7%94%A8%E7%9A%84%E7%9F%A5%E8%AF%86%E6%80%A7%E8%B4%A8"><span class="toc-number">6.</span> <span class="toc-text">推理方式分类- 按所用的知识性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86"><span class="toc-number">6.1.</span> <span class="toc-text">确定性推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86"><span class="toc-number">6.2.</span> <span class="toc-text">不确定性推理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E6%96%B9%E5%BC%8F%E5%88%86%E7%B1%BB%E2%80%93-%E7%BB%93%E8%AE%BA%E6%8E%A5%E8%BF%91%E7%9B%AE%E6%A0%87%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">推理方式分类– 结论接近目标的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E6%8E%A8%E7%90%86"><span class="toc-number">7.1.</span> <span class="toc-text">单调推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%8D%95%E8%B0%83%E6%8E%A8%E7%90%86"><span class="toc-number">7.2.</span> <span class="toc-text">非单调推理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E6%96%B9%E5%BC%8F%E5%88%86%E7%B1%BB-%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E5%90%AF%E5%8F%91%E6%80%A7%E7%9F%A5%E8%AF%86"><span class="toc-number">8.</span> <span class="toc-text">推理方式分类 - 是否使用启发性知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8F%91%E6%80%A7%E6%8E%A8%E7%90%86"><span class="toc-number">8.1.</span> <span class="toc-text">启发性推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%90%AF%E5%8F%91%E6%80%A7%E6%8E%A8%E7%90%86"><span class="toc-number">8.2.</span> <span class="toc-text">非启发性推理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E7%9A%84%E6%8E%A7%E5%88%B6%E7%AD%96%E7%95%A5"><span class="toc-number">9.</span> <span class="toc-text">推理的控制策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E7%9A%84%E6%96%B9%E5%90%91"><span class="toc-number">10.</span> <span class="toc-text">推理的方向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E6%8E%A8%E7%90%86"><span class="toc-number">10.1.</span> <span class="toc-text">正向推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E5%90%91%E6%8E%A8%E7%90%86"><span class="toc-number">10.2.</span> <span class="toc-text">逆向推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E6%8E%A8%E7%90%86"><span class="toc-number">10.3.</span> <span class="toc-text">混合推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E6%8E%A8%E7%90%86"><span class="toc-number">10.4.</span> <span class="toc-text">双向推理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B2%E7%AA%81%E6%B6%88%E8%A7%A3%E7%AD%96%E7%95%A5"><span class="toc-number">11.</span> <span class="toc-text">冲突消解策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B2%E7%AA%81%E6%B6%88%E8%A7%A3%E7%AD%96%E7%95%A5-1"><span class="toc-number">11.1.</span> <span class="toc-text">冲突消解策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E6%8E%A8%E7%90%86-%E6%AD%A3%E5%90%91%E8%AF%81%E6%98%8E-%E2%80%93-%E5%88%86%E7%B1%BB"><span class="toc-number">12.</span> <span class="toc-text">自然推理(正向证明) – 分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%BB%8E%E6%8E%A8%E7%90%86%EF%BC%88%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%EF%BC%89"><span class="toc-number">12.1.</span> <span class="toc-text">演绎推理（自上而下）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E7%BA%B3%E6%8E%A8%E7%90%86%EF%BC%88%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%EF%BC%89"><span class="toc-number">12.2.</span> <span class="toc-text">归纳推理（自上而下）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%8E%A8%E7%90%86"><span class="toc-number">12.3.</span> <span class="toc-text">默认推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E6%BC%94%E7%BB%8E%E6%8E%A8%E7%90%86"><span class="toc-number">12.4.</span> <span class="toc-text">自然演绎推理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E6%8E%A8%E7%90%86-%E5%BD%92%E7%BA%B3%E6%8E%A8%E7%90%86-%E2%80%93-%E7%BB%86%E5%88%86%E7%B1%BB"><span class="toc-number">13.</span> <span class="toc-text">自然推理 - 归纳推理 – 细分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%94%E7%BB%8E%E4%B8%8E%E5%BD%92%E7%BA%B3%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="toc-number">14.</span> <span class="toc-text">演绎与归纳的区别与联系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E7%BB%93%E6%8E%A8%E7%90%86-%E5%8F%8D%E5%90%91%E8%AF%81%E6%98%8E-%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3%E5%92%8C%E6%A6%82%E5%BF%B5"><span class="toc-number">15.</span> <span class="toc-text">归结推理(反向证明) - 基本思想和概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%B7%E4%BC%AF%E4%BC%A6%E5%AE%9A%E7%90%86"><span class="toc-number">15.1.</span> <span class="toc-text">海伯伦定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E7%BB%93%E6%8E%A8%E7%90%86-%E5%8F%8D%E5%90%91%E8%AF%81%E6%98%8E-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">16.</span> <span class="toc-text">归结推理(反向证明) - 基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B2%81%E5%AE%BE%E5%AD%99%E5%BD%92%E7%BB%93%E5%8E%9F%E7%90%86-%E6%B6%88%E8%A7%A3%E5%8E%9F%E7%90%86"><span class="toc-number">17.</span> <span class="toc-text">鲁宾孙归结原理 - 消解原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E7%BB%93%E5%8F%8D%E6%BC%94"><span class="toc-number">18.</span> <span class="toc-text">归结反演</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E7%BB%93%E5%8F%8D%E6%BC%94-%E2%80%93-%E6%A1%88%E4%BE%8B"><span class="toc-number">19.</span> <span class="toc-text">归结反演 – 案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E7%BB%93%E6%A0%91"><span class="toc-number">19.1.</span> <span class="toc-text">归结树</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="神经网络">神经网络</a><time datetime="2024-07-18T08:00:00.000Z" title="发表于 2024-07-18 16:00:00">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/8.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" title="机器学习概述">机器学习概述</a><time datetime="2024-07-18T07:00:40.000Z" title="发表于 2024-07-18 15:00:40">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/7.%E7%BE%A4%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/" title="群智能算法">群智能算法</a><time datetime="2024-07-17T18:26:40.000Z" title="发表于 2024-07-18 02:26:40">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6.%E4%B8%93%E5%AE%B6%E7%B3%BB%E7%BB%9F/" title="专家系统">专家系统</a><time datetime="2024-07-17T15:20:40.000Z" title="发表于 2024-07-17 23:20:40">2024-07-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/5.%E6%90%9C%E7%B4%A2%E6%B1%82%E8%A7%A3%E7%AD%96%E7%95%A5/" title="搜索求解策略">搜索求解策略</a><time datetime="2024-07-17T14:18:40.000Z" title="发表于 2024-07-17 22:18:40">2024-07-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 木人舟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
