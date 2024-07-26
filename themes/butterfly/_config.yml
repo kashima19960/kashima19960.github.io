@@ -40,7 +40,7 @@ social:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: https://cdn.pixabay.com/photo/2024/05/01/03/27/hands-8731277_640.png
 
 # Avatar (頭像)
 avatar:
@@ -96,7 +96,7 @@ error_img:
 
 # A simple 404 page
 error_404:
-  enable: false
+  enable: true
   subtitle: 'Page Not Found'
   background: https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png
 
@@ -234,7 +234,7 @@ aside:
       link: https://github.com/kashima19960
   card_announcement:
     enable: true
-    content: 阅读文章遇到问题或者需要相关的源码文件,可以发送到评论区或者致电我的邮箱-CodingCV@outlook.com
+    content: 阅读文章遇到问题可以在评论区留言，想要索取代码源文件可以留下你的邮箱地址
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
