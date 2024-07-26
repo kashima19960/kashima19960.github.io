@@ -1,0 +1,450 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>A Star搜索算法原理及其程序实现 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="运行环境推荐 anaconda3，集成了常用的用于科学计算的包，以及对应的Python解释器(本例使用的解释器版本为3.9.12) 编辑器：VScode  摘要本文将以迷宫探索最优路径为例，讲解A *搜索算法原理及其程序实现。 在原理讲解部分，首先从为什么要使用A *搜索算法和A *搜索算法的全局最优逻辑出发，讲解A *算法的原理。其次对A *的行动函数g(n)和启发函数h(n)的细节进行了讲解说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Star搜索算法原理及其程序实现">
+<meta property="og:url" content="https://kashima19960.github.io/2024/07/16/%E7%AE%97%E6%B3%95/A%20Star%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="运行环境推荐 anaconda3，集成了常用的用于科学计算的包，以及对应的Python解释器(本例使用的解释器版本为3.9.12) 编辑器：VScode  摘要本文将以迷宫探索最优路径为例，讲解A *搜索算法原理及其程序实现。 在原理讲解部分，首先从为什么要使用A *搜索算法和A *搜索算法的全局最优逻辑出发，讲解A *算法的原理。其次对A *的行动函数g(n)和启发函数h(n)的细节进行了讲解说">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/kashima19960/img/master/%E5%85%B6%E4%BB%96/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-07-06%20152327.png">
+<meta property="article:published_time" content="2024-07-16T09:24:00.000Z">
+<meta property="article:modified_time" content="2024-07-25T16:56:16.447Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/kashima19960/img/master/%E5%85%B6%E4%BB%96/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-07-06%20152327.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://kashima19960.github.io/2024/07/16/%E7%AE%97%E6%B3%95/A%20Star%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 木人舟","link":"链接: ","source":"来源: 木人舟的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'A Star搜索算法原理及其程序实现',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-26 00:56:16'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/kashima19960/img/master/其他/屏幕截图 2024-07-06 152327.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><img class="site-icon" src="https://www.logosc.cn/oss/icons/2022/10/18/Yt1NwjSZdkXXe0s.png"/><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">A Star搜索算法原理及其程序实现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-16T09:24:00.000Z" title="发表于 2024-07-16 17:24:00">2024-07-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T16:56:16.447Z" title="更新于 2024-07-26 00:56:16">2024-07-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="A Star搜索算法原理及其程序实现"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="运行环境推荐"><a href="#运行环境推荐" class="headerlink" title="运行环境推荐"></a>运行环境推荐</h2><ol>
+<li>anaconda3，集成了常用的用于科学计算的包，以及对应的Python解释器(本例使用的解释器版本为3.9.12)</li>
+<li>编辑器：VScode</li>
+</ol>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本文将以迷宫探索最优路径为例，讲解A *搜索算法原理及其程序实现。</p>
+<p>在原理讲解部分，首先从为什么要使用A *搜索算法和A *搜索算法的全局最优逻辑出发，讲解A *算法的原理。其次对A *的行动函数g(n)和启发函数h(n)的细节进行了讲解说明，并补充了启发函数的选择对于A *算法的影响。</p>
+<p>在程序实现部分，首先从程序流程框图出发，解释A *算法的流程。其次按函数的类划分并讲解主要代码，接着展示程序的运行结果，最后对A *算法进行总结分析。</p>
+<h2 id="原理讲解"><a href="#原理讲解" class="headerlink" title="原理讲解"></a>原理讲解</h2><h3 id="为什么要使用A-搜索算法？"><a href="#为什么要使用A-搜索算法？" class="headerlink" title="为什么要使用A*搜索算法？"></a>为什么要使用A*搜索算法？</h3><p>搜索算法的核心是从起点出发，找到一条到达目标的最优（路径最短&#x2F;成本最低&#x2F;两者兼具）的路径。</p>
+<p>根据不同需求，我们通常会选择：广度优先搜索（BFS）、Dijkstra算法（统一成本搜索）和贪婪优先搜索之一，下面我们逐个分析其优劣。</p>
+<ol>
+<li><p>广度优先算法：不考虑每一步的移动成本，不断拓展边界，直到边界到达目标点，通常耗费大量时间。</p>
+</li>
+<li><p>Dijkstra算法：以BFS为基础，<strong>只考虑每一点的总移动成本</strong>，没有解决BFS耗费大量时间的问题。</p>
+</li>
+<li><p>贪婪优先搜索：<strong>只考虑到达终点的估计距离</strong>，能较快寻找到目标，但是无法保证路线全局最优。</p>
+</li>
+<li><p>A*搜索算法：以BSF为基础，<strong>综合考虑了总移动成本和到达终点的估计距离</strong>，巧妙地叠加了Dijkstra算法的成本最低和贪婪优先搜索的速度最优，具有更好的性能。</p>
+</li>
+<li><p>下面是A * 算法的核心公式：</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004205520.png" alt="image-20240726004205520"></p>
+</li>
+</ol>
+<blockquote>
+<h6 id="说明：f-n-是总的预期成本，g-n-是当前点到起点的总移动成本，h-n-是当前点到目标点的预期代价"><a href="#说明：f-n-是总的预期成本，g-n-是当前点到起点的总移动成本，h-n-是当前点到目标点的预期代价" class="headerlink" title="说明：f(n)是总的预期成本，g(n)是当前点到起点的总移动成本，h(n)是当前点到目标点的预期代价"></a>说明：f(n)是总的预期成本，g(n)是当前点到起点的总移动成本，h(n)是当前点到目标点的预期代价</h6></blockquote>
+<h3 id="A-搜索算法的全局最优逻辑"><a href="#A-搜索算法的全局最优逻辑" class="headerlink" title="A *搜索算法的全局最优逻辑"></a>A *搜索算法的全局最优逻辑</h3><p>首先，对于搜索算法来说，想要减少搜索的时间，那就必须要在搜索最优路径时搜索尽量少的点，最好搜索的全部节点恰好就是我们的全局最优路径。但显然，像贪婪优先搜索那样，只考虑当前点到目标点的预期距离的话，往往只能寻找到局部最优。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/%E8%B4%AA%E5%BF%83%E7%9A%84%E5%B1%80%E9%83%A8%E6%9C%80%E4%BC%98.png" alt="贪心的局部最优"></p>
+<p><strong>换句话说，贪婪优先算法只考虑单一的：当前点到目标点的估计距离，这显然不足以作为全局最优的参考指标。但是它赋予了程序有目的地前往终点方向的能力</strong></p>
+<p>而我们知道，BFS、Dijkstra实质上是对所有节点进行遍历，其中后者是对前者的优化，保证了起点到每一个中间点都是成本最优的选择。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/Dijkstra%E4%BF%9D%E9%9A%9C%E5%BD%93%E5%89%8D%E7%82%B9%E5%AF%B9%E4%BA%8E%E8%B5%B7%E7%82%B9%E6%9C%80%E4%BC%98.png" alt="Dijkstra保障当前点对于起点最优"></p>
+<p>那我们结合一下Dijkstra（保障当前点对起点是<strong>成本</strong>最优的）和贪婪优先搜索（保障当前点到终点的<strong>方向</strong>是最优的）</p>
+<p>就可以构建一个新的参考指标：用于保证每一次从当前点选择下一个节点的时候都是全局最优的。</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/%E5%85%A8%E5%B1%80%E6%9C%80%E4%BC%98%E7%90%86%E8%A7%A3.png" alt="全局最优理解"></p>
+<h3 id="对行动函数-g-n-的细节说明（可以简单理解g是小兵）"><a href="#对行动函数-g-n-的细节说明（可以简单理解g是小兵）" class="headerlink" title="对行动函数  g(n)   的细节说明（可以简单理解g是小兵）"></a>对行动函数  <strong>g(n)</strong>   的细节说明（<strong>可以简单理解g是小兵</strong>）</h3><p>在A *算法中对于g(n)，也就是从起点到当前点的总移动代价（沉没成本），如果我们只考虑上下左右四个方向的话，并不需要额外考虑每一步行动的代价（因为每一步都是相同的），但是如果我们从上下左右和四个边角都能被行动，那我们就需要考虑走斜边和直上直下的代价差异。</p>
+<p>本样例中，所有的节点都是正方形，从而可知走斜边与直上直下的代价比值应为</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004310005.png" alt="image-20240726004310005"></p>
+<p>我们为了方便计算，取1.4：1作为走斜边和直上直下的代价比值</p>
+<h3 id="对启发函数-h-n-的讲解（可以简单理解h是领导）"><a href="#对启发函数-h-n-的讲解（可以简单理解h是领导）" class="headerlink" title="对启发函数  h(n)   的讲解（可以简单理解h是领导）"></a>对启发函数  <strong>h(n)</strong>   的讲解（<strong>可以简单理解h是领导</strong>）</h3><p>在A *算法中对于h(n)，也就是对当前点到目标点的预期代价估计通常采用“距离”作为度量。</p>
+<p>在二维地图中，我们讨论两点间距离常用的方式有两种。</p>
+<ol>
+<li><p>曼哈顿距离</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/%E6%9B%BC%E5%93%88%E9%A1%BF%E8%B7%9D%E7%A6%BBV2.png" alt="曼哈顿距离V2"></p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004329674.png" alt="image-20240726004329674"></p>
+<p>曼哈顿距离用来标明两个点在标准坐标系上的绝对轴距总和，简单来理解就是：直角三角形的两直角边之和</p>
+</li>
+<li><p>欧式距离</p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离"></p>
+<p><img src="/./assets/image-20240726004347846.png" alt="image-20240726004347846"></p>
+<p>欧式距离用来标明两个点在标准坐标系上的绝对距离，简单来理解就是：直角三角形的斜边</p>
+</li>
+</ol>
+<p>在接下来的代码实现中，因为曼哈顿距离不需要开方，计算较为简便，因此本例选用曼哈顿距离作为启发函数的参考指标。</p>
+<h3 id="补充：启发函数的选择对算法的影响（了解）"><a href="#补充：启发函数的选择对算法的影响（了解）" class="headerlink" title="补充：启发函数的选择对算法的影响（了解）"></a>补充：启发函数的选择对算法的影响（了解）</h3><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004416685.png" alt="image-20240726004416685"></p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>算法</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h(n)&#x3D;0</td>
+<td>A*退化为Dijkstra算法</td>
+<td>保证能找到最短路径，但时间花费较大</td>
+</tr>
+<tr>
+<td>h(n)&#x3D;实际代价</td>
+<td>仅拓展必要节点</td>
+<td>时间和路径都最佳</td>
+</tr>
+<tr>
+<td>h(n)&gt;&gt;g(n)</td>
+<td>A*算法退化到贪婪优先</td>
+<td>不保证全局路径最优，但速度很快</td>
+</tr>
+</tbody></table>
+<h2 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/A-star%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B.png" alt="A-star算法流程"></p>
+<ul>
+<li>地图初始化：设置地图大小、起点终点、障碍物。</li>
+<li>遍历待测节点：将起点放入待测列表（open_list）中，进而让A *算法开始运行，计算并存储列表中每一个节点的 “f(n) “ 。</li>
+<li>定位正在检测点：查找”f(n) “最小的节点，并把它定位为正在检测的点（select_current）。</li>
+<li>邻点检测：A *算法的核心，通过对邻点属性的判断和对预期总移动成本的权衡来选择下一个节点</li>
+<li>移动到已测点集：将已经检测过但是没被选择的节点放入已测列表中，保证不会重复搜索</li>
+<li>找到终点：找到终点后，由终点向起点进行最短路径的回溯，并通过调用pillow库，将结果导出为图片</li>
+</ul>
+<h2 id="AStar类"><a href="#AStar类" class="headerlink" title="AStar类"></a>AStar类</h2><p>是整个算法的关键，内部包括了A *算法的初始化、最优点选择、邻点检测、节点判断和路径寻找功能的实现</p>
+<h3 id="初始化参数"><a href="#初始化参数" class="headerlink" title="初始化参数"></a>初始化参数</h3><p>通过构造函数，将地图属性：地图大小、起点、终点和障碍物读入，初始化 A *算法的参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, start: Point, end: Point, map2d: Map2D</span>):</span><br><span class="line">    <span class="variable language_">self</span>.path = []			</span><br><span class="line">    <span class="variable language_">self</span>.closed_list = []</span><br><span class="line">    <span class="variable language_">self</span>.open_list = []</span><br><span class="line">    <span class="variable language_">self</span>.start = start</span><br><span class="line">    <span class="variable language_">self</span>.end = end</span><br><span class="line">    <span class="variable language_">self</span>.map2d = map2d</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="最优点选择"><a href="#最优点选择" class="headerlink" title="最优点选择"></a>最优点选择</h3><p>遍历待检测队列（open_list），找到f值最小的节点（全局最优节点），然后返回全局最优节点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">select_current</span>(<span class="params">self</span>):</span><br><span class="line">    min_f = sys.maxsize</span><br><span class="line">    node_temp = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> <span class="variable language_">self</span>.open_list:</span><br><span class="line">        <span class="keyword">if</span> node.f &lt; min_f:</span><br><span class="line">            min_f = node.f</span><br><span class="line">            node_temp = node</span><br><span class="line">    <span class="keyword">return</span> node_temp</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="判断节点是否在待检测队列中"><a href="#判断节点是否在待检测队列中" class="headerlink" title="判断节点是否在待检测队列中"></a>判断节点是否在待检测队列中</h3><p>通过读入要判断的节点（node），遍历open_list，判断node是否在待测队列中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">is_in_open_list</span>(<span class="params">self, node</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">any</span>([open_node.point == node.point <span class="keyword">for</span> open_node <span class="keyword">in</span> <span class="variable language_">self</span>.open_list])</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="判断节点是否在已检测队列中"><a href="#判断节点是否在已检测队列中" class="headerlink" title="判断节点是否在已检测队列中"></a>判断节点是否在已检测队列中</h3><p>通过读入要判断的节点（node），遍历closed_list，判断node是否在已检测队列中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">is_in_closed_list</span>(<span class="params">self, node</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">any</span>([closed_node.point == node.point <span class="keyword">for</span> closed_node <span class="keyword">in</span> <span class="variable language_">self</span>.closed_list])</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="判断节点是否是障碍物"><a href="#判断节点是否是障碍物" class="headerlink" title="判断节点是否是障碍物"></a>判断节点是否是障碍物</h3><p>通过读入要判断的节点（node），简单比较节点是否为”⬛”，进而判断node是否是障碍物</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">is_obstacle</span>(<span class="params">self, node</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">self</span>.map2d.data[node.point.x][node.point.y] == <span class="string">&quot;⬛&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="相邻点检测"><a href="#相邻点检测" class="headerlink" title="相邻点检测"></a>相邻点检测</h3><p>通过对当前节点（node）的”上下左右”和”四角”的八个方向进行检测，寻找全局最优的点，判断下一步该前往哪个节点，其中包括对邻点是否为终点、已检测点、待检测点、最优节点或障碍物的一系列判断</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">explore_neighbors</span>(<span class="params">self, node</span>):</span><br><span class="line">    <span class="comment"># 定义八个方向</span></span><br><span class="line">    directions = [(<span class="number">1</span>, <span class="number">0</span>), (-<span class="number">1</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, -<span class="number">1</span>), (<span class="number">1</span>, <span class="number">1</span>), (<span class="number">1</span>, -<span class="number">1</span>), (-<span class="number">1</span>, <span class="number">1</span>), (-<span class="number">1</span>, -<span class="number">1</span>)]</span><br><span class="line">    <span class="keyword">for</span> direction <span class="keyword">in</span> directions:</span><br><span class="line">        ud, rl = direction</span><br><span class="line">        <span class="comment"># 根据方向计算相邻节点</span></span><br><span class="line">        neighbor = node.get_near(ud, rl)</span><br><span class="line">        <span class="comment"># 如果相邻节点是终点，则返回 True</span></span><br><span class="line">        <span class="keyword">if</span> neighbor.point == <span class="variable language_">self</span>.end:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="comment"># 如果相邻节点在 closed_list 中或为障碍物，则跳过</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.is_in_closed_list(neighbor) <span class="keyword">or</span> <span class="variable language_">self</span>.is_obstacle(neighbor):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># 如果相邻节点在 open_list 中，则比较评分</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.is_in_open_list(neighbor):</span><br><span class="line">            existing_node = <span class="built_in">next</span>(open_node <span class="keyword">for</span> open_node <span class="keyword">in</span> <span class="variable language_">self</span>.open_list <span class="keyword">if</span> open_node.point == neighbor.point)</span><br><span class="line">            <span class="keyword">if</span> neighbor.f &lt; existing_node.f:</span><br><span class="line">                <span class="comment"># 如果评分更优，则更新相邻节点的父节点和评分</span></span><br><span class="line">                existing_node.father = node</span><br><span class="line">                existing_node.g = neighbor.g</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 如果相邻节点不在 open_list 中，则将其加入 open_list</span></span><br><span class="line">            neighbor.father = node</span><br><span class="line">            <span class="variable language_">self</span>.open_list.append(neighbor)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="寻找路径"><a href="#寻找路径" class="headerlink" title="寻找路径"></a>寻找路径</h3><p>这个方法将起点另外存储在回溯路径列表里（path），并不断选择最优节点前进，同时每一次前进到下一个最优节点时，都会将最优节点的父节点放进回溯路径（path）中，在最后找到终点后，利用回溯路径列表从终点回溯到起点（子节点按父节点回溯）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">find_path</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># 创建起点节点</span></span><br><span class="line">    start_node = AStar.Node(<span class="variable language_">self</span>.start, <span class="variable language_">self</span>.end, <span class="number">0</span>)</span><br><span class="line">    <span class="variable language_">self</span>.open_list.append(start_node)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># 选择当前最优节点</span></span><br><span class="line">        current_node = <span class="variable language_">self</span>.select_current()</span><br><span class="line">        <span class="comment"># 如果没有最优节点，则返回 None</span></span><br><span class="line">        <span class="keyword">if</span> current_node <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="comment"># 将当前节点从 open_list 中移除，并加入 closed_list 中</span></span><br><span class="line">        <span class="variable language_">self</span>.open_list.remove(current_node)</span><br><span class="line">        <span class="variable language_">self</span>.closed_list.append(current_node)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果当前节点是终点，则返回路径</span></span><br><span class="line">        <span class="keyword">if</span> current_node.point == <span class="variable language_">self</span>.end:</span><br><span class="line">            <span class="comment"># 沿着父节点回溯路径</span></span><br><span class="line">            <span class="keyword">while</span> current_node.father <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="variable language_">self</span>.path.insert(<span class="number">0</span>, current_node.point)</span><br><span class="line">                current_node = current_node.father</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.path</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 探索相邻节点</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.explore_neighbors(current_node):</span><br><span class="line">            <span class="comment"># 如果找到了终点，则沿着父节点回溯路径</span></span><br><span class="line">            <span class="keyword">while</span> current_node.father <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="variable language_">self</span>.path.insert(<span class="number">0</span>, current_node.point)</span><br><span class="line">                current_node = current_node.father</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.path</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="AStar-Node类"><a href="#AStar-Node类" class="headerlink" title="AStar.Node类"></a>AStar.Node类</h2><p>是AStar类的一个内部类，包含的初始化中间节点参数和获取相邻节点的方法是邻点检测和寻找路径的基础</p>
+<h3 id="初始化中间节点的参数"><a href="#初始化中间节点的参数" class="headerlink" title="初始化中间节点的参数"></a>初始化中间节点的参数</h3><p>构造函数，初始化节点的参数：point:（当前节点的坐标）、endpoint（终点的坐标）、g（从起点到当前节点的代价），并且通过曼哈顿距离计算这条路径预计的总移动成本，是最优点选择的基础</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, point: Point, endpoint: Point, g: <span class="built_in">float</span></span>):</span><br><span class="line">    <span class="variable language_">self</span>.point = point</span><br><span class="line">    <span class="variable language_">self</span>.endpoint = endpoint</span><br><span class="line">    <span class="variable language_">self</span>.father = <span class="literal">None</span></span><br><span class="line">    <span class="variable language_">self</span>.g = g</span><br><span class="line">    <span class="comment"># 计算启发值h，使用曼哈顿距离</span></span><br><span class="line">    <span class="variable language_">self</span>.h = (<span class="built_in">abs</span>(endpoint.x - point.x) + <span class="built_in">abs</span>(endpoint.y - point.y)) * <span class="number">10</span></span><br><span class="line">    <span class="comment"># 计算预计的总移动成本f</span></span><br><span class="line">    <span class="variable language_">self</span>.f = <span class="variable language_">self</span>.g + <span class="variable language_">self</span>.h</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取相邻节点"><a href="#获取相邻节点" class="headerlink" title="获取相邻节点"></a>获取相邻节点</h3><p>获取上下左右和四角共八个方向的邻点，计算并更新A *算法的g(n)值，是邻点检测的基础</p>
+<p>ud: 上下方向的移动量（1 表示向上，-1 表示向下，0 表示不移动）</p>
+<p>rl: 左右方向的移动量（1 表示向右，-1 表示向左，0 表示不移动）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_near</span>(<span class="params">self, ud, rl</span>):</span><br><span class="line">    <span class="comment"># 根据上下左右和四角，共八个方向，计算相邻节点的坐标</span></span><br><span class="line">    near_point = Point(<span class="variable language_">self</span>.point.x + rl, <span class="variable language_">self</span>.point.y + ud)</span><br><span class="line">    <span class="comment"># 计算相邻节点的总移动成本</span></span><br><span class="line">    near_node = AStar.Node(near_point, <span class="variable language_">self</span>.endpoint, <span class="variable language_">self</span>.g + (<span class="number">10</span> <span class="keyword">if</span> ud == <span class="number">0</span> <span class="keyword">or</span> rl == <span class="number">0</span> <span class="keyword">else</span> <span class="number">14</span>))</span><br><span class="line">    <span class="keyword">return</span> near_node</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Map2D-类"><a href="#Map2D-类" class="headerlink" title="Map2D 类"></a>Map2D 类</h2><p>主要是对生成的2D地图进行处理，包括地图初始化和导出地图数据的功能</p>
+<h3 id="初始化地图"><a href="#初始化地图" class="headerlink" title="初始化地图"></a>初始化地图</h3><p>构造函数，通过读取用户设定的地图大小，初始化地图数据，每个元素都放置一个”⬜”字符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, height, width</span>):</span><br><span class="line">    <span class="variable language_">self</span>.height = height</span><br><span class="line">    <span class="variable language_">self</span>.width = width</span><br><span class="line">    <span class="variable language_">self</span>.data = [[<span class="string">&quot;⬜&quot;</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(width)] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(height)]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="导出地图数据"><a href="#导出地图数据" class="headerlink" title="导出地图数据"></a>导出地图数据</h3><p>调用pillow模块，在A *算法所在的 py 文件夹内生成一个 result.png 的图片，首先将其绘制为全白色背景，再依次遍历A *算法处理后的地图数据，并在白色背景上绘制颜色，最后展示一个A *算法处理后的结果图（包含最优路径）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">export_image</span>(<span class="params">self, file_name=<span class="string">&quot;map.png&quot;</span></span>):</span><br><span class="line">    <span class="comment"># 设置单元格大小</span></span><br><span class="line">    cell_size = <span class="number">10</span></span><br><span class="line">    <span class="comment"># 创建一个白色背景的图像</span></span><br><span class="line">    image = Image.new(<span class="string">&quot;RGB&quot;</span>, (<span class="variable language_">self</span>.width * cell_size, <span class="variable language_">self</span>.height * cell_size), <span class="string">&quot;white&quot;</span>)</span><br><span class="line">    <span class="comment"># 创建一个绘图对象</span></span><br><span class="line">    draw = ImageDraw.Draw(image)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历地图数据，根据不同的字符绘制不同的颜色</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.height):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.width):</span><br><span class="line">            color = <span class="string">&quot;white&quot;</span></span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.data[x][y] == <span class="string">&quot;⬛&quot;</span>:</span><br><span class="line">                color = <span class="string">&quot;black&quot;</span></span><br><span class="line">            <span class="keyword">elif</span> <span class="variable language_">self</span>.data[x][y] == <span class="string">&quot;🟥&quot;</span>:</span><br><span class="line">                color = <span class="string">&quot;red&quot;</span></span><br><span class="line">            <span class="keyword">elif</span> <span class="variable language_">self</span>.data[x][y] == <span class="string">&quot;🟩&quot;</span>:</span><br><span class="line">                color = <span class="string">&quot;green&quot;</span></span><br><span class="line">            <span class="comment"># 绘制一个矩形</span></span><br><span class="line">            draw.rectangle([(y * cell_size, x * cell_size), ((y + <span class="number">1</span>) * cell_size, (x + <span class="number">1</span>) * cell_size)], fill=color)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 保存图像</span></span><br><span class="line">    image.save(file_name)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="设置障碍物"><a href="#设置障碍物" class="headerlink" title="设置障碍物"></a>设置障碍物</h3><p>通过用户设置的障碍点坐标，将”⬜”（可探索位置）更新为”⬛”（障碍物）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">set_obstacle</span>(<span class="params">self, x, y</span>):</span><br><span class="line">    <span class="variable language_">self</span>.data[x][y] = <span class="string">&quot;⬛&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="设置起点和终点"><a href="#设置起点和终点" class="headerlink" title="设置起点和终点"></a>设置起点和终点</h3><p>通过用户设置的起点和终点坐标，将”⬜”（可探索位置）更新为”🟥”（起点或者终点）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">set_start_end</span>(<span class="params">self, start: Point, end: Point</span>):</span><br><span class="line">    <span class="variable language_">self</span>.data[start.x][start.y] = <span class="string">&quot;🟥&quot;</span></span><br><span class="line">    <span class="variable language_">self</span>.data[end.x][end.y] = <span class="string">&quot;🟥&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h2><h3 id="随机放置障碍物"><a href="#随机放置障碍物" class="headerlink" title="随机放置障碍物"></a>随机放置障碍物</h3><p>首先计算地图总格数，通过 obstacle_ratio 设置障碍物占全图的比例，再通过循环来实现大范围的障碍物放置，同时设置了对起点终点和现有障碍物的保护，达到增加搜索难度的目的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">total_cells = map2d.height * map2d.width  <span class="comment"># 计算地图总格数</span></span><br><span class="line">obstacle_cells = <span class="built_in">int</span>(total_cells * <span class="number">0.3</span>)  <span class="comment"># 计算障碍物格数，这里设置障碍物占据地图的 30%</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(obstacle_cells):</span><br><span class="line">    x = random.randint(<span class="number">0</span>, map2d.height - <span class="number">1</span>)</span><br><span class="line">    y = random.randint(<span class="number">0</span>, map2d.width - <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 确保障碍物不覆盖起点、终点或其他障碍物</span></span><br><span class="line">    <span class="keyword">while</span> (x == start_point.x <span class="keyword">and</span> y == start_point.y) <span class="keyword">or</span> (x == end_point.x <span class="keyword">and</span> y == end_point.y) <span class="keyword">or</span> map2d.data[x][y] == <span class="string">&quot;⬛&quot;</span>:</span><br><span class="line">        x = random.randint(<span class="number">0</span>, map2d.height - <span class="number">1</span>)</span><br><span class="line">        y = random.randint(<span class="number">0</span>, map2d.width - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置障碍物</span></span><br><span class="line">    map2d.set_obstacle(x, y)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运行结果展示"><a href="#运行结果展示" class="headerlink" title="运行结果展示"></a>运行结果展示</h2><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/image-20240319230213276.png" alt="image-20240319230213276"></p>
+<p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/50x50result.png" alt="50x50result"></p>
+<h3 id="在100-x-100地图下运行"><a href="#在100-x-100地图下运行" class="headerlink" title="在100 x 100地图下运行"></a>在100 x 100地图下运行</h3><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/image-20240319230328817.png" alt="image-20240319230328817"></p>
+<img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/100x100result.png" alt="100x100result" style="zoom:50%;" />
+
+<h3 id="在150-x-150地图下运行"><a href="#在150-x-150地图下运行" class="headerlink" title="在150 x 150地图下运行"></a>在150 x 150地图下运行</h3><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/image-20240319230339514.png" alt="image-20240319230339514"></p>
+<img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/150x150result.png" alt="150x150result" style="zoom:50%;" />
+
+<h3 id="在200-x-200地图下运行"><a href="#在200-x-200地图下运行" class="headerlink" title="在200 x 200地图下运行"></a>在200 x 200地图下运行</h3><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/image-20240319230349324.png" alt="image-20240319230349324"></p>
+<img src="https://raw.githubusercontent.com/kashima19960/img/master/A_Star/200x200result.png" alt="200x200result" style="zoom: 33%;" />
+
+<h2 id="总结与分析"><a href="#总结与分析" class="headerlink" title="总结与分析"></a>总结与分析</h2><p>总体而言，A *算法在随机生成障碍物的情况下，由于其使用了启发函数，尽可能地减少了过程中不必要的搜索，所以无论是在50 x 50,100 x 100,150 x 150还是200 x 200的测试样例中均能在0.05s左右找到正确的最优路径，展现了A *算法的优越性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2024/07/16/%E7%AE%97%E6%B3%95/A%20Star%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">https://kashima19960.github.io/2024/07/16/%E7%AE%97%E6%B3%95/A%20Star%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/kashima19960/img/master/其他/屏幕截图 2024-07-06 152327.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/07/16/%E7%AE%97%E6%B3%95/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%B3%95/" title="复杂网络的任意子节点的网络最短距离"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">复杂网络的任意子节点的网络最短距离</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/16/%E7%AE%97%E6%B3%95/%E5%9F%BA%E6%9C%AC%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="基本遗传算法（SGA）程序实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-16</div><div class="title">基本遗传算法（SGA）程序实现</div></div></a></div><div><a href="/2024/07/16/%E7%AE%97%E6%B3%95/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%B3%95/" title="复杂网络的任意子节点的网络最短距离"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-16</div><div class="title">复杂网络的任意子节点的网络最短距离</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/kashima19960/img/master/其他/屏幕截图 2024-07-06 152327.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kashima19960"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kashima19960" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/CodingCV@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">阅读文章遇到问题或者需要相关的源码文件,可以发送到评论区或者致电我的邮箱-CodingCV@outlook.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E6%8E%A8%E8%8D%90"><span class="toc-number">1.</span> <span class="toc-text">运行环境推荐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">原理讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8A-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">为什么要使用A*搜索算法？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9Af-n-%E6%98%AF%E6%80%BB%E7%9A%84%E9%A2%84%E6%9C%9F%E6%88%90%E6%9C%AC%EF%BC%8Cg-n-%E6%98%AF%E5%BD%93%E5%89%8D%E7%82%B9%E5%88%B0%E8%B5%B7%E7%82%B9%E7%9A%84%E6%80%BB%E7%A7%BB%E5%8A%A8%E6%88%90%E6%9C%AC%EF%BC%8Ch-n-%E6%98%AF%E5%BD%93%E5%89%8D%E7%82%B9%E5%88%B0%E7%9B%AE%E6%A0%87%E7%82%B9%E7%9A%84%E9%A2%84%E6%9C%9F%E4%BB%A3%E4%BB%B7"><span class="toc-number">3.1.0.0.1.</span> <span class="toc-text">说明：f(n)是总的预期成本，g(n)是当前点到起点的总移动成本，h(n)是当前点到目标点的预期代价</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#A-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E5%85%A8%E5%B1%80%E6%9C%80%E4%BC%98%E9%80%BB%E8%BE%91"><span class="toc-number">3.2.</span> <span class="toc-text">A *搜索算法的全局最优逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%A1%8C%E5%8A%A8%E5%87%BD%E6%95%B0-g-n-%E7%9A%84%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E%EF%BC%88%E5%8F%AF%E4%BB%A5%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3g%E6%98%AF%E5%B0%8F%E5%85%B5%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">对行动函数  g(n)   的细节说明（可以简单理解g是小兵）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%90%AF%E5%8F%91%E5%87%BD%E6%95%B0-h-n-%E7%9A%84%E8%AE%B2%E8%A7%A3%EF%BC%88%E5%8F%AF%E4%BB%A5%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3h%E6%98%AF%E9%A2%86%E5%AF%BC%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">对启发函数  h(n)   的讲解（可以简单理解h是领导）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A%E5%90%AF%E5%8F%91%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9%E5%AF%B9%E7%AE%97%E6%B3%95%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="toc-number">3.5.</span> <span class="toc-text">补充：启发函数的选择对算法的影响（了解）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text">程序流程图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AStar%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">AStar类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%82%E6%95%B0"><span class="toc-number">5.1.</span> <span class="toc-text">初始化参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E7%82%B9%E9%80%89%E6%8B%A9"><span class="toc-number">5.2.</span> <span class="toc-text">最优点选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E8%8A%82%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%BE%85%E6%A3%80%E6%B5%8B%E9%98%9F%E5%88%97%E4%B8%AD"><span class="toc-number">5.3.</span> <span class="toc-text">判断节点是否在待检测队列中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E8%8A%82%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%B7%B2%E6%A3%80%E6%B5%8B%E9%98%9F%E5%88%97%E4%B8%AD"><span class="toc-number">5.4.</span> <span class="toc-text">判断节点是否在已检测队列中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E8%8A%82%E7%82%B9%E6%98%AF%E5%90%A6%E6%98%AF%E9%9A%9C%E7%A2%8D%E7%89%A9"><span class="toc-number">5.5.</span> <span class="toc-text">判断节点是否是障碍物</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E9%82%BB%E7%82%B9%E6%A3%80%E6%B5%8B"><span class="toc-number">5.6.</span> <span class="toc-text">相邻点检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E8%B7%AF%E5%BE%84"><span class="toc-number">5.7.</span> <span class="toc-text">寻找路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AStar-Node%E7%B1%BB"><span class="toc-number">6.</span> <span class="toc-text">AStar.Node类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">6.1.</span> <span class="toc-text">初始化中间节点的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%9B%B8%E9%82%BB%E8%8A%82%E7%82%B9"><span class="toc-number">6.2.</span> <span class="toc-text">获取相邻节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Map2D-%E7%B1%BB"><span class="toc-number">7.</span> <span class="toc-text">Map2D 类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9C%B0%E5%9B%BE"><span class="toc-number">7.1.</span> <span class="toc-text">初始化地图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E5%9C%B0%E5%9B%BE%E6%95%B0%E6%8D%AE"><span class="toc-number">7.2.</span> <span class="toc-text">导出地图数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%9A%9C%E7%A2%8D%E7%89%A9"><span class="toc-number">7.3.</span> <span class="toc-text">设置障碍物</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%B5%B7%E7%82%B9%E5%92%8C%E7%BB%88%E7%82%B9"><span class="toc-number">7.4.</span> <span class="toc-text">设置起点和终点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%87%BD%E6%95%B0"><span class="toc-number">8.</span> <span class="toc-text">其他函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%94%BE%E7%BD%AE%E9%9A%9C%E7%A2%8D%E7%89%A9"><span class="toc-number">8.1.</span> <span class="toc-text">随机放置障碍物</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-number">9.</span> <span class="toc-text">运行结果展示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8100-x-100%E5%9C%B0%E5%9B%BE%E4%B8%8B%E8%BF%90%E8%A1%8C"><span class="toc-number">9.1.</span> <span class="toc-text">在100 x 100地图下运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8150-x-150%E5%9C%B0%E5%9B%BE%E4%B8%8B%E8%BF%90%E8%A1%8C"><span class="toc-number">9.2.</span> <span class="toc-text">在150 x 150地图下运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8200-x-200%E5%9C%B0%E5%9B%BE%E4%B8%8B%E8%BF%90%E8%A1%8C"><span class="toc-number">9.3.</span> <span class="toc-text">在200 x 200地图下运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E4%B8%8E%E5%88%86%E6%9E%90"><span class="toc-number">10.</span> <span class="toc-text">总结与分析</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="9.神经网络">9.神经网络</a><time datetime="2024-07-18T08:00:00.000Z" title="发表于 2024-07-18 16:00:00">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/8.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" title="8.机器学习概述">8.机器学习概述</a><time datetime="2024-07-18T07:00:40.000Z" title="发表于 2024-07-18 15:00:40">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/18/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/7.%E7%BE%A4%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95/" title="7.群智能算法">7.群智能算法</a><time datetime="2024-07-17T18:26:40.000Z" title="发表于 2024-07-18 02:26:40">2024-07-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6.%E4%B8%93%E5%AE%B6%E7%B3%BB%E7%BB%9F/" title="6专家系统">6专家系统</a><time datetime="2024-07-17T15:20:40.000Z" title="发表于 2024-07-17 23:20:40">2024-07-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/17/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/5.%E6%90%9C%E7%B4%A2%E6%B1%82%E8%A7%A3%E7%AD%96%E7%95%A5/" title="5搜索求解策略">5搜索求解策略</a><time datetime="2024-07-17T14:18:40.000Z" title="发表于 2024-07-17 22:18:40">2024-07-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 木人舟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://kashima19960.github.io/2024/07/16/%E7%AE%97%E6%B3%95/A%20Star%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/'
+    this.page.identifier = '/2024/07/16/%E7%AE%97%E6%B3%95/A%20Star%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/'
+    this.page.title = 'A Star搜索算法原理及其程序实现'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
