@@ -234,7 +234,7 @@ aside:
       link: https://github.com/kashima19960
   card_announcement:
     enable: true
-    content: 阅读文章遇到问题可以在评论区留言，想要索取代码源文件可以留下你的邮箱地址
+    content: 阅读文章遇到问题可以发消息到我的邮箱——CodingCV@outlook.com
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
