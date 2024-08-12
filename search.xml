@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Windows的cmd使用Linux类命令</title>
+      <link href="/2024/08/13/%E5%9C%A8Windows%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84cmd%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%E6%95%99%E7%A8%8B/"/>
+      <url>/2024/08/13/%E5%9C%A8Windows%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84cmd%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我在使用Vscode编写C&#x2F;C++代码的时候，经常会用到<strong>Shell</strong>(你可以理解为命令行)，但是我不得不说Windows下Dos命令极其难用且拉跨😩，于是！！🤓🤓我就在想能不能在Windows的命令提示符或者PowerShell下直接使用Linux的命令，然后我就在中文互联网上疯狂的搜索(💩里淘金)</p><h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><p>在中文互联网上搜索问题，通常都会得到以下的结果</p><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/Win%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%20/image-20240812235813091.png" alt="image-20240812235813091"></p><p>他们给出的结果，无非就是</p><ol><li><p>使用WSL或者是在虚拟机里面使用Linux</p><p>个人评价：可真是个小天才呢😅，这样我为啥不直接用Linux呢？还折腾那么多干嘛</p></li><li><p>使用Git Bash或者Cygwin</p><p>个人评价:太丑</p></li></ol><p>更让我觉得好笑的是，这些文章都是搬的外网的一个博主的文章<a href="https://itsfoss.com/run-linux-commands-in-windows/">4 Ways to Run Linux Commands in Windows (itsfoss.com)</a>，搜索引擎一排下去都是差不多的内容，这还是在我屏蔽了csdn相关结果的情况下(关于如何屏蔽csdn的搜索结果可以看我的另一篇文章)，可见要想在中文互联网找到解决自己需求的方法有多困难。</p><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/Win%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%20/image-20240813003550182.png" alt="image-20240813003550182"></p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>综上所述，经过我的一般探索，找到了一个可以在Windows运行Linux类命令的工具——<strong>uutils-coreutils</strong>,通过官网的简介可以得知</p><blockquote><p>uutils is an attempt at writing universal (as in cross-platform) CLI utilities in <a href="https://www.rust-lang.org/">Rust</a>. It is available for Linux, Windows, Mac and other platforms.</p></blockquote><p>翻译成人话就是，这玩意是一个用 <a href="https://www.rust-lang.org/">Rust</a> 编写通用（<strong>跨平台</strong>）CLI 实用工具的项目。它可用于 Linux、Windows、Mac 和其他平台。啊哈👍跨平台而且还是CLI实用工具的项目，这正是我想要的！</p><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/Win%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%20/image-20240813003942634.png" alt="image-20240813003942634"></p><h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p>讲再多，不如直接看看效果，这个工具包含了很多Linux下的常用且基本的命令</p><p>最常用的ls命令，其中一些常用的参数也是可以使用的，比如-a,-l</p><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/Win%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%20/image-20240813004739055.png" alt="image-20240813004739055"></p><p>删除文件的rm命令，这个是通过VSCode的集成终端调用的，这样在vscode里面就能直接使用Linux命令了</p><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/Win%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%20/image-20240813004927238.png" alt="image-20240813004927238"></p><h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>安装这个软件有两种方法</p><ol><li><p>通过包管理下载</p><p>Windows下常见的包管理器有Scoop(博主用的是这个)或者Winget,其他的系统你可以看看官方文档<a href="https://uutils.github.io/coreutils/docs/installation.html">Installation - uutils Documentation</a>，都有对应的命令，复制粘贴到对应系统的命令行就行了</p><blockquote><p>如果你不知道啥是包管理器的话，简单来说就是类似于手机的应用商店一样，能帮你一键安装软件，包括安装依赖以及添加环境变量等等。</p><p>Scoop的安装可以参照<a href="https://github.com/ScoopInstaller/Scoop#installation">官方文档</a>，这里不做赘述</p></blockquote></li><li><p>下载Github release打包好的程序</p></li></ol><p><a href="https://github.com/uutils/coreutils/releases/tag/0.0.27">Release 0.0.27 · uutils&#x2F;coreutils (github.com)</a></p><p>在Assets这里选择适合你系统的进行下载即可</p><p><img src="https://raw.githubusercontent.com/kashima19960/img/master/Win%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8Linux%E5%91%BD%E4%BB%A4%20/image-20240813010032620.png" alt="image-20240813010032620"></p><p>Windows系统的话，安装完后可能得手动添加软件根目录的路径到系统的环境变量中，不然的话在命令行中可能会找不到相应的命令</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 其他 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>屏蔽csdn搜索结果的方法</title>
       <link href="/2024/08/08/%E5%B1%8F%E8%94%BD%E6%B5%8F%E8%A7%88%E5%99%A8%E6%90%9C%E7%B4%A2%E5%87%BAcsdn%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E7%9A%84%E6%96%B9%E6%B3%95/"/>
       <url>/2024/08/08/%E5%B1%8F%E8%94%BD%E6%B5%8F%E8%A7%88%E5%99%A8%E6%90%9C%E7%B4%A2%E5%87%BAcsdn%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E7%9A%84%E6%96%B9%E6%B3%95/</url>
