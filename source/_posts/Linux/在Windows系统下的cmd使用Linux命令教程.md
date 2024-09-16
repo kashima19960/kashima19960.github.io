@@ -1,7 +1,7 @@
 ---
 title: Windows的cmd使用Linux类命令
 date: 2024-08-13 23:20:00
-tags: 其他
+tags: Linux
 ---
 ## 前言
 
