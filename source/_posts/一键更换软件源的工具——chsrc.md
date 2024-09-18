@@ -3,20 +3,19 @@ title: 一键更换软件源的工具——chsrc
 date: 2024-09-17 16:53:40
 tags: 其他
 ---
-
 ## 前言
 
-经常用pip，ubuntu的apt，或者centos的yum等包下载工具的人不可避免的一件事就是——“更换软件源”，因为以上三个包下载工具的软件源一般都是默认为国外的官方网站，由于国情问题，下载速度就会非常慢，所以我们使用这些包下载工具都会换源，但是更换软件源是一个比较麻烦的步骤，而且每个不同的包下载器的配置方法都是不一定相同的，通常我可以用以下的步骤概括一下
+经常用pip，ubuntu的apt，或者centos的yum等包下载工具的人不可避免的一件事就是——“更换软件源”，因为以上三个包下载工具的软件源一般都是默认为国外的官方网站，由于国情问题，下载速度就会非常慢，所以我们使用这些包下载工具通常都会换源，但是更换软件源是一个比较麻烦的步骤，而且每个不同的包下载器的配置方法都是异构的，通常我可以用以下的步骤概括一下：
 
-1.   上网搜索相关的教程，找到想要更换的对应包下载工具软件源的方法
-2.   找到下载速度比较快，而且稳定的镜像站
-3.   找到包下载工具的配置文件，进行更改
+1. 上网搜索相关的教程，找到想要更换的对应包下载工具软件源的方法
+2. 找到下载速度比较快，而且稳定的镜像站
+3. 找到包下载工具的配置文件，进行更改
 
-而且不同的包下载工具，上面的步骤都是不一样的，所以就存在以下的痛点了
+而且不同的包下载工具，上面的步骤都是不一样的，所以就存在以下的痛点了：
 
-1.   不同镜像站的下载速度你要自己测量，很麻烦
-2.   不同包下载工具的配置文件的存放位置与修改方法都是异构的
-3.   在网上找教程经常会遇到互联网垃圾，遇到一个个过滤
+1. 不同镜像站的下载速度你要自己测量，很麻烦
+2. 不同包下载工具的配置文件的存放位置与修改方法都是异构的
+3. 在网上找教程经常会遇到互联网垃圾，需要一个个过滤
 
 于是！🤓我就找到了一个很好用的换源工具——[chsrc](https://github.com/RubyMetric/chsrc),这个命令行工具完美解决了以上的痛点，并且支持绝大多数的包下载器与系统换源(下面展示)
 
@@ -146,17 +145,17 @@ conda   anaconda
 
 作者都打包到了一个exe文件(windows系统)或者一个shell脚本中(linux系统)，因此下载后就能立刻使用了，不需要安装，根据自己的系统下载对应的版本即可[Release v0.1.8 · RubyMetric/chsrc (github.com)](https://github.com/RubyMetric/chsrc/releases/tag/v0.1.8)，如果你访问不了github,那就通过国内的gitee下载[v0.1.8 · RubyMetric/chsrc - Gitee.com](https://gitee.com/RubyMetric/chsrc/releases/tag/v0.1.8)。**下面我介绍一种从来没接触过命令行的萌新的安装方法**，大佬的话，建议直接看[官方文档](https://github.com/RubyMetric/chsrc)
 
-`chsrc`是一个命令行工具，想要使用必须在命令行中调用，但是下载完后，直接在命令行敲`chsrc`是没有用的,因为shell无法搜索到这个路径(这个解释起来会是长篇大论，因此这里跳过)
+`chsrc`是一个命令行工具，想要使用必须在命令行中调用，但是下载完后，直接在命令行敲 `chsrc`是没有用的,因为shell无法搜索到这个路径(这个解释起来会是长篇大论，因此这里跳过)
 
 ![image-20240917174408602](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174408602.png)
 
 有两种方法，能让你调用到这个工具
 
-1.   进入到这个工具所在的根目录，比如我把工具下载到了D:\temp下
+1. 进入到这个工具所在的根目录，比如我把工具下载到了D:\temp下
 
 ![image-20240917174531031](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174531031.png)
 
-在命令行界面，我们`cd`进去更改目录到工具的根目录
+在命令行界面，我们 `cd`进去更改目录到工具的根目录
 
 ![image-20240917174621243](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174621243.png)
 
@@ -166,19 +165,19 @@ conda   anaconda
 .\chsrc-x64-windows.exe
 ```
 
-这个`.\`是不能省略的，表示当前目录的意思，如果是Linux系统的话，要用斜杠`./`
+这个 `.\`是不能省略的，表示当前目录的意思，如果是Linux系统的话，要用斜杠 `./`
 
 ![image-20240917174805429](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174805429.png)
 
-2.   添加环境变量
+2. 添加环境变量
 
-把`D:\temp`(这里改成你的chsrc的安装位置)，添加到环境变量中，这样就不需要在工具所在目录使用了，其他系统怎么添加环境变量，自行百度
+把 `D:\temp`(这里改成你的chsrc的安装位置)，添加到环境变量中，这样就不需要在工具所在目录使用了，其他系统怎么添加环境变量，自行百度
 
 ![image-20240917175106282](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175106282.png)
 
 ![image-20240917175228447](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175228447.png)
 
-说起来，这个`chsrc-x64-windows.exe`名字太长了，你可以直接改个名字叫`chsrc.exe`
+说起来，这个 `chsrc-x64-windows.exe`名字太长了，你可以直接改个名字叫 `chsrc.exe`
 
 ![image-20240917175416490](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175416490.png)
 
@@ -224,12 +223,12 @@ reset <target>            重置，使用上游默认使用的源
 维护: <https://github.com/RubyMetric/chsrc>
 ```
 
-1.   `chsrc list`,列出所有可用源，效果图中已经演示过
-2.   ` chsrc set <target> <code>`,这个target指的是`chsrc list`列出的目标，比如pip,ubuntu，conda之类的，这个code一般指镜像站的url或者代号，不指定的话，就会测量出速度最快的镜像站，然后设置成该镜像站的软件源
+1. `chsrc list`,列出所有可用源，效果图中已经演示过
+2. ` chsrc set <target> <code>`,这个target指的是 `chsrc list`列出的目标，比如pip,ubuntu，conda之类的，这个code一般指镜像站的url或者代号，不指定的话，就会测量出速度最快的镜像站，然后设置成该镜像站的软件源
 
 ![image-20240917184108029](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917184108029.png)
 
-3.   `chsrc reset <target> <code>`,用法跟`chsrc set`类似,用来重置软件源，比如重置pip为官方的软件源
+3. `chsrc reset <target> <code>`,用法跟 `chsrc set`类似,用来重置软件源，比如重置pip为官方的软件源
 
 ![image-20240917184441577](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917184441577.png)
 
