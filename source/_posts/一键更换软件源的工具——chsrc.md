@@ -131,13 +131,13 @@ conda   anaconda
 
 `chsrc`能一键帮你测试所有镜像站的连接速度，并且给出最高值
 
-![image-20240917172228941](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917172228941.png)
+![image-20240917172228941](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917172228941.png)
 
 ### 一键换源
 
 `chsrc`能在测量镜像站速度后，自己替你更换速度最快的源
 
-![image-20240917172540336](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917172540336.png)
+![image-20240917172540336](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917172540336.png)
 
 ## 安装与使用
 
@@ -147,17 +147,17 @@ conda   anaconda
 
 `chsrc`是一个命令行工具，想要使用必须在命令行中调用，但是下载完后，直接在命令行敲 `chsrc`是没有用的,因为shell无法搜索到这个路径(这个解释起来会是长篇大论，因此这里跳过)
 
-![image-20240917174408602](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174408602.png)
+![image-20240917174408602](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174408602.png)
 
 有两种方法，能让你调用到这个工具
 
 1. 进入到这个工具所在的根目录，比如我把工具下载到了D:\temp下
 
-![image-20240917174531031](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174531031.png)
+![image-20240917174531031](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174531031.png)
 
 在命令行界面，我们 `cd`进去更改目录到工具的根目录
 
-![image-20240917174621243](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174621243.png)
+![image-20240917174621243](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174621243.png)
 
 然后执行
 
@@ -167,23 +167,23 @@ conda   anaconda
 
 这个 `.\`是不能省略的，表示当前目录的意思，如果是Linux系统的话，要用斜杠 `./`
 
-![image-20240917174805429](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174805429.png)
+![image-20240917174805429](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917174805429.png)
 
 2. 添加环境变量
 
 把 `D:\temp`(这里改成你的chsrc的安装位置)，添加到环境变量中，这样就不需要在工具所在目录使用了，其他系统怎么添加环境变量，自行百度
 
-![image-20240917175106282](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175106282.png)
+![image-20240917175106282](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175106282.png)
 
-![image-20240917175228447](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175228447.png)
+![image-20240917175228447](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175228447.png)
 
 说起来，这个 `chsrc-x64-windows.exe`名字太长了，你可以直接改个名字叫 `chsrc.exe`
 
-![image-20240917175416490](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175416490.png)
+![image-20240917175416490](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175416490.png)
 
 这样在命令行就不用敲那么长的名字了
 
-![image-20240917175507271](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175507271.png)
+![image-20240917175507271](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917175507271.png)
 
 ### 使用
 
@@ -226,11 +226,11 @@ reset <target>            重置，使用上游默认使用的源
 1. `chsrc list`,列出所有可用源，效果图中已经演示过
 2. ` chsrc set <target> <code>`,这个target指的是 `chsrc list`列出的目标，比如pip,ubuntu，conda之类的，这个code一般指镜像站的url或者代号，不指定的话，就会测量出速度最快的镜像站，然后设置成该镜像站的软件源
 
-![image-20240917184108029](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917184108029.png)
+![image-20240917184108029](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917184108029.png)
 
 3. `chsrc reset <target> <code>`,用法跟 `chsrc set`类似,用来重置软件源，比如重置pip为官方的软件源
 
-![image-20240917184441577](https://raw.githubusercontent.com/kashima19960/img/master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917184441577.png)
+![image-20240917184441577](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc%20/image-20240917184441577.png)
 
 ## 结语
 

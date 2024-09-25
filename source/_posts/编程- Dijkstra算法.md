@@ -29,7 +29,7 @@ tags: 其他
 
 假设有下面这个图，我们设置源节点` src=0`,为了求解src到其他节点(1~8)的最短距离，按照下面的步骤
 
-![image-20240822224933240](https://raw.githubusercontent.com/kashima19960/img/master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240822224933240.png)
+![image-20240822224933240](https://cdn.jsdelivr.net/gh/kashima19960/img@master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240822224933240.png)d
 
 1.   这里我们需要维护两个数组**isset**和**dist**，其中**isset数组**用来表示对应节点是否已经拓展，初始化为`false ` 。dist数组初始化为{0, INF, INF, INF, INF, INF, INF, INF},这个数组的下标用来表示节点，下标对应的内容表示src节点到其他节点的最短距离，这里选取的src=0，由于节点到自身的距离始终为0,所以这里dist[0]=0,其他初始化为**INF(无穷大)**
 ```python
@@ -63,7 +63,7 @@ isset[min_index] = True
 | 下标  | 0    | 1     | 2     | 3     | 4     | 5     | 6     | 7     | 8     |
 | dist  | 0    | 4     | INF   | INF   | INF   | INF   | INF   | 8     | INF   |
 
-![image-20240822234941814](https://raw.githubusercontent.com/kashima19960/img/master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240822234941814.png)
+![image-20240822234941814](https://cdn.jsdelivr.net/gh/kashima19960/img@master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240822234941814.png)
 
 
 2.   接着从**dist数组中找出最小值**且**isset数组值为false**的节点进行扩展，在第二步得到的结果中，dist最小值对应的是节点`1 `,因此对节点` 1`的相邻节点进行扩展,然后将节点` 2`的值更改为12，为什么是12而不是8？，参照上面完整的图，节点`0`到节点`1`的距离是4，节点`1`到节点`2`的的距离是8，所以这里的12指的是经过0-1-2的累加距离4+8=12，后面每次扩展的时候，都要进行距离的累加
@@ -76,7 +76,7 @@ if not isset[v] and graph[min_index][v] > 0 and dist[min_index] != float('inf') 
 
 
 
-![image-20240826221537796](https://raw.githubusercontent.com/kashima19960/img/master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240826221537796.png)
+![image-20240826221537796](https://cdn.jsdelivr.net/gh/kashima19960/img@master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240826221537796.png)
 
 经过上述的变化后，数组的值变更为以下的结果
 
@@ -88,7 +88,7 @@ if not isset[v] and graph[min_index][v] > 0 and dist[min_index] != float('inf') 
 4.   重复以上的步骤，这里需要注意如果新扩展到的dist数组的值比旧的dist数组的值要大，那么就不更新dist数组
 5.   最终可以得到一个src节点到其他节点的最小生成树
 
-![image-20240826223507592](https://raw.githubusercontent.com/kashima19960/img/master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240826223507592.png)
+![image-20240826223507592](https://cdn.jsdelivr.net/gh/kashima19960/img@master/dijkstra%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%20/image-20240826223507592.png)
 
 ## 完整程序实现
 

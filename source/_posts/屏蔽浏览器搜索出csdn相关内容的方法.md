@@ -7,27 +7,27 @@ tags: 其他
 
 鉴于你对知识质量的渴望，以及对挖掘知识金子的欲求，你一定想在浏览器结果中去除有关Csdn的全部内容😈**(确信)**，但是当你在用bing或者google搜索有没有可以屏蔽CSDN搜索结果的方法时，通常会有以下的结果，这些方法我基本上都尝试过，而且没啥用处，因此下面我分享一个确实有用的方法给大家。
 
-![image-20240808214659656](https://raw.githubusercontent.com/kashima19960/img/master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808214659656.png)
+![image-20240808214659656](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808214659656.png)
 
 ## 效果图
 
 老规矩，我喜欢在看一系列繁琐的步骤前先看看效果，这样我才有继续看下去的欲望，相信大多数人都是这样想的😝
 
-![image-20240808215045912](https://raw.githubusercontent.com/kashima19960/img/master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808215045912.png)
+![image-20240808215045912](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808215045912.png)
 
 假设你非是不信邪，尝试通过在地址栏直接通过csdn的官网进行访问，会得到下面的结果
 
-![image-20240808215248191](https://raw.githubusercontent.com/kashima19960/img/master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808215248191.png)
+![image-20240808215248191](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808215248191.png)
 
 ## 步骤
 
 1.   至少拥有一个脚本管理器，比如[tampermonkey](https://microsoftedge.microsoft.com/addons/detail/篡改猴/iikmkjmpaadaobahmlepeloendndfphd),安装后可以在浏览器的扩展选项卡中查看是否安装成功
 
-<img src="https://raw.githubusercontent.com/kashima19960/img/master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808215820344.png" alt="image-20240808215820344" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808215820344.png" alt="image-20240808215820344" style="zoom:50%;" />
 
 2.   下载屏蔽脚本[Fuck CSDN (greasyfork.org)](https://greasyfork.org/zh-CN/scripts/441726-csdn)
 3.   打开tampermonkey,如何有相应的图标说明就安装成功了
-   ![image-20240808220357016](https://raw.githubusercontent.com/kashima19960/img/master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808220357016.png)
+   ![image-20240808220357016](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%B1%8F%E8%94%BDcsdn%20/image-20240808220357016.png)
 4.   尝试在搜索栏搜索相关内容，就能发现脚本将所有csdn相关的内容都隐去了
 
 >   注：这个脚本只支持 Google / Baidu / Bing / 360 搜索，对于一些不常用的搜索引擎是没用的

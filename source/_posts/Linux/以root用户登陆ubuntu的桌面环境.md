@@ -17,7 +17,7 @@ tags: Linux
 
 root用户一般是没有密码的，默认情况下不启用。使用 `sudo passwd root`来给root用户得到一个密码,需要注意的是，用sudo改密码是可以无视密码策略的，也就是说像“1”,”123”,”111”这样的简单密码也是可以修改成功的，因此最好要记住你自己设置的root密码。
 
-![image-20240916171827876](https://raw.githubusercontent.com/kashima19960/img/master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/image-20240916171827876.png)
+![image-20240916171827876](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/image-20240916171827876.png)
 
 ## 第2步：更改 GDM 配置
 
@@ -39,7 +39,7 @@ sudo nano /etc/gdm3/custom.conf
 AllowRoot=true
 ```
 
-![image-20240916174416908](https://raw.githubusercontent.com/kashima19960/img/master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/image-20240916174416908.png)
+![image-20240916174416908](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/image-20240916174416908.png)
 
 最后保存退出
 
@@ -71,10 +71,10 @@ auth   required        pam_succeed_if.so user != root quiet_success
 
 之后在用户登陆界面，下面会有个很小的一行字 `not list？`，要是你设置了系统语言为中文的话就是 `未列出？`,点击进行用root用户登陆就行了
 
-![轻松 DIY：Ubuntu 登录与锁屏壁纸定制全攻略 - 系统极客](https://raw.githubusercontent.com/kashima19960/img/master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/change-ubuntu-22-04-login-screen-background-8.jpg)
+![轻松 DIY：Ubuntu 登录与锁屏壁纸定制全攻略 - 系统极客](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/change-ubuntu-22-04-login-screen-background-8.jpg)
 
 登陆成功后，会提示
 
-![image-20240916175400174](https://raw.githubusercontent.com/kashima19960/img/master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/image-20240916175400174.png)
+![image-20240916175400174](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E4%BB%A5root%E7%94%A8%E6%88%B7%E7%99%BB%E9%99%86ubuntu%E7%9A%84%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%20/image-20240916175400174.png)
 
 大致意思就是，你现在在用特权账户登陆，这个操作应该被避免。出现这个对话框，说明就成功用root用户登陆桌面环境了！

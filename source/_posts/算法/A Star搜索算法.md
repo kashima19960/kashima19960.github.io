@@ -35,7 +35,7 @@ tags: 算法
 
 5. 下面是A * 算法的核心公式：
    
-   ![image-20240726004205520](https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004205520.png)
+   ![image-20240726004205520](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004205520.png)
 
 
 > ###### 说明：f(n)是总的预期成本，g(n)是当前点到起点的总移动成本，h(n)是当前点到目标点的预期代价
@@ -70,7 +70,7 @@ tags: 算法
 
 本样例中，所有的节点都是正方形，从而可知走斜边与直上直下的代价比值应为
 
-![image-20240726004310005](https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004310005.png)
+![image-20240726004310005](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004310005.png)
 
 我们为了方便计算，取1.4：1作为走斜边和直上直下的代价比值
 
@@ -88,7 +88,7 @@ tags: 算法
 
    ![曼哈顿距离V2](https://raw.githubusercontent.com/kashima19960/img/master/A_Star/%E6%9B%BC%E5%93%88%E9%A1%BF%E8%B7%9D%E7%A6%BBV2.png)
 
-   ![image-20240726004329674](https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004329674.png)
+   ![image-20240726004329674](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004329674.png)
    
    曼哈顿距离用来标明两个点在标准坐标系上的绝对轴距总和，简单来理解就是：直角三角形的两直角边之和
    
@@ -112,7 +112,7 @@ tags: 算法
 
 ### 补充：启发函数的选择对算法的影响（了解）
 
-![image-20240726004416685](https://raw.githubusercontent.com/kashima19960/img/master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004416685.png)
+![image-20240726004416685](https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%A4%8D%E6%9D%82%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95/image-20240726004416685.png)
 
 | 情况          | 算法                 | 结果                               |
 | ------------- | -------------------- | ---------------------------------- |

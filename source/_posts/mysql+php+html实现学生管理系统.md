@@ -29,25 +29,25 @@ tags: 其他
 
 ### 主页面
 
-![image-20240730164322529](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164322529.png)
+![image-20240730164322529](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164322529.png)
 
 ### 查看所有的学生
 
-![image-20240730164517047](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164517047.png)
+![image-20240730164517047](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164517047.png)
 
-![image-20240730164525993](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164525993.png)
+![image-20240730164525993](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164525993.png)
 
 ### 添加学生
 
-![image-20240730164539170](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164539170.png)
+![image-20240730164539170](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164539170.png)
 
 ### 查找指定的学生
 
-![image-20240730164549702](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164549702.png)
+![image-20240730164549702](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164549702.png)
 
 ### 登陆功能
 
-![image-20240730164601973](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164601973.png)
+![image-20240730164601973](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730164601973.png)
 
 ## 代码逻辑设计
 
@@ -73,7 +73,7 @@ tags: 其他
 
 xs表
 
-![image-20240730165819565](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730165819565.png)
+![image-20240730165819565](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730165819565.png)
 
 数据可以参照xs.sql，快速构建表
 
@@ -102,7 +102,7 @@ UNLOCK TABLES;
 
 user表
 
-![image-20240730165756961](https://raw.githubusercontent.com/kashima19960/img/master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730165756961.png)
+![image-20240730165756961](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Mysql%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/image-20240730165756961.png)
 
 数据可以参照user.sql，快速构建表
 

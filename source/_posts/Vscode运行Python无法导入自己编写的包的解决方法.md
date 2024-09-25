@@ -17,7 +17,7 @@ tags: 其他
 
 导入模块时，可以看到编辑器并没有给出任何的报错
 
-![image-20240913165159066](https://raw.githubusercontent.com/kashima19960/img/master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913165159066.png)
+![image-20240913165159066](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913165159066.png)
 
 但是运行 `cluster.py`的时候，出现了下面的错误
 
@@ -30,7 +30,7 @@ ModuleNotFoundError: No module named 'DataProcess'
 
 通过查看文件树，可以看到 `DataProcess` 是一个文件夹，`cluster.py`所在的文件夹 `Models`与 `DataProcess`文件夹是属于同级文件夹
 
-![image-20240913152248415](https://raw.githubusercontent.com/kashima19960/img/master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913152248415.png)
+![image-20240913152248415](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913152248415.png)
 
 这里有个知识点，是你必须知道的，Python在导入包的时候，会对包所在的路径进行搜索，并且这个搜索是有优先级的
 
@@ -63,17 +63,17 @@ ModuleNotFoundError: No module named 'DataProcess'
 
 ps:这里推荐用绝对路径，当然用相对路径也是可以的
 
-![image-20240913165342658](https://raw.githubusercontent.com/kashima19960/img/master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913165342658.png)
+![image-20240913165342658](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913165342658.png)
 
 在这里有一个非常容易出现的误区，有些人可能会心想，既然导入的是DataProcess包(文件夹)，那么为什么不直接填写DataProcess包(文件夹)的路径呢(如下图所示)？事实上，这种想法是错误的，在路径搜索中python解释器会将一个包(文件夹)当成一个整体看待，因此你给出的路径得是这个包的根目录才行。
 
-![image-20240913155109563](https://raw.githubusercontent.com/kashima19960/img/master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913155109563.png)
+![image-20240913155109563](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913155109563.png)
 
 ## 运行结果
 
 一切都顺利的话，我们再次重新运行 `cluster.py`，应该就不会再次出现导入出错的情况了
 
-![success](https://raw.githubusercontent.com/kashima19960/img/master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/success.png)
+![success](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/success.png)
 
 如何你执行完以上的步骤后，仍然会导入异常，可能有以下的原因
 
@@ -83,4 +83,4 @@ ps:这里推荐用绝对路径，当然用相对路径也是可以的
 
 可以尝试清空缓存试试,按下 `ctrl+shift+p`，输入python，找到下面的选项
 
-![image-20240913171701496](https://raw.githubusercontent.com/kashima19960/img/master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913171701496.png)
+![image-20240913171701496](https://cdn.jsdelivr.net/gh/kashima19960/img@master/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%20/image-20240913171701496.png)
