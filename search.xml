@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>解决vscode远程连接Linux无权限保存的问题</title>
+      <link href="/2024/09/25/Linux/%E8%A7%A3%E5%86%B3vscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5Linux%E6%97%A0%E6%9D%83%E9%99%90%E4%BF%9D%E5%AD%98%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+      <url>/2024/09/25/Linux/%E8%A7%A3%E5%86%B3vscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5Linux%E6%97%A0%E6%9D%83%E9%99%90%E4%BF%9D%E5%AD%98%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><p>用vscode远程登陆普通用户修改&#x2F;etc&#x2F;profile，保存文件时，出现了以下的问题。大体意思就是没有权限进行更改。</p><p><img src="https://s2.loli.net/2024/09/25/hJpjTufCxQiLH4E.png" alt="image-20240925100746008"></p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通常情况下，普通用户只能对自己home目录里面的文件进行更改，想要修改home目录以外的文件通常来说都是需要root权限的，在命令行界面可以利用vim编辑器配合<code>sudo</code>来达到这个目的，但是vscode的GUI编辑器里面是没有提供类似的功能的，如果想要通过vscode自带的编辑器修改没有权限的文件，可以通过这个插件</p><p><img src="https://s2.loli.net/2024/09/25/vQSdkP3lJRD5fG1.png" alt="image-20240925102457046"></p><p>按下<code>ctrl+shift+p</code>,输入<code>save as root</code></p><p><img src="https://s2.loli.net/2024/09/25/oaZGPueqfKpXSnE.png" alt="image-20240925102621847"></p><p>可以看到文件成功保存了</p><p><img src="https://s2.loli.net/2024/09/25/vbzfFto4gPAGseW.png" alt="image-20240925102719335"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>一键更换软件源的工具——chsrc</title>
       <link href="/2024/09/17/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc/"/>
       <url>/2024/09/17/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc/</url>
