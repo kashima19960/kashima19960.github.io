@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>王爽汇编语言第三版实验7 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言本系列的文章是对王爽老师的汇编语言中的实验的解答记录，原书一共有17个实验，由于学校的教学流程只做到了第12个实验，因此本文章只会有前十二个实验的解答记录,还有个比较重要的是，文章中会有原书实验中没有的题目，这些是我的老师自己加的，你不感兴趣就无视。btw，这也算记录我汇编语言的学习历程了。 目录 王爽汇编语言第三版实验1 王爽汇编语言第三版实验2 王爽汇编语言第三版实验3 王爽汇编语言第三版">
+<meta property="og:type" content="article">
+<meta property="og:title" content="王爽汇编语言第三版实验7">
+<meta property="og:url" content="https://kashima19960.github.io/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C7/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="前言本系列的文章是对王爽老师的汇编语言中的实验的解答记录，原书一共有17个实验，由于学校的教学流程只做到了第12个实验，因此本文章只会有前十二个实验的解答记录,还有个比较重要的是，文章中会有原书实验中没有的题目，这些是我的老师自己加的，你不感兴趣就无视。btw，这也算记录我汇编语言的学习历程了。 目录 王爽汇编语言第三版实验1 王爽汇编语言第三版实验2 王爽汇编语言第三版实验3 王爽汇编语言第三版">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg">
+<meta property="article:published_time" content="2024-10-04T16:13:40.000Z">
+<meta property="article:modified_time" content="2024-10-04T17:09:43.693Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="汇编语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg"><link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2024/05/01/03/27/hands-8731277_640.png"><link rel="canonical" href="https://kashima19960.github.io/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 木人舟","link":"链接: ","source":"来源: 木人舟的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '王爽汇编语言第三版实验7',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-05 01:09:43'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><img class="site-icon" src="https://www.logosc.cn/oss/icons/2022/10/18/Yt1NwjSZdkXXe0s.png"/><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">王爽汇编语言第三版实验7</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-04T16:13:40.000Z" title="发表于 2024-10-05 00:13:40">2024-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-04T17:09:43.693Z" title="更新于 2024-10-05 01:09:43">2024-10-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="王爽汇编语言第三版实验7"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本系列的文章是对王爽老师的汇编语言中的实验的解答记录，原书一共有17个实验，由于学校的教学流程只做到了第12个实验，因此本文章只会有前十二个实验的解答记录,还有个比较重要的是，文章中会有原书实验中没有的题目，这些是我的老师自己加的，你不感兴趣就无视。btw，这也算记录我汇编语言的学习历程了。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C1/" title="王爽汇编语言第三版实验1">王爽汇编语言第三版实验1</a></li>
+<li><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C2/" title="王爽汇编语言第三版实验2">王爽汇编语言第三版实验2</a></li>
+<li><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C3/" title="王爽汇编语言第三版实验3">王爽汇编语言第三版实验3</a></li>
+<li><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C4/" title="王爽汇编语言第三版实验4">王爽汇编语言第三版实验4</a></li>
+<li><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C5/" title="王爽汇编语言第三版实验5">王爽汇编语言第三版实验5</a></li>
+<li><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C6/" title="王爽汇编语言第三版实验6">王爽汇编语言第三版实验6</a></li>
+<li><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C7/" title="王爽汇编语言第三版实验7">王爽汇编语言第三版实验7</a></li>
+<li><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C8/" title="王爽汇编语言第三版实验8">王爽汇编语言第三版实验8</a></li>
+<li><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C9/" title="王爽汇编语言第三版实验9">王爽汇编语言第三版实验9</a></li>
+<li><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C10/" title="王爽汇编语言第三版实验10">王爽汇编语言第三版实验10</a></li>
+<li><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C11/" title="王爽汇编语言第三版实验11">王爽汇编语言第三版实验11</a></li>
+<li><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C12/" title="王爽汇编语言第三版实验12">王爽汇编语言第三版实验12</a></li>
+</ul>
+<h2 id="实验任务"><a href="#实验任务" class="headerlink" title="实验任务"></a>实验任务</h2><ol>
+<li>课本实验7 寻址方式在数据化数据访问中的应用</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/6f99d53e84dcd5b92e88c59fdc4ab013.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/f8ef2c44c9269a5cb81fcfd25f764f40.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/c5dd4c031e73e6e2555d6255005a030e.png"></p>
+<p>解答：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">data segment</span><br><span class="line">      ;1B</span><br><span class="line">           db &#x27;1975&#x27;,&#x27;1976&#x27;,&#x27;1977&#x27;,&#x27;1978&#x27;,&#x27;1979&#x27;,&#x27;1980&#x27;,&#x27;1981&#x27;,&#x27;1982&#x27;,&#x27;1983&#x27;,&#x27;1984&#x27;,&#x27;1985&#x27;</span><br><span class="line">           db &#x27;1986&#x27;,&#x27;1987&#x27;,&#x27;1988&#x27;,&#x27;1989&#x27;,&#x27;1990&#x27;,&#x27;1991&#x27;,&#x27;1992&#x27;,&#x27;1993&#x27;,&#x27;1994&#x27;,&#x27;1995&#x27;</span><br><span class="line">      ;4B</span><br><span class="line">           dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514,345980</span><br><span class="line">           dd 590827,803530,1183000,1843000,2758000,3753000,4649000,5937000</span><br><span class="line">      ;2B</span><br><span class="line">           dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226</span><br><span class="line">           dw 11542,14430,15257,17800</span><br><span class="line">data ends</span><br><span class="line">stack segment</span><br><span class="line">            dw 0,0,0,0,0,0,0</span><br><span class="line">stack ends</span><br><span class="line">table segment</span><br><span class="line">            db 21 dup (&#x27;year summ ne ?? &#x27;)</span><br><span class="line">table ends</span><br><span class="line">;总体思路，分两个循环来进行，第一个循环是将数据段中的年份，收入复制到table段中，</span><br><span class="line">;第二个循环是复制雇员数并计算出人均收入，然后再将结果复制到table段中</span><br><span class="line">code segment</span><br><span class="line">      start:</span><br><span class="line">            mov  ax,data</span><br><span class="line">            mov  es,ax</span><br><span class="line">            mov  si,0</span><br><span class="line">            mov  ax,table</span><br><span class="line">            mov  ds,ax</span><br><span class="line">            mov  di,0</span><br><span class="line">            mov  ax,stack</span><br><span class="line">            mov  ss,ax</span><br><span class="line">            mov  sp,16</span><br><span class="line">            mov  bx,0</span><br><span class="line">            mov  cx,21</span><br><span class="line">      ;es 表示数据段的内容，ds表示table段的内容，</span><br><span class="line">      s0:   </span><br><span class="line">            mov  ax,es:[si]</span><br><span class="line">            mov  ds:[di+bx],ax</span><br><span class="line">            add  si,2</span><br><span class="line">            add  di,2</span><br><span class="line">            mov  ax,es:[si]</span><br><span class="line">            mov  ds:[di+bx],ax</span><br><span class="line">            mov  ax,es:[si+82]</span><br><span class="line">            mov  ds:[bx+di+3],ax</span><br><span class="line">            mov  ax,es:[si+84]</span><br><span class="line">            mov  ds:[bx+di+5],ax</span><br><span class="line">            add  si,2</span><br><span class="line">            mov  di,0</span><br><span class="line">            add  bx,16                      ;将偏移地址变成下一行</span><br><span class="line">            loop s0</span><br><span class="line">            mov  bx,0</span><br><span class="line">            mov  si,168                     ;雇员数的偏移地址</span><br><span class="line">            mov  di,5                       ;收入的偏移地址</span><br><span class="line">            mov  cx,21</span><br><span class="line">      s1:   </span><br><span class="line">            mov  ax,es:[si]</span><br><span class="line">            mov  ds:[bx+di+5],ax</span><br><span class="line">            mov  ax,ds:[bx+di]</span><br><span class="line">            mov  dx,ds:[bx+di+2]</span><br><span class="line">            div  word ptr ds:[bx+di+5]</span><br><span class="line">            mov  ds:[bx+di+8],ax</span><br><span class="line">            add  si,2</span><br><span class="line">            add  bx,16</span><br><span class="line">            loop s1</span><br><span class="line">            mov  ax,4c00h</span><br><span class="line">            int  21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>程序运行前的table段：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/81474095daa45629c9eae4b87d9688fb.png"></p>
+<p>程序运行后的table段：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/60ef741563a58249b59472c69817027b.png"></p>
+<ol start="2">
+<li>数据段的第一个串为学生本人的姓名拼音小写，转变为大写字母后存入它后面的数据区。例如</li>
+</ol>
+<p>DATA SEGEMENT</p>
+<p>NAME1 DB ‘liweihua’</p>
+<p>NAME2 DB 8 DUP (0)</p>
+<p>DATA ENDS</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ds:data, ss:stack</span><br><span class="line">data segment</span><br><span class="line">      name1 db &#x27;liweihua&#x27;</span><br><span class="line">      name2 db 8 dup (0)</span><br><span class="line">data ends</span><br><span class="line">stack segment</span><br><span class="line">            dw 0,0,0,0,0,0,0,0</span><br><span class="line">stack ends</span><br><span class="line">code segment</span><br><span class="line">      start:</span><br><span class="line">            mov  ax,data              ;初始化栈段和数据段</span><br><span class="line">            mov  ds,ax</span><br><span class="line">            mov  ax,stack</span><br><span class="line">            mov  ss,ax</span><br><span class="line">            mov  sp,10h</span><br><span class="line">            mov  si,offset name1</span><br><span class="line">            mov  bx,offset name2</span><br><span class="line">            sub  bx,si                ;name1 - name2 得到name1长度</span><br><span class="line">            mov  cx,bx                ;循环name1的长度次数</span><br><span class="line">      s:    mov  al,[si]              ;将 ds:si 复制到al</span><br><span class="line">            and  al,11011111B         ;与运算，将小写转变为大写</span><br><span class="line">            mov  [bx+si],al           ;存到name2处数据段</span><br><span class="line">            inc  si                   ;si自增，指向下一个字母</span><br><span class="line">            loop s</span><br><span class="line">            mov  ax,4c00h</span><br><span class="line">            int  21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>程序运行前结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/3f82efc8152788df165efd113604afd4.png"></p>
+<p>程序运行后结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/c93953468dd2db62cb8d9dc6eba984fe.png"></p>
+<ol start="3">
+<li>定义下面的4行4列矩阵数组，要求将上三角的所有元素累加，结果存入SUM。</li>
+</ol>
+<p>X1   DB 10，20，30，40</p>
+<p>DB 20，30，40,50</p>
+<p>DB 30，40,50,60</p>
+<p>DB 40，50，60，70</p>
+<p>SUM DW 0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg,ds:data</span><br><span class="line">DATA segment</span><br><span class="line">           DB 10,20,30,40</span><br><span class="line">           DB 20,30,40,50</span><br><span class="line">           DB 30,40,50,60</span><br><span class="line">           DB 40,50,60,70</span><br><span class="line">      SUM  DW 0</span><br><span class="line">DATA ENDS</span><br><span class="line">codesg segment</span><br><span class="line">      START: </span><br><span class="line">             MOV  ax,DATA</span><br><span class="line">             MOV  ds,ax              ;将DS指向DATA段</span><br><span class="line">             mov  ax,0</span><br><span class="line">             mov  bx,0</span><br><span class="line">             mov  dx,0</span><br><span class="line">             mov  di,4               ;矩阵有4列</span><br><span class="line">             mov  cx,4               ;矩阵有4行，外循环为4次</span><br><span class="line">      s:     push cx                 ;将CX入栈</span><br><span class="line">             mov  si,0               ;SI表示列</span><br><span class="line">             mov  cx,di              ;内循环每次少加一个数（列），每次少循环一次</span><br><span class="line">      s0:    mov  dl,ds:[bx+si]      ;将矩阵上三角每行从第一个数放入DL中</span><br><span class="line">             add  ax,dx              ;AX=AX+DX,将数字相加后放入AX中</span><br><span class="line">             inc  si                 ;进行下一列的操作</span><br><span class="line">             loop s0</span><br><span class="line">             sub  di,1               ;内循环每次少加一个数（列），每次少循环一次</span><br><span class="line">             add  bx,5               ;指向矩阵上三角每行第一个数</span><br><span class="line">             pop  cx                 ;将CX出栈</span><br><span class="line">             loop s</span><br><span class="line">             mov  [SUM],ax           ;将相加的结果存入SUM中</span><br><span class="line">             MOV  AH,4CH</span><br><span class="line">             INT  21H</span><br><span class="line">CODESG ENDS</span><br><span class="line">END START</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>程序运行前：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/02802651f52c950f9ae630a966cb93f0.png"></p>
+<p>程序运行后：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/ff408c7aa14f7bed7ace9380e965f376.png"></p>
+<p>这个结果与手算的结果相一致，因此程序运行正确</p>
+<ol start="4">
+<li>杨辉三角</li>
+</ol>
+<p>创建一个10行16列的字节数组，并按照杨辉三角的数学规律给数组赋值。杨辉三角形状如下：</p>
+<p>1</p>
+<p>1 1</p>
+<p>1 2 1</p>
+<p>1 3 3 1</p>
+<p>1 4 6 4 1</p>
+<p>1 5 10 10 5 1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ss:stack, ds:data</span><br><span class="line">data segment</span><br><span class="line">      ;声明一段10行16列首列数字为1的二维数组</span><br><span class="line">      array db 10 dup( 1, 15 dup(0) )</span><br><span class="line">data ends</span><br><span class="line">stack segment</span><br><span class="line">            dw 8 dup(0)</span><br><span class="line">stack ends</span><br><span class="line">code segment</span><br><span class="line">      start:</span><br><span class="line">            mov  ax,data</span><br><span class="line">            mov  ds,ax</span><br><span class="line">            mov  ax,stack</span><br><span class="line">            mov  ss,ax</span><br><span class="line">            mov  sp,10h            ;初始化数据段和栈段</span><br><span class="line">            mov  ax,1              ;ax用于保存每行需要计算的次数，从第二行需要计算一次开始，每行增加一次</span><br><span class="line">            mov  bx,0              ;bx用于定位行，从第一行开始</span><br><span class="line">            mov  cx,9              ;循环9次计算剩余9行</span><br><span class="line">      ;设正在计算的数字为(i,j)</span><br><span class="line">      s1:   push cx                ;保存第一层循环的状态</span><br><span class="line">            mov  cx,ax             ;第二层循环的次数(即为该行所需计算的数字个数)</span><br><span class="line">            mov  si,0              ;si用于行中的定位，从第一个字节开始</span><br><span class="line">      s2:   mov  dx,[bx+si]        ;复制(i-1,j-1)到dx</span><br><span class="line">            add  dx,[bx+si+1]      ;dx加上(i-1,j)</span><br><span class="line">            add  bx,16             ;bx移动到下一行,即 i+=1</span><br><span class="line">            add  si,1              ;si移动到下一个字,即 j+=1</span><br><span class="line">            mov  [bx+si],dx        ;将dx复制到(i,j)</span><br><span class="line">            sub  bx,16             ;bx移动到上一行,即 i-=1 ,计算下一个数字</span><br><span class="line">            loop s2</span><br><span class="line">            add  bx,16             ;bx移动到下一行,即 i+=1 ,计算下一行的数字</span><br><span class="line">            inc  ax                ;ax自增，下一行要计算的数量比上一行多1个</span><br><span class="line">            pop  cx                ;恢复第一层循环的状态</span><br><span class="line">            loop s1</span><br><span class="line">            mov  ax,4c00h</span><br><span class="line">            int  21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>程序运行前，数据段为全0</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/bcf6e58e5167211e9a087f1dae19988e.png"></p>
+<p>程序运行后</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/1ec24bbb942524c40d7616df37f3e8c9.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C7/">https://kashima19960.github.io/2024/10/05/汇编语言/王爽汇编语言第三版实验7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C8/" title="王爽汇编语言第三版实验8"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">王爽汇编语言第三版实验8</div></div></a></div><div class="next-post pull-right"><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C6/" title="王爽汇编语言第三版实验6"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">王爽汇编语言第三版实验6</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C1/" title="王爽汇编语言第三版实验1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-04</div><div class="title">王爽汇编语言第三版实验1</div></div></a></div><div><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C11/" title="王爽汇编语言第三版实验11"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-05</div><div class="title">王爽汇编语言第三版实验11</div></div></a></div><div><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C10/" title="王爽汇编语言第三版实验10"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-05</div><div class="title">王爽汇编语言第三版实验10</div></div></a></div><div><a href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C12/" title="王爽汇编语言第三版实验12"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-05</div><div class="title">王爽汇编语言第三版实验12</div></div></a></div><div><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C3/" title="王爽汇编语言第三版实验3"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-04</div><div class="title">王爽汇编语言第三版实验3</div></div></a></div><div><a href="/2024/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C4/" title="王爽汇编语言第三版实验4"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-04</div><div class="title">王爽汇编语言第三版实验4</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">38</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kashima19960"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kashima19960" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/CodingCV@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">阅读文章遇到问题可以发消息到我的邮箱——CodingCV@outlook.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%BB%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text">实验任务</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/09/QtDesign%E9%A2%84%E8%A7%88%E7%9A%84%E6%95%88%E6%9E%9C%E4%B8%8E%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="QtDesign预览的效果与程序运行结果不一致的解决方法">QtDesign预览的效果与程序运行结果不一致的解决方法</a><time datetime="2024-10-09T13:52:00.000Z" title="发表于 2024-10-09 21:52:00">2024-10-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C12/" title="王爽汇编语言第三版实验12">王爽汇编语言第三版实验12</a><time datetime="2024-10-04T16:49:40.000Z" title="发表于 2024-10-05 00:49:40">2024-10-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C11/" title="王爽汇编语言第三版实验11">王爽汇编语言第三版实验11</a><time datetime="2024-10-04T16:45:30.000Z" title="发表于 2024-10-05 00:45:30">2024-10-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C10/" title="王爽汇编语言第三版实验10">王爽汇编语言第三版实验10</a><time datetime="2024-10-04T16:42:30.000Z" title="发表于 2024-10-05 00:42:30">2024-10-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C9/" title="王爽汇编语言第三版实验9">王爽汇编语言第三版实验9</a><time datetime="2024-10-04T16:36:30.000Z" title="发表于 2024-10-05 00:36:30">2024-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By 木人舟</div><div class="footer_custom_text">木人舟 ALL RIGHTS RESERVED.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://kashima19960.github.io/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C7/'
+    this.page.identifier = '/2024/10/05/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%8E%8B%E7%88%BD%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%89%E7%89%88%E5%AE%9E%E9%AA%8C7/'
+    this.page.title = '王爽汇编语言第三版实验7'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
