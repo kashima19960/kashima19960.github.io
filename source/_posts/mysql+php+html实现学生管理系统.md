@@ -5,7 +5,7 @@ tags: 其他
 ---
 ## 前言
 
-本文使用Mysql+php+html实现一个简单的学生管理系统，实现了登陆，注册，总览学生信息，添加学生，查询特定的学生，删除指定的学生等功能。并且本文仅用来学习就够了，因为在实际开发中都会使用框架比如前端的vue.js，后端用的springboot，使用这些框架能大幅提高开发效率，避免重复造轮子，所以不必要进行太过深入地了解这些技术。🙂
+本文使用Mysql+php+html实现一个简单的学生管理系统，实现了**登陆，注册，总览学生信息，添加学生，查询特定的学生，删除指定的学生等功能**。并且本文仅用来学习，因为在实际开发中都会使用框架比如前端的vue.js，后端用的springboot，使用这些框架能大幅提高开发效率，避免重复造轮子，所以你没必要非得用基础技术去造航空母舰。🙂
 
 ### 开发平台
 
@@ -13,12 +13,12 @@ tags: 其他
 - Visual studio code：写代码的编辑器，你用自己喜欢的也行。
 - DataGrip:数据库的GUI管理工具，可以用图形化界面编写sql语句。
 
-### 版本要求
+### 依赖项版本要求
 
 想要复刻我的代码，使用的软件版本尽量跟我开发的时候写的保持一致，不同的版本会导致**兼容性的问题导致报错**
 
-- Mysql:5.5.53
-- php:5.5.38
+- Mysql:**5.5.53**
+- php:5.**5.38**
 - apache:不限
 
 > 文章编写都是采用GBK编码，这个要注意
@@ -51,21 +51,24 @@ tags: 其他
 
 ## 代码逻辑设计
 
-代码主要分16个代码文件
+代码主要分16个代码文件,前端页面采用html格式，后端服务器用php语言实现
 
-- add.html
-- index.html
-- register.html
-- search.html
-- login.html
-- add.php
-- delete.php
-- login.php
-- modify.php
-- modify2.php
-- overview.php
-- register.php
-- search.php
+/
+├── html
+│   ├── add.html
+│   ├── index.html
+│   ├── register.html
+│   ├── search.html
+│   └── login.html
+└── php
+    ├── add.php
+    ├── delete.php
+    ├── login.php
+    ├── modify.php
+    ├── modify2.php
+    ├── overview.php
+    ├── register.php
+    └── search.php
 
 ### 数据库的相关实现
 
@@ -523,7 +526,7 @@ $conn->query("SET NAMES gbk");
         // 插入数据到数据库
         $sql = "insert into xs(学号, 姓名, 专业名,性别, 出生日期, 总学分,备注)
         values ('$id','$name','$major','$gender','$birthday','$sum_credit','$note')";
-      
+    
         // 执行插入操作并判断结果
         if ($conn->query($sql) == true) {
             // 插入成功，显示提示并跳转回首页
@@ -1251,4 +1254,4 @@ $conn = new mysqli("localhost", "root", "root", "xscj") or die("连接失败");
 
 ## 结语
 
-有任何问题，可以在评论区给我留言🤔
+有任何问题，可以发邮件给我🤔

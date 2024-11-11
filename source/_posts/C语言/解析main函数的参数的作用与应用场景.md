@@ -3,7 +3,6 @@ title: 解析main函数的参数的作用与应用场景
 date: 2024-10-14 22:21:10
 tags: C语言
 ---
-
 ## 前言
 
 刚学习C语言的你，多数都会使用ide，比如visual studio等等，一般生成的代码模板都是这样的
@@ -17,19 +16,19 @@ int main(int argc, char const *argv[])
 }
 ```
 
-通常来说`int argc, char const *argv[]`，用ide点点按钮编译文件的话，这两个参数你是用不到的，但是你难道没有好奇过这两个参数有啥用吗😕。今天我就简单解析一下这两个参数的作用与应用场景
+通常来说 `int argc, char const *argv[]`，用ide点点按钮编译文件的话，这两个参数你是用不到的，因为ide都会集成一种叫做**构建系统**的东西用来快速编译整个工程，但是你难道没有好奇过这两个参数有啥用吗😕。今天我就简单解析一下这两个参数的作用与应用场景
 
 ## 定义与解析
 
 百度百科是这样定义这两个参数的
 
->   **ARG**c和**ARG**v中的**ARG**指的是**"**参数**"**（外语：**ARG***uments, argument counter 和 argument vector* ） [1]
+> **ARG**c和**ARG**v中的**ARG**指的是**"参数"***（外语：**ARG***uments, argument counter 和 argument vector* ） [1]
 >
->   至少有两个[参数](https://baike.baidu.com/item/参数/5934974?fromModule=lemma_inlink)至[主函数](https://baike.baidu.com/item/主函数/8428535?fromModule=lemma_inlink)：ARGc和ARGv；
+> 至少有两个[参数](https://baike.baidu.com/item/参数/5934974?fromModule=lemma_inlink)至[主函数](https://baike.baidu.com/item/主函数/8428535?fromModule=lemma_inlink)：ARGc和ARGv；
 >
->   第一个是提供给主函数的参数个数，
+> 第一个是提供给主函数的参数个数，
 >
->   第二个是参数的字符串数组的指针。 [1]
+> 第二个是参数的字符串数组的指针。 [1]
 
 我给你翻译成人话，`argc`是指从命令行传入参数的个数，`argv`是参数名字的数组
 
@@ -51,10 +50,10 @@ int main(int argc, char *argv[])
 }
 ```
 
-然后我们用gcc进行编译，gcc是编译c语言的编译器，如果你没用过，没关系，先放着
+然后我们用gcc进行编译，如果你不知道什么是gcc，没关系，你现在只需要知道gcc是编译c语言的工具就行，
 
 ```bash
-# 我简单解释一下，-o表示指定编译后的程序名字为main.exe 
+# -o表示指定编译后的程序名字为main.exe 
 gcc main.c -o main.exe
 ```
 
@@ -78,7 +77,7 @@ gcc main.c -o main.exe
 
 argc=3,意思就是传进的参数有 3 个，那为什么argv数组有四个元素呢？
 
-**argv[0]默认是程序的存放路径，这个记住就**行
+**因为argv[0]默认是程序的存放路径，这个记住就**行
 
 最后有一个点要说一样，main函数的参数不一定非要要叫argc和argv，而是可以自定义的，所以你写成a和b都可以,argc和argv是约定成俗的一个名字。
 
@@ -96,8 +95,6 @@ int main(int a, char *b[])
     return 0;
 }
 ```
-
-
 
 ## 应用
 
