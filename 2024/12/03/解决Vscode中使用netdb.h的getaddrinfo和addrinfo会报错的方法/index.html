@@ -1,0 +1,381 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言博主最近在学习c语言的socket编程，在调用netdb.h中的相关函数和变量api时，遇到了一些问题，因此本文将给出解决的方法，并且进行分析 博主的配置 wsl：ubuntu20.04发行版 vscode：1.95.3  问题的描述使用addrinfo(属于netdb.h头文件)结构体变量的时候，vscode会报错  调用getaddrinfo()函数的时候，vscode也索引不到这个函数的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法">
+<meta property="og:url" content="https://kashima19960.github.io/2024/12/03/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="前言博主最近在学习c语言的socket编程，在调用netdb.h中的相关函数和变量api时，遇到了一些问题，因此本文将给出解决的方法，并且进行分析 博主的配置 wsl：ubuntu20.04发行版 vscode：1.95.3  问题的描述使用addrinfo(属于netdb.h头文件)结构体变量的时候，vscode会报错  调用getaddrinfo()函数的时候，vscode也索引不到这个函数的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg">
+<meta property="article:published_time" content="2024-12-03T15:14:00.000Z">
+<meta property="article:modified_time" content="2024-12-04T02:07:50.875Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg"><link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2024/05/01/03/27/hands-8731277_640.png"><link rel="canonical" href="https://kashima19960.github.io/2024/12/03/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 木人舟","link":"链接: ","source":"来源: 木人舟的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-04 10:07:50'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><img class="site-icon" src="https://www.logosc.cn/oss/icons/2022/10/18/Yt1NwjSZdkXXe0s.png"/><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-03T15:14:00.000Z" title="发表于 2024-12-03 23:14:00">2024-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-04T02:07:50.875Z" title="更新于 2024-12-04 10:07:50">2024-12-04</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>博主最近在学习c语言的socket编程，在调用netdb.h中的相关函数和变量api时，遇到了一些问题，因此本文将给出解决的方法，并且进行分析</p>
+<h3 id="博主的配置"><a href="#博主的配置" class="headerlink" title="博主的配置"></a>博主的配置</h3><ul>
+<li>wsl：ubuntu20.04发行版</li>
+<li>vscode：1.95.3</li>
+</ul>
+<h2 id="问题的描述"><a href="#问题的描述" class="headerlink" title="问题的描述"></a>问题的描述</h2><p>使用addrinfo(属于netdb.h头文件)结构体变量的时候，vscode会报错</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241203234701125.png" alt="image-20241203234701125"></p>
+<p>调用getaddrinfo()函数的时候，vscode也索引不到这个函数的定义</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241203234754622.png" alt="image-20241203234754622"></p>
+<p>其实这个函数就位于netdb.h中，可以看到，这一部分是灰色的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241203234937711.png" alt="image-20241203234937711"></p>
+<p>但是使用gcc编译的时候，是能够正确编译链接的，说明程序是没有语法和语义错误的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241203235130147.png" alt="image-20241203235130147"></p>
+<p>因此我推测是vscode的c语言扩展的intellisense智能提示的问题，就是下图的这个扩展(不得不说微软的东西，屁事就是多😅)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241203235234757.png" alt="image-20241203235234757"></p>
+<h2 id="解决的方法"><a href="#解决的方法" class="headerlink" title="解决的方法"></a>解决的方法</h2><p>我查阅了很多资料，最终也是找到了解决的方法。我的风格就是先告诉你怎么做，解决你的燃眉之急，至于为什么要这么做，之后我再娓娓道来😋所以如果你对原因分析不感兴趣的话，后面的分析和总结你可以跳过不看❤️</p>
+<h3 id="方法1：在插件设置中更改c-standard"><a href="#方法1：在插件设置中更改c-standard" class="headerlink" title="方法1：在插件设置中更改c standard"></a>方法1：在插件设置中更改c standard</h3><p>进入c&#x2F;c++插件的设置中，找到这一栏</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241204000236168.png" alt="image-20241204000236168"></p>
+<p>然后将c99修改成gnu的c语言标准，我试过了，修改成GNU的任意一个都行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241204000400301.png" alt="image-20241204000400301"></p>
+<p>可以看到已经不会报错了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/image-20241204000455795.png" alt="image-20241204000455795"></p>
+<h3 id="方法2：定义-GNU-SOURCE"><a href="#方法2：定义-GNU-SOURCE" class="headerlink" title="方法2：定义_GNU_SOURCE"></a>方法2：定义_GNU_SOURCE</h3><p>在代码文件中添加<code>_GNU_SOURCE</code>的宏定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _GNU_SOURCE</span></span><br></pre></td></tr></table></figure>
+
+<p>或者在.vscode中新建一个<code>c_cpp_properties.json</code>,然后在这个文件中定义这个宏，我个人推荐这个做法，因为修改配置文件能作用于整个工程,上面那种只能作用于单个文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Linux&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;includePath&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;$&#123;workspaceFolder&#125;/**&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compilerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/gcc&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cStandard&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;default&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;intelliSenseMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;default&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;defines&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;_GNU_SOURCE&quot;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="分析与总结"><a href="#分析与总结" class="headerlink" title="分析与总结"></a>分析与总结</h2><p>现在来分析一下为什么会报错，造成报错的原因是什么。然后总结一下</p>
+<h3 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h3><p>先说结论：<strong>netdb.h属于GNU 特有扩展</strong></p>
+<p>标准的c语言本身并不直接包含对<code>netdb.h</code>的支持，所以你现在明白为啥上面打开netdb.h文件后发现有一部分是灰色(说明没有被包含)了吧。</p>
+<p>那么GNU的c标准，和普通的c标准有啥区别呢？简单来说就是在普通的c标准上加了很多扩展功能,<code>netdb.h</code>就是GNU特有扩展功能的一部分，所以解决方案2就是这么来的，将c standard切换成GNU C就行了</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>C99</th>
+<th>GNU99</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标准</td>
+<td>遵循 ISO C99 标准</td>
+<td>C99 加上 GNU 扩展</td>
+</tr>
+<tr>
+<td>扩展</td>
+<td>不支持 GNU 特有扩展</td>
+<td>支持 GNU 特有扩展</td>
+</tr>
+<tr>
+<td>兼容性</td>
+<td>严格遵循标准</td>
+<td>允许使用非标准的 GNU 特性</td>
+</tr>
+<tr>
+<td>默认设置</td>
+<td>不定义 <code>__STRICT_ANSI__</code></td>
+<td>定义<code>__STRICT_ANSI__</code> 以禁用所有 GNU 扩展</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li><strong><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/C99">C99</a></strong>: 这是 1999 年发布的 C 语言标准（ISO&#x2F;IEC 9899:1999）。它引入了许多新特性，如布尔类型、复合字面量、可变参数宏等。使用 <code>c99</code> 编译器选项时，代码将遵循这一标准。</li>
+<li><strong>GNU99</strong>: 这是基于 C99 标准的 GNU 扩展版本。使用 <code>gnu99</code> 选项时，除了 C99 的特性外，还可以使用 GNU 编译器（GCC）提供的一些额外功能和扩展。这些扩展可能包括额外的语法和库函数，这些在标准 C 中并不被支持。</li>
+</ul>
+</blockquote>
+<p>那么<code>_GNU_SOURCE</code>这个宏又是哪来的？干嘛的？</p>
+<blockquote>
+<p>   _GNU_SOURCE是一个宏定义，用于启用GNU C库（glibc）中的许多非标准扩展和功能。定义这个宏后，程序可以访问一些POSIX标准中未包含的传统功能以及GNU&#x2F;Linux特有的扩展接口。</p>
+</blockquote>
+<p>所以当你定义了这个宏的时候，那么下面标准的所有功能都会启用：ISO C89、ISO C99、POSIX.1、POSIX.2、BSD、SVID、X&#x2F;Open、LFS 以及 GNU 扩展。在 POSIX.1 与 BSD 发生冲突的情况下，POSIX 定义优先。</p>
+<p>这就是解决方案1的由来，定义了这个宏之后就能启用GNU的扩展</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>有一种说法是写程序都是三分在写，七分在调，我觉得说的很对，写程序最重要的反而不是编写代码，而是如何去调试代码，解决报错，总结问题，我在解决本文的问题的时候，上网查阅了很多资料，以前我并不会去在意C语言不同标准带来的差异，因为写的程序能跑就行😋。但是当你解决问题的时候会发现，你可能会接触到别人写的资料中不胜其烦的枯燥术语，难以理解的代码逻辑，当你经历这个过程后，你的code能力就提升了。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Undefined443/p/18468828">C99 和 GNU99 的区别 - Undefined443 - 博客园</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5582211/what-does-define-gnu-source-imply">c - What does “#define _GNU_SOURCE” imply? - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/raozhiyi/articles/9509600.html">关于__GNU_SOURCE 这个宏 - 颠覆者 - 博客园</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode-cpptools/issues/2025">Incomplete type error on struct addrinfo · Issue #2025 · microsoft&#x2F;vscode-cpptools</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2024/12/03/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/">https://kashima19960.github.io/2024/12/03/解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%B6%E4%BB%96/">其他</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/11/30/Linux/Ubuntu20.04%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip%E7%9A%84%E6%96%B9%E6%B3%95/" title="在VMware配置Ubuntu20.04静态ip的方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">在VMware配置Ubuntu20.04静态ip的方法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/09/QtDesign%E9%A2%84%E8%A7%88%E7%9A%84%E6%95%88%E6%9E%9C%E4%B8%8E%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="QtDesign预览的效果与程序运行结果不一致的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="title">QtDesign预览的效果与程序运行结果不一致的解决方法</div></div></a></div><div><a href="/2024/09/13/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="Vscode运行Python无法导入自己编写的包的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-13</div><div class="title">Vscode运行Python无法导入自己编写的包的解决方法</div></div></a></div><div><a href="/2024/07/16/git%20clone%E9%80%9F%E5%BA%A6%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="关于git clone速度极慢的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-16</div><div class="title">关于git clone速度极慢的解决方法</div></div></a></div><div><a href="/2024/09/17/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc/" title="一键更换软件源的工具——chsrc"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-17</div><div class="title">一键更换软件源的工具——chsrc</div></div></a></div><div><a href="/2024/07/30/mysql+php+html%E5%AE%9E%E7%8E%B0%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="mysql+php+html实现学生管理系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">mysql+php+html实现学生管理系统</div></div></a></div><div><a href="/2024/08/30/%E5%88%A0%E9%99%A4%E5%BE%AE%E4%BF%A1%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E7%9A%84%E7%AE%80%E6%98%93%E5%B7%A5%E5%85%B7/" title="删除微信重复文件的简易工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-30</div><div class="title">删除微信重复文件的简易工具</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kashima19960"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kashima19960" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/CodingCV@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">阅读文章遇到问题可以发消息到我的邮箱——CodingCV@outlook.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E4%B8%BB%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">博主的配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">问题的描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">解决的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9A%E5%9C%A8%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%9B%B4%E6%94%B9c-standard"><span class="toc-number">3.1.</span> <span class="toc-text">方法1：在插件设置中更改c standard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9A%E5%AE%9A%E4%B9%89-GNU-SOURCE"><span class="toc-number">3.2.</span> <span class="toc-text">方法2：定义_GNU_SOURCE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">分析与总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.2.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/03/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/" title="解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法">解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法</a><time datetime="2024-12-03T15:14:00.000Z" title="发表于 2024-12-03 23:14:00">2024-12-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/30/Linux/Ubuntu20.04%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81ip%E7%9A%84%E6%96%B9%E6%B3%95/" title="在VMware配置Ubuntu20.04静态ip的方法">在VMware配置Ubuntu20.04静态ip的方法</a><time datetime="2024-11-30T03:35:00.000Z" title="发表于 2024-11-30 11:35:00">2024-11-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/15/%E6%95%B4%E6%B4%BB%EF%BC%9A%E7%94%A8ai%E5%81%9A%E4%B8%AA%E5%B1%8E%E5%B1%B1%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8/" title="整活：用ai做个屎山代码生成器">整活：用ai做个屎山代码生成器</a><time datetime="2024-11-15T09:21:10.000Z" title="发表于 2024-11-15 17:21:10">2024-11-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/22/Linux/%E5%9C%A8Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E4%B8%80%E8%A1%8C%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E5%91%BD%E4%BB%A4/" title="在Linux命令行中一行执行多个命令">在Linux命令行中一行执行多个命令</a><time datetime="2024-10-22T13:42:00.000Z" title="发表于 2024-10-22 21:42:00">2024-10-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/14/C%E8%AF%AD%E8%A8%80/%E8%A7%A3%E6%9E%90main%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="解析main函数的参数的作用与应用场景">解析main函数的参数的作用与应用场景</a><time datetime="2024-10-14T14:21:10.000Z" title="发表于 2024-10-14 22:21:10">2024-10-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By 木人舟</div><div class="footer_custom_text">木人舟 ALL RIGHTS RESERVED.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://kashima19960.github.io/2024/12/03/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/'
+    this.page.identifier = '/2024/12/03/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/'
+    this.page.title = '解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
