@@ -1,7 +1,7 @@
 ---
 title: 解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法
 date: 2024-12-03 23:14:00
-tags: 其他
+tags: C语言
 ---
 
 ## 前言
