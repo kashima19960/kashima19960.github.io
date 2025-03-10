@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>垃圾代码编写指南_C语言版 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言作为一名程序员，通常都需要跟别人协作编写代码。https:&#x2F;&#x2F;github.com&#x2F;trekhleb&#x2F;state-of-the-art-shitcode 是一个教你如何编写 💩 代码的教程，但是这个教程的代码示例是用 JavaScript 编写的，在本文我将其转成了经典的C语言，并且将一些语言风格写成符合中国程序员的编码习惯 代码编写原则💩 定义变量的时候，尽可能用混淆的方式变量命名的时候">
+<meta property="og:type" content="article">
+<meta property="og:title" content="垃圾代码编写指南_C语言版">
+<meta property="og:url" content="https://kashima19960.github.io/2025/03/10/%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97_C%E8%AF%AD%E8%A8%80%E7%89%88/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="前言作为一名程序员，通常都需要跟别人协作编写代码。https:&#x2F;&#x2F;github.com&#x2F;trekhleb&#x2F;state-of-the-art-shitcode 是一个教你如何编写 💩 代码的教程，但是这个教程的代码示例是用 JavaScript 编写的，在本文我将其转成了经典的C语言，并且将一些语言风格写成符合中国程序员的编码习惯 代码编写原则💩 定义变量的时候，尽可能用混淆的方式变量命名的时候">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg">
+<meta property="article:published_time" content="2025-03-10T09:23:00.000Z">
+<meta property="article:modified_time" content="2025-03-10T11:31:47.969Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg"><link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2024/05/01/03/27/hands-8731277_640.png"><link rel="canonical" href="https://kashima19960.github.io/2025/03/10/%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97_C%E8%AF%AD%E8%A8%80%E7%89%88/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 木人舟","link":"链接: ","source":"来源: 木人舟的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '垃圾代码编写指南_C语言版',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-03-10 19:31:47'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">51</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><img class="site-icon" src="https://www.logosc.cn/oss/icons/2022/10/18/Yt1NwjSZdkXXe0s.png"/><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">垃圾代码编写指南_C语言版</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-10T09:23:00.000Z" title="发表于 2025-03-10 17:23:00">2025-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-10T11:31:47.969Z" title="更新于 2025-03-10 19:31:47">2025-03-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="垃圾代码编写指南_C语言版"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为一名程序员，通常都需要跟别人协作编写代码。<a target="_blank" rel="noopener" href="https://github.com/trekhleb/state-of-the-art-shitcode">https://github.com/trekhleb/state-of-the-art-shitcode</a> 是一个教你如何编写 💩 代码的教程，但是这个教程的代码示例是用 JavaScript 编写的，在本文我将其转成了经典的C语言，并且将一些语言风格写成符合中国程序员的编码习惯</p>
+<h2 id="代码编写原则"><a href="#代码编写原则" class="headerlink" title="代码编写原则"></a>代码编写原则</h2><h3 id="💩-定义变量的时候，尽可能用混淆的方式"><a href="#💩-定义变量的时候，尽可能用混淆的方式" class="headerlink" title="💩 定义变量的时候，尽可能用混淆的方式"></a>💩 定义变量的时候，尽可能用混淆的方式</h3><p>变量命名的时候尽可能写短，能节省敲代码的时间</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">42</span>;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> age = <span class="number">42</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-采用变量-函数的混合命名风格"><a href="#💩-采用变量-函数的混合命名风格" class="headerlink" title="💩 采用变量&#x2F;函数的混合命名风格"></a>💩 采用变量&#x2F;函数的混合命名风格</h3><p>命名风格要采取多样化，彰显个人魅力</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> wWidth = <span class="number">640</span>;</span><br><span class="line"><span class="type">int</span> w_height = <span class="number">480</span>;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> windowWidth = <span class="number">640</span>;</span><br><span class="line"><span class="type">int</span> windowHeight = <span class="number">480</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-永远不要写注释"><a href="#💩-永远不要写注释" class="headerlink" title="💩 永远不要写注释"></a>💩 永远不要写注释</h3><p>程序员最讨厌的两件事是：</p>
+<ol>
+<li>别人的代码不写注释</li>
+<li>别人让自己给代码写注释</li>
+</ol>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> cdr = <span class="number">700</span>;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<p>注释应该包含一些”为什么”而不是”做了什么”。如果代码中的”做了什么”不清楚，那么代码可能太混乱了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 700ms的数量是根据UX A/B测试结果进行经验计算的。</span></span><br><span class="line"><span class="comment">// @查看: &lt;详细解释700的一个链接&gt;</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> callbackDebounceRate = <span class="number">700</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-尽量用母语写注释"><a href="#💩-尽量用母语写注释" class="headerlink" title="💩 尽量用母语写注释"></a>💩 尽量用母语写注释</h3><p>中国人写注释当然要用中文，怎么可能用英语这种通用语言，当然是怎么爽怎么来</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误时隐藏模态窗口。</span></span><br><span class="line">closeModal(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Hide modal window on error.</span></span><br><span class="line">closeModal(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-尽可能混合各种格式风格"><a href="#💩-尽可能混合各种格式风格" class="headerlink" title="💩 尽可能混合各种格式风格"></a>💩 尽可能混合各种格式风格</h3><p>跟上述变量命名的原则一样，保持个性化~</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* i[] = &#123;<span class="string">&quot;tomato&quot;</span>, <span class="string">&quot;onion&quot;</span>, <span class="string">&quot;mushrooms&quot;</span>&#125;;</span><br><span class="line"><span class="type">char</span>* d[] = &#123; <span class="string">&quot;ketchup&quot;</span>, <span class="string">&quot;mayonnaise&quot;</span> &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* ingredients[] = &#123;<span class="string">&quot;tomato&quot;</span>, <span class="string">&quot;onion&quot;</span>, <span class="string">&quot;mushrooms&quot;</span>&#125;;</span><br><span class="line"><span class="type">char</span>* dressings[] = &#123;<span class="string">&quot;ketchup&quot;</span>, <span class="string">&quot;mayonnaise&quot;</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-把代码都写到一行"><a href="#💩-把代码都写到一行" class="headerlink" title="💩 把代码都写到一行"></a>💩 把代码都写到一行</h3><p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">parse_url_params</span><span class="params">(<span class="type">char</span>* url, <span class="type">char</span>* params)</span> &#123; <span class="type">char</span>* p=<span class="built_in">strstr</span>(url,<span class="string">&quot;?&quot;</span>);<span class="keyword">if</span>(!p)<span class="keyword">return</span>;p++;<span class="type">char</span>* token=strtok(p,<span class="string">&quot;&amp;&quot;</span>);<span class="keyword">while</span>(token!=<span class="literal">NULL</span>)&#123;<span class="type">char</span>* eq=<span class="built_in">strchr</span>(token,<span class="string">&#x27;=&#x27;</span>);<span class="keyword">if</span>(eq)&#123;*eq=<span class="string">&#x27;\0&#x27;</span>;<span class="built_in">strcat</span>(params,token);<span class="built_in">strcat</span>(params,<span class="string">&quot;=&quot;</span>);<span class="built_in">strcat</span>(params,eq+<span class="number">1</span>);<span class="built_in">strcat</span>(params,<span class="string">&quot;;&quot;</span>);&#125;token=strtok(<span class="literal">NULL</span>,<span class="string">&quot;&amp;&quot;</span>);&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">parse_url_params</span><span class="params">(<span class="type">char</span>* url, <span class="type">char</span>* params)</span> &#123;</span><br><span class="line">    <span class="comment">// Find the &#x27;?&#x27; character</span></span><br><span class="line">    <span class="type">char</span>* p = <span class="built_in">strstr</span>(url, <span class="string">&quot;?&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!p) <span class="keyword">return</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// Skip the &#x27;?&#x27; character</span></span><br><span class="line">    p++;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// Parse each parameter</span></span><br><span class="line">    <span class="type">char</span>* token = strtok(p, <span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span> (token != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="type">char</span>* eq = <span class="built_in">strchr</span>(token, <span class="string">&#x27;=&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (eq) &#123;</span><br><span class="line">            <span class="comment">// Separate key and value</span></span><br><span class="line">            *eq = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">            <span class="built_in">strcat</span>(params, token);</span><br><span class="line">            <span class="built_in">strcat</span>(params, <span class="string">&quot;=&quot;</span>);</span><br><span class="line">            <span class="built_in">strcat</span>(params, eq + <span class="number">1</span>);</span><br><span class="line">            <span class="built_in">strcat</span>(params, <span class="string">&quot;;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        token = strtok(<span class="literal">NULL</span>, <span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-不要做异常处理"><a href="#💩-不要做异常处理" class="headerlink" title="💩 不要做异常处理"></a>💩 不要做异常处理</h3><p>程序中任何可能出现异常的代码片段，没必要去捕捉，也不要写日志进行记录，更不要弹出啥错误提示，让你的协作者自己猜可能的报错原因就好了</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FILE* file = fopen(<span class="string">&quot;important.dat&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (file == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="comment">// tss... 🤫</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FILE* file = fopen(<span class="string">&quot;important.dat&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (file == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;Error opening file&quot;</span>);</span><br><span class="line">    <span class="comment">// and/or</span></span><br><span class="line">    log_error(<span class="string">&quot;Failed to open important.dat&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-大量使用全局变量"><a href="#💩-大量使用全局变量" class="headerlink" title="💩 大量使用全局变量"></a>💩 大量使用全局变量</h3><p>吕蒙过江，我也过江，别的函数能使用的变量，我为什么不能访问到？所以要多使用全局变量</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">square</span><span class="params">()</span> &#123;</span><br><span class="line">    x = x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    square(); <span class="comment">// Now x is 25.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">square</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> num * num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    x = square(x); <span class="comment">// Now x is 25.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-多创建一些用不到的变量"><a href="#💩-多创建一些用不到的变量" class="headerlink" title="💩 多创建一些用不到的变量"></a>💩 多创建一些用不到的变量</h3><p>以备不时之需。</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> &#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> timeout = <span class="number">1300</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> result = a + b;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-如果你的编程语言允许，不要指定类型和-或不做类型检查"><a href="#💩-如果你的编程语言允许，不要指定类型和-或不做类型检查" class="headerlink" title="💩 如果你的编程语言允许，不要指定类型和&#x2F;或不做类型检查"></a>💩 如果你的编程语言允许，不要指定类型和&#x2F;或不做类型检查</h3><p>代码跑的怎样你别管，你就说能不能跑吧</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span>* <span class="title function_">sum</span><span class="params">(<span class="type">void</span>* a, <span class="type">void</span>* b)</span> &#123;</span><br><span class="line">    <span class="comment">// 不做类型检查，直接转换并希望一切顺利</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="type">void</span>*)((<span class="type">long</span>)a + (<span class="type">long</span>)b);</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// 在这里尽情享受无拘无束的乐趣</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">char</span>* result1 = sum(<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>);  <span class="comment">// 未定义行为</span></span><br><span class="line">    <span class="type">int</span> result2 = (<span class="type">int</span>)sum((<span class="type">void</span>*)<span class="number">5</span>, (<span class="type">void</span>*)<span class="number">10</span>);  <span class="comment">// 可能行得通？</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> result = sum(<span class="number">5</span>, <span class="number">10</span>);  <span class="comment">// 类型安全，意图明确</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-你需要有一段永远无法执行到的代码"><a href="#💩-你需要有一段永远无法执行到的代码" class="headerlink" title="💩 你需要有一段永远无法执行到的代码"></a>💩 你需要有一段永远无法执行到的代码</h3><p>没想到吧 jojo 这就是我的逃跑路线！</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">square</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (num == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> num * num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 这就是我的逃跑路线哒！哈哈哈</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">square</span><span class="params">(<span class="type">int</span> num)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (num == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> num * num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-三角形原则"><a href="#💩-三角形原则" class="headerlink" title="💩 三角形原则"></a>💩 三角形原则</h3><p>像鸟一样筑巢，一层又一层。</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">someFunction</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (condition1) &#123;</span><br><span class="line">        <span class="keyword">if</span> (condition2) &#123;</span><br><span class="line">            beginAsyncOperation(params, callback);</span><br><span class="line">            <span class="keyword">if</span> (callbackCalled) &#123;</span><br><span class="line">                <span class="keyword">if</span> (result) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (condition3) &#123;</span><br><span class="line">                            <span class="comment">// 代码逻辑</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">someFunction</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!condition1 || !condition2) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    beginAsyncOperation(params, callback);</span><br><span class="line">    <span class="keyword">if</span> (!callbackCalled || !result) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">if</span> (condition3) &#123;</span><br><span class="line">             <span class="comment">// 代码逻辑</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-搞乱缩进"><a href="#💩-搞乱缩进" class="headerlink" title="💩 搞乱缩进"></a>💩 搞乱缩进</h3><p>避免使用缩进，因为它们会使复杂的代码在编辑器中占用更多空间。如果你不想避免它们，那就把它们弄乱。</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* fruits[] = &#123;<span class="string">&quot;apple&quot;</span>,</span><br><span class="line"><span class="string">&quot;orange&quot;</span>, <span class="string">&quot;grape&quot;</span>, <span class="string">&quot;pineapple&quot;</span>&#125;;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* toppings[] = &#123;<span class="string">&quot;syrup&quot;</span>, <span class="string">&quot;cream&quot;</span>, </span><br><span class="line">                <span class="string">&quot;jam&quot;</span>, </span><br><span class="line">                <span class="string">&quot;chocolate&quot;</span>&#125;;</span><br><span class="line"><span class="type">char</span> desserts[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> f = <span class="number">0</span>; f &lt; <span class="number">4</span>; f++) &#123;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> t = <span class="number">0</span>; t &lt; <span class="number">4</span>; t++) &#123;</span><br><span class="line">    <span class="built_in">sprintf</span>(desserts[i], <span class="string">&quot;%s with %s&quot;</span>,</span><br><span class="line">fruits[f],toppings[t]);</span><br><span class="line">    i++;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* fruits[] = &#123;<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;orange&quot;</span>, <span class="string">&quot;grape&quot;</span>, <span class="string">&quot;pineapple&quot;</span>&#125;;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* toppings[] = &#123;<span class="string">&quot;syrup&quot;</span>, <span class="string">&quot;cream&quot;</span>, <span class="string">&quot;jam&quot;</span>, <span class="string">&quot;chocolate&quot;</span>&#125;;</span><br><span class="line"><span class="type">char</span> desserts[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> f = <span class="number">0</span>; f &lt; <span class="number">4</span>; f++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> t = <span class="number">0</span>; t &lt; <span class="number">4</span>; t++) &#123;</span><br><span class="line">        <span class="built_in">sprintf</span>(desserts[i], <span class="string">&quot;%s with %s&quot;</span>, fruits[f], toppings[t]);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-总是将你的逻辑判断的变量命名为-flag"><a href="#💩-总是将你的逻辑判断的变量命名为-flag" class="headerlink" title="💩 总是将你的逻辑判断的变量命名为 flag"></a>💩 总是将你的逻辑判断的变量命名为 <code>flag</code></h3><p>布尔变量统一命名为 <code>flag</code> ,如果有多个逻辑变量，那就定义成 <code>flag+数字</code>，以此类推<br>至于这个逻辑变量到底是判断啥逻辑的，你别管，让你的协作者猜就好了</p>
+<p>正确做法 👍🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> flag = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>错误做法 👎🏻</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> isDone = <span class="number">0</span>;</span><br><span class="line"><span class="type">bool</span> isEmpty = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="💩-长函数比短函数更好"><a href="#💩-长函数比短函数更好" class="headerlink" title="💩 长函数比短函数更好"></a>💩 长函数比短函数更好</h3><p>不要将程序逻辑分割成可读的片段。如果你的IDE搜索功能出故障，你将无法找到必要的文件或函数，那该怎么办？</p>
+<ul>
+<li>10000 行代码在一个文件中是可以的。</li>
+<li>1000 行的函数体是可以的。</li>
+<li>在一个 <code>service.c</code> 中处理许多服务（第三方和内部的，还有一些辅助工具、手写的数据库ORM和套接字实现）？没问题。</li>
+</ul>
+<h3 id="💩-避免用测试覆盖你的代码"><a href="#💩-避免用测试覆盖你的代码" class="headerlink" title="💩 避免用测试覆盖你的代码"></a>💩 避免用测试覆盖你的代码</h3><p>这是重复和不必要的工作量。代码能跑就行了，还测试啥</p>
+<h3 id="💩-尽可能避免使用代码检查工具"><a href="#💩-尽可能避免使用代码检查工具" class="headerlink" title="💩 尽可能避免使用代码检查工具"></a>💩 尽可能避免使用代码检查工具</h3><p>按照你想要的方式编写代码，尤其是当团队中有多个开发人员时。这是一种”自由”原则。</p>
+<h3 id="💩-在没有-README-文件的情况下开始你的项目"><a href="#💩-在没有-README-文件的情况下开始你的项目" class="headerlink" title="💩 在没有 README 文件的情况下开始你的项目"></a>💩 在没有 README 文件的情况下开始你的项目</h3><p>写啥说明文档啊，让用户自己摸索就好了</p>
+<h3 id="💩-代码冗余是有必要的"><a href="#💩-代码冗余是有必要的" class="headerlink" title="💩 代码冗余是有必要的"></a>💩 代码冗余是有必要的</h3><p>不要删除你的程序没有使用的代码。最多，注释掉它。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2025/03/10/%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97_C%E8%AF%AD%E8%A8%80%E7%89%88/">https://kashima19960.github.io/2025/03/10/垃圾代码编写指南_C语言版/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%B6%E4%BB%96/">其他</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/02/23/Linux/%E7%A1%AC%E9%93%BE%E6%8E%A5VS%E8%BD%AF%E9%93%BE%E6%8E%A5/" title="Linux软连接与硬链接"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux软连接与硬链接</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/09/QtDesign%E9%A2%84%E8%A7%88%E7%9A%84%E6%95%88%E6%9E%9C%E4%B8%8E%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="QtDesign预览的效果与程序运行结果不一致的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="title">QtDesign预览的效果与程序运行结果不一致的解决方法</div></div></a></div><div><a href="/2024/09/13/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="Vscode运行Python无法导入自己编写的包的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-13</div><div class="title">Vscode运行Python无法导入自己编写的包的解决方法</div></div></a></div><div><a href="/2024/07/16/git%20clone%E9%80%9F%E5%BA%A6%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="关于git clone速度极慢的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-16</div><div class="title">关于git clone速度极慢的解决方法</div></div></a></div><div><a href="/2024/09/17/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc/" title="一键更换软件源的工具——chsrc"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-17</div><div class="title">一键更换软件源的工具——chsrc</div></div></a></div><div><a href="/2024/07/30/mysql+php+html%E5%AE%9E%E7%8E%B0%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="mysql+php+html实现学生管理系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">mysql+php+html实现学生管理系统</div></div></a></div><div><a href="/2024/08/30/%E5%88%A0%E9%99%A4%E5%BE%AE%E4%BF%A1%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E7%9A%84%E7%AE%80%E6%98%93%E5%B7%A5%E5%85%B7/" title="删除微信重复文件的简易工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-30</div><div class="title">删除微信重复文件的简易工具</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">51</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kashima19960"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kashima19960" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/CodingCV@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">阅读文章遇到问题可以发消息到我的邮箱——CodingCV@outlook.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E5%8E%9F%E5%88%99"><span class="toc-number">2.</span> <span class="toc-text">代码编写原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E5%B0%BD%E5%8F%AF%E8%83%BD%E7%94%A8%E6%B7%B7%E6%B7%86%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">💩 定义变量的时候，尽可能用混淆的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E9%87%87%E7%94%A8%E5%8F%98%E9%87%8F-%E5%87%BD%E6%95%B0%E7%9A%84%E6%B7%B7%E5%90%88%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC"><span class="toc-number">2.2.</span> <span class="toc-text">💩 采用变量&#x2F;函数的混合命名风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E5%86%99%E6%B3%A8%E9%87%8A"><span class="toc-number">2.3.</span> <span class="toc-text">💩 永远不要写注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%B0%BD%E9%87%8F%E7%94%A8%E6%AF%8D%E8%AF%AD%E5%86%99%E6%B3%A8%E9%87%8A"><span class="toc-number">2.4.</span> <span class="toc-text">💩 尽量用母语写注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%B0%BD%E5%8F%AF%E8%83%BD%E6%B7%B7%E5%90%88%E5%90%84%E7%A7%8D%E6%A0%BC%E5%BC%8F%E9%A3%8E%E6%A0%BC"><span class="toc-number">2.5.</span> <span class="toc-text">💩 尽可能混合各种格式风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E6%8A%8A%E4%BB%A3%E7%A0%81%E9%83%BD%E5%86%99%E5%88%B0%E4%B8%80%E8%A1%8C"><span class="toc-number">2.6.</span> <span class="toc-text">💩 把代码都写到一行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E4%B8%8D%E8%A6%81%E5%81%9A%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">2.7.</span> <span class="toc-text">💩 不要做异常处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%A4%A7%E9%87%8F%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">2.8.</span> <span class="toc-text">💩 大量使用全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%A4%9A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%BA%9B%E7%94%A8%E4%B8%8D%E5%88%B0%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">2.9.</span> <span class="toc-text">💩 多创建一些用不到的变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%85%81%E8%AE%B8%EF%BC%8C%E4%B8%8D%E8%A6%81%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%9E%8B%E5%92%8C-%E6%88%96%E4%B8%8D%E5%81%9A%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5"><span class="toc-number">2.10.</span> <span class="toc-text">💩 如果你的编程语言允许，不要指定类型和&#x2F;或不做类型检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E4%BD%A0%E9%9C%80%E8%A6%81%E6%9C%89%E4%B8%80%E6%AE%B5%E6%B0%B8%E8%BF%9C%E6%97%A0%E6%B3%95%E6%89%A7%E8%A1%8C%E5%88%B0%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">2.11.</span> <span class="toc-text">💩 你需要有一段永远无法执行到的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E4%B8%89%E8%A7%92%E5%BD%A2%E5%8E%9F%E5%88%99"><span class="toc-number">2.12.</span> <span class="toc-text">💩 三角形原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E6%90%9E%E4%B9%B1%E7%BC%A9%E8%BF%9B"><span class="toc-number">2.13.</span> <span class="toc-text">💩 搞乱缩进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E6%80%BB%E6%98%AF%E5%B0%86%E4%BD%A0%E7%9A%84%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD%E7%9A%84%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D%E4%B8%BA-flag"><span class="toc-number">2.14.</span> <span class="toc-text">💩 总是将你的逻辑判断的变量命名为 flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E9%95%BF%E5%87%BD%E6%95%B0%E6%AF%94%E7%9F%AD%E5%87%BD%E6%95%B0%E6%9B%B4%E5%A5%BD"><span class="toc-number">2.15.</span> <span class="toc-text">💩 长函数比短函数更好</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E9%81%BF%E5%85%8D%E7%94%A8%E6%B5%8B%E8%AF%95%E8%A6%86%E7%9B%96%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">2.16.</span> <span class="toc-text">💩 避免用测试覆盖你的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%B0%BD%E5%8F%AF%E8%83%BD%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">2.17.</span> <span class="toc-text">💩 尽可能避免使用代码检查工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E5%9C%A8%E6%B2%A1%E6%9C%89-README-%E6%96%87%E4%BB%B6%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%BC%80%E5%A7%8B%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.18.</span> <span class="toc-text">💩 在没有 README 文件的情况下开始你的项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%92%A9-%E4%BB%A3%E7%A0%81%E5%86%97%E4%BD%99%E6%98%AF%E6%9C%89%E5%BF%85%E8%A6%81%E7%9A%84"><span class="toc-number">2.19.</span> <span class="toc-text">💩 代码冗余是有必要的</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/10/%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97_C%E8%AF%AD%E8%A8%80%E7%89%88/" title="垃圾代码编写指南_C语言版">垃圾代码编写指南_C语言版</a><time datetime="2025-03-10T09:23:00.000Z" title="发表于 2025-03-10 17:23:00">2025-03-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/23/Linux/%E7%A1%AC%E9%93%BE%E6%8E%A5VS%E8%BD%AF%E9%93%BE%E6%8E%A5/" title="Linux软连接与硬链接">Linux软连接与硬链接</a><time datetime="2025-02-23T13:54:00.000Z" title="发表于 2025-02-23 21:54:00">2025-02-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/14/%E5%BE%AE%E6%9C%BA/%E7%AE%80%E7%AD%94%E9%A2%98%E9%A2%98%E5%BA%93%20(%E7%AD%94%E6%A1%88)/" title="《微型计算机技术与应用》期末考试题库简答题答案">《微型计算机技术与应用》期末考试题库简答题答案</a><time datetime="2025-01-14T05:05:00.000Z" title="发表于 2025-01-14 13:05:00">2025-01-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/14/%E5%BE%AE%E6%9C%BA/%E5%A1%AB%E7%A9%BA%E9%A2%98%E9%A2%98%E5%BA%93%20(%E7%AD%94%E6%A1%88)/" title="《微型计算机技术与应用》期末考试题库填空题答案">《微型计算机技术与应用》期末考试题库填空题答案</a><time datetime="2025-01-14T04:58:00.000Z" title="发表于 2025-01-14 12:58:00">2025-01-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/14/%E5%BE%AE%E6%9C%BA/%E9%80%89%E6%8B%A9%E9%A2%98%E9%A2%98%E5%BA%93%20(%E7%AD%94%E6%A1%88)/" title="《微型计算机技术与应用》期末考试题库选择题答案">《微型计算机技术与应用》期末考试题库选择题答案</a><time datetime="2025-01-14T04:58:00.000Z" title="发表于 2025-01-14 12:58:00">2025-01-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 木人舟</div><div class="footer_custom_text">木人舟 ALL RIGHTS RESERVED.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://kashima19960.github.io/2025/03/10/%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97_C%E8%AF%AD%E8%A8%80%E7%89%88/'
+    this.page.identifier = '/2025/03/10/%E5%9E%83%E5%9C%BE%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97_C%E8%AF%AD%E8%A8%80%E7%89%88/'
+    this.page.title = '垃圾代码编写指南_C语言版'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
