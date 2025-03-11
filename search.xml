@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>scoop退回软件版本的方法</title>
+      <link href="/2025/03/11/scoop%E9%80%80%E5%9B%9E%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+      <url>/2025/03/11/scoop%E9%80%80%E5%9B%9E%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在软件更新后，如果出现了很影响使用体验的问题，那么可以把软件先退回以前的版本进行使用，</p><p>但是scoop本身并没有提供直接让软件回退版本的功能，因此这篇文章我教大家如何做到回退软件版本</p><h2 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h2><p>scoop安装软件是通过bucket中的json文件实现的，它的路径是 <code>scoop\buckets\main\bucket</code>,这个文件夹包含了当前软件库中的所有软件的描述信息(感兴趣有啥内容可以自己打开来看)</p><p>然后每个软件库都是一个git仓库，所以我们可以用git操作来使得软件库退回到特定的版本</p><p>我们拿extras仓库举例(路径是<code>scoop\buckets\extras</code>)，通过git仓库找到vscode的旧版本</p><p>首先我们得找到特定版本的<code>commit hash</code>值，这个操作可以用<code>git log -S&quot;关键词&quot;</code>实现<br>所以我们可以通过命令行在软件库使用<code>git log -S&quot;vscode&quot;</code>查找到与vscode有关的提交信息<br>当然，如果你有会使用的git图形化工具，那也是可以的</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">commit fb6af57934c019ca66e4126be7cc44bb025a42a3</span><br><span class="line">Author: Ilja Nosik &lt;ilja.nosik@outlook.com&gt;</span><br><span class="line">Date:   Fri Sep 9 11:35:53 2016 +0200</span><br><span class="line"></span><br><span class="line">    Update VS Code to 1.5.1 (#266)</span><br><span class="line"></span><br><span class="line">    * Update VS Code to 1.5.1</span><br><span class="line"></span><br><span class="line">    * Check the version of VS Code at GitHub</span><br></pre></td></tr></table></figure><p>注意到这个的提交信息是<code>Update VS Code to 1.5.1</code>,这就是我们要找的，把commit的后面的哈希值复制出来</p><p>然后<code>git checkout fb6af57934c019ca66e4126be7cc44bb025a42a3</code>,这样我们就能把git仓库暂时回退到这个版本。进入<code>\scoop\buckets\extras\bucket</code>这个文件夹，把<code>vscode.json</code>这个文件,复制出来。<br>成功之后，要记得用<code>git checkout master</code>将软件库复原</p><p>最后使用<code>scoop install vscode.json</code>安装指定版本的vscode</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过以上的操作,其实你只要理解了scoop安装软件是通过一个json文件实现的，就知道如何安装特定版本的软件</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 其他 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>正则表达式快速入门</title>
       <link href="/2025/03/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
       <url>/2025/03/10/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</url>
