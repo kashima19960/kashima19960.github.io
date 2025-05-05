@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Markdown快速入门 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言我平时写作用的最多的就是markdown，甚至比word文档还频繁，所以这篇文章我简单记录一下markdown常用语法 markdown有啥用？我在学习任何东西之前，都会思考一下学这个东西有啥用，因为时间是很宝贵的，我们只能将自己人生中有限的时间来做有限的事情，所以我说说自己对markdown的看法 优点 适合做笔记  其实我们很多时候做笔记，只是想快速记录一些比较重要的东西，因为markdo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown快速入门">
+<meta property="og:url" content="https://kashima19960.github.io/2025/03/26/MarkDown%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="前言我平时写作用的最多的就是markdown，甚至比word文档还频繁，所以这篇文章我简单记录一下markdown常用语法 markdown有啥用？我在学习任何东西之前，都会思考一下学这个东西有啥用，因为时间是很宝贵的，我们只能将自己人生中有限的时间来做有限的事情，所以我说说自己对markdown的看法 优点 适合做笔记  其实我们很多时候做笔记，只是想快速记录一些比较重要的东西，因为markdo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg">
+<meta property="article:published_time" content="2025-03-26T02:50:00.000Z">
+<meta property="article:modified_time" content="2025-03-26T04:33:52.285Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="其他">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg"><link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2024/05/01/03/27/hands-8731277_640.png"><link rel="canonical" href="https://kashima19960.github.io/2025/03/26/MarkDown%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 木人舟","link":"链接: ","source":"来源: 木人舟的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Markdown快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-03-26 12:33:52'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><img class="site-icon" src="https://www.logosc.cn/oss/icons/2022/10/18/Yt1NwjSZdkXXe0s.png"/><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Markdown快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-26T02:50:00.000Z" title="发表于 2025-03-26 10:50:00">2025-03-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-26T04:33:52.285Z" title="更新于 2025-03-26 12:33:52">2025-03-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Markdown快速入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我平时写作用的最多的就是markdown，甚至比word文档还频繁，所以这篇文章我简单记录一下markdown常用语法</p>
+<h2 id="markdown有啥用？"><a href="#markdown有啥用？" class="headerlink" title="markdown有啥用？"></a>markdown有啥用？</h2><p>我在学习任何东西之前，都会思考一下学这个东西有啥用，因为时间是很宝贵的，我们只能将自己人生中有限的时间来做有限的事情，所以我说说自己对markdown的看法</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>适合做笔记</li>
+</ol>
+<p>其实我们很多时候做笔记，只是想快速记录一些比较重要的东西，因为markdown其实就是相当于纯文本的基础上加了一些比较常用的写作格式，所以用markdown记录东西是非常快速的</p>
+<ol start="2">
+<li>大语言模型优化</li>
+</ol>
+<p>现在所有的大语言模型，他都是输出 markdown 格式，不信的话，你可以把大语言模型的输出粘贴到markdown 编辑器中，立刻就能渲染，另一个就是如果你用 markdown 去问Ai问题，会更容易被识别</p>
+<ol start="3">
+<li>简单，不用排版</li>
+</ol>
+<p>word文档的功能非常强大，但是它的排版非常恶心，想必经常用word文档的同学深有体会，在你改动了某个地方的排版的时候，另一个不知道的地方也莫名其妙发生了格式变动，markdown没有排版，写啥就是啥，简单好用</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>一个产品不可能都是优点，我这里说一下markdown的劣势</p>
+<ol>
+<li>插入图片麻烦</li>
+</ol>
+<p>markdown是不能把直接把图片嵌入到内容里面的，只能通过外链的方法进行显示，当然也有用base64转图片这种野路子，但始终不是个好用的方法。图片跟内容分开存，在上传云平台的时候就会非常麻烦</p>
+<h2 id="常用知识"><a href="#常用知识" class="headerlink" title="常用知识"></a>常用知识</h2><p>Markdown的核心理念是”易读易写”，不需要复杂的编辑器，用记事本也能写出漂亮的格式。</p>
+<h3 id="1-标题"><a href="#1-标题" class="headerlink" title="1. 标题"></a>1. 标题</h3><p>标题使用 <code>#</code>符号来表示，一个 <code>#</code>是一级标题，两个 <code>#</code>是二级标题，以此类推，最多支持六级标题。记得 <code>#</code>后面要空一格😋</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/assets/1742963190487.png" alt="1742963190487"></p>
+<h3 id="2-强调文本"><a href="#2-强调文本" class="headerlink" title="2. 强调文本"></a>2. 强调文本</h3><p>想要强调某段文字？超简单！</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span> 或 <span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span> 或 <span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">**<span class="emphasis">*粗斜体文本*</span>**</span> 或 <span class="strong">__<span class="emphasis">_粗斜体文本_</span>__</span></span><br></pre></td></tr></table></figure>
+
+<p>看看效果：<em>斜体文本</em> <strong>粗体文本</strong> <em><strong>粗斜体文本</strong></em></p>
+<h3 id="3-列表"><a href="#3-列表" class="headerlink" title="3. 列表"></a>3. 列表</h3><p>列表分为无序列表和有序列表，使用起来也很简单！</p>
+<p>无序列表可以用 <code>-</code>、<code>*</code>或 <code>+</code>作为标记：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 项目一</span><br><span class="line"><span class="bullet">-</span> 项目二</span><br><span class="line"><span class="bullet">  -</span> 子项目A</span><br><span class="line"><span class="bullet">  -</span> 子项目B</span><br></pre></td></tr></table></figure>
+
+<p>有序列表则使用<strong>数字</strong>加上一个<strong>小数点</strong>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一步</span><br><span class="line"><span class="bullet">2.</span> 第二步</span><br><span class="line"><span class="bullet">3.</span> 第三步</span><br></pre></td></tr></table></figure>
+
+<p>嵌套列表时，子项目前面要缩进两个空格，这样才能形成层级关系😈</p>
+<h3 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h3><p>链接和图片的语法非常相似，只是图片前多了一个感叹号！</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">链接文字</span>](<span class="link">链接地址 &quot;可选标题&quot;</span>)</span><br><span class="line">![<span class="string">图片描述</span>](<span class="link">图片地址 &quot;可选标题&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">我的GitHub</span>](<span class="link">https://github.com/kashima19960</span>)</span><br><span class="line">![<span class="string">示例图片</span>](<span class="link">https://cdn.jsdelivr.net/gh/kashima19960/img@master/example.png</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-引用"><a href="#5-引用" class="headerlink" title="5. 引用"></a>5. 引用</h3><p>引用别人的话？用 <code>&gt;</code>符号：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 这是一段引用文字</span></span><br><span class="line"><span class="quote">&gt; 这是引用的第二行</span></span><br><span class="line"><span class="quote">&gt; </span></span><br><span class="line"><span class="quote">&gt; &gt; 这是嵌套引用</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/assets/1742963319245.png" alt="1742963319245"></p>
+<h3 id="6-代码"><a href="#6-代码" class="headerlink" title="6. 代码"></a>6. 代码</h3><p>行内代码用反引号(键盘TAB上面哪个键)包裹：<code>console.log(&#39;Hello World&#39;)</code></p>
+<p>代码块则使用三个反引号，并可以指定语言类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHello</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello, Markdown!&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-表格"><a href="#7-表格" class="headerlink" title="7. 表格"></a>7. 表格</h3><p>表格看起来复杂，其实很简单：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 表头1 | 表头2 | 表头3 |</span><br><span class="line">| ----- | :---: | ----: |</span><br><span class="line">| 左对齐 | 居中 | 右对齐 |</span><br><span class="line">| 内容 | 内容 | 内容 |</span><br></pre></td></tr></table></figure>
+
+<p><code>:---</code>表示左对齐，<code>:---:</code>表示居中，<code>---:</code>表示右对齐。</p>
+<h3 id="8-分割线"><a href="#8-分割线" class="headerlink" title="8. 分割线"></a>8. 分割线</h3><p>三个或更多的 <code>-</code>、<code>*</code>或 <code>_</code>都可以创建分割线：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="strong">***</span></span><br><span class="line"><span class="strong">__<span class="emphasis">_</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实战演练"><a href="#实战演练" class="headerlink" title="实战演练"></a>实战演练</h2><p>让我们用学到的知识写一个简单的笔记：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 我的项目计划</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 目标</span></span><br><span class="line"></span><br><span class="line">建立一个<span class="strong">**个人博客网站**</span>，分享技术文章和个人感悟。</span><br><span class="line"></span><br><span class="line"><span class="section">## 任务列表</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> 学习Markdown基础</span><br><span class="line"><span class="bullet">   -</span> [x] 掌握基本语法</span><br><span class="line"><span class="bullet">   -</span> [ ] 尝试高级功能</span><br><span class="line"><span class="bullet">2.</span> 选择博客平台</span><br><span class="line"><span class="bullet">   -</span> [ ] 研究GitHub Pages</span><br><span class="line"><span class="bullet">   -</span> [ ] 考虑Hexo框架</span><br><span class="line"></span><br><span class="line"><span class="quote">&gt; 记住：坚持每周至少更新一篇文章！</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="section">### 参考资料</span></span><br><span class="line">[<span class="string">Markdown官方文档</span>](<span class="link">https://daringfireball.net/projects/markdown/</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>markdown常用的就以上这些了，当然markdown想玩出花来也是可以的，比如嵌入html和css实现各种花里胡哨的效果，或者是插入mermaid代码生成流程图，但是这些等你要用到再去了解这些高级用法也不迟，先把基础学好才是最重要的</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>学习Markdown，以下资源可能对你有所帮助：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://daringfireball.net/projects/markdown/">Markdown 官方网站</a> - John Gruber 创建的原始 Markdown 规范</li>
+<li><a target="_blank" rel="noopener" href="https://github.github.com/gfm/">GitHub Flavored Markdown</a> - GitHub 使用的 Markdown 扩展语法</li>
+<li><a target="_blank" rel="noopener" href="https://www.markdownguide.org/">Markdown 指南</a> - 全面且易懂的 Markdown 学习资源</li>
+<li><a target="_blank" rel="noopener" href="https://commonmark.org/">CommonMark</a> - 标准化的 Markdown 规范</li>
+<li><a target="_blank" rel="noopener" href="https://typora.io/">Typora</a> - 所见即所得的 Markdown 编辑器</li>
+<li><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one">VS Code Markdown 扩展</a> - VS Code 中增强 Markdown 体验的扩展</li>
+<li><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid/#/">Mermaid 流程图语法</a> - 用于在 Markdown 中创建图表和流程图</li>
+</ol>
+<p>这些资源涵盖了从基础到高级的各个方面，当你想深入学习 Markdown 时可以参考。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2025/03/26/MarkDown%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">https://kashima19960.github.io/2025/03/26/MarkDown快速入门/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%B6%E4%BB%96/">其他</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/03/27/openharmony/3.%E8%BD%BB%E9%87%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BC%96%E8%AF%91%E6%9E%84%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" title="3.在Openharmony编写hello world"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">3.在Openharmony编写hello world</div></div></a></div><div class="next-post pull-right"><a href="/2025/03/21/openharmony/%E8%A7%A3%E5%86%B3%E7%94%A8vscode%E7%BC%96%E5%86%99openharmony%E4%BB%A3%E7%A0%81%E6%97%B6%EF%BC%8C%E8%B7%B3%E8%BD%AC%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%97%B6%E9%97%B4%E8%BF%87%E9%95%BF/" title="解决用vscode编写openharmony代码时，跳转函数定义和实现时间过长"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">解决用vscode编写openharmony代码时，跳转函数定义和实现时间过长</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/09/QtDesign%E9%A2%84%E8%A7%88%E7%9A%84%E6%95%88%E6%9E%9C%E4%B8%8E%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="QtDesign预览的效果与程序运行结果不一致的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-09</div><div class="title">QtDesign预览的效果与程序运行结果不一致的解决方法</div></div></a></div><div><a href="/2024/09/13/Vscode%E8%BF%90%E8%A1%8CPython%E6%97%A0%E6%B3%95%E5%AF%BC%E5%85%A5%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="Vscode运行Python无法导入自己编写的包的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-13</div><div class="title">Vscode运行Python无法导入自己编写的包的解决方法</div></div></a></div><div><a href="/2024/07/16/git%20clone%E9%80%9F%E5%BA%A6%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="关于git clone速度极慢的解决方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-16</div><div class="title">关于git clone速度极慢的解决方法</div></div></a></div><div><a href="/2024/09/17/%E4%B8%80%E9%94%AE%E6%9B%B4%E6%8D%A2%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%9A%84%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94chsrc/" title="一键更换软件源的工具——chsrc"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-17</div><div class="title">一键更换软件源的工具——chsrc</div></div></a></div><div><a href="/2024/07/30/mysql+php+html%E5%AE%9E%E7%8E%B0%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="mysql+php+html实现学生管理系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">mysql+php+html实现学生管理系统</div></div></a></div><div><a href="/2024/08/30/%E5%88%A0%E9%99%A4%E5%BE%AE%E4%BF%A1%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E7%9A%84%E7%AE%80%E6%98%93%E5%B7%A5%E5%85%B7/" title="删除微信重复文件的简易工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-30</div><div class="title">删除微信重复文件的简易工具</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kashima19960"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kashima19960" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/CodingCV@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">阅读文章遇到问题可以发消息到我的邮箱——CodingCV@outlook.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#markdown%E6%9C%89%E5%95%A5%E7%94%A8%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">markdown有啥用？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">2.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">常用知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%87%E9%A2%98"><span class="toc-number">3.1.</span> <span class="toc-text">1. 标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BC%BA%E8%B0%83%E6%96%87%E6%9C%AC"><span class="toc-number">3.2.</span> <span class="toc-text">2. 强调文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%97%E8%A1%A8"><span class="toc-number">3.3.</span> <span class="toc-text">3. 列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%9B%BE%E7%89%87"><span class="toc-number">3.4.</span> <span class="toc-text">4. 链接与图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%BC%95%E7%94%A8"><span class="toc-number">3.5.</span> <span class="toc-text">5. 引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BB%A3%E7%A0%81"><span class="toc-number">3.6.</span> <span class="toc-text">6. 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%A1%A8%E6%A0%BC"><span class="toc-number">3.7.</span> <span class="toc-text">7. 表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-number">3.8.</span> <span class="toc-text">8. 分割线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83"><span class="toc-number">4.</span> <span class="toc-text">实战演练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/05/openharmony/%E8%A7%A3%E5%86%B3%E7%94%A8Deveco%20device%20tool%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5local%20pc/" title="解决用Deveco device tool无法连接local pc">解决用Deveco device tool无法连接local pc</a><time datetime="2025-05-05T05:43:00.000Z" title="发表于 2025-05-05 13:43:00">2025-05-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/27/openharmony/3.%E8%BD%BB%E9%87%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BC%96%E8%AF%91%E6%9E%84%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" title="3.在Openharmony编写hello world">3.在Openharmony编写hello world</a><time datetime="2025-03-27T04:02:00.000Z" title="发表于 2025-03-27 12:02:00">2025-03-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/26/MarkDown%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" title="Markdown快速入门">Markdown快速入门</a><time datetime="2025-03-26T02:50:00.000Z" title="发表于 2025-03-26 10:50:00">2025-03-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/21/openharmony/%E8%A7%A3%E5%86%B3%E7%94%A8vscode%E7%BC%96%E5%86%99openharmony%E4%BB%A3%E7%A0%81%E6%97%B6%EF%BC%8C%E8%B7%B3%E8%BD%AC%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%97%B6%E9%97%B4%E8%BF%87%E9%95%BF/" title="解决用vscode编写openharmony代码时，跳转函数定义和实现时间过长">解决用vscode编写openharmony代码时，跳转函数定义和实现时间过长</a><time datetime="2025-03-21T12:03:00.000Z" title="发表于 2025-03-21 20:03:00">2025-03-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/21/openharmony/2.%E5%9C%A8Openharmony%E5%86%99hello%20world/" title="2.在Openharmony编写hello world">2.在Openharmony编写hello world</a><time datetime="2025-03-21T11:07:00.000Z" title="发表于 2025-03-21 19:07:00">2025-03-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 木人舟</div><div class="footer_custom_text">木人舟 ALL RIGHTS RESERVED.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://kashima19960.github.io/2025/03/26/MarkDown%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/'
+    this.page.identifier = '/2025/03/26/MarkDown%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/'
+    this.page.title = 'Markdown快速入门'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
