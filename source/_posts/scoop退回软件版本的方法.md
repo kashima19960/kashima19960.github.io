@@ -17,11 +17,12 @@ scoop安装软件是通过bucket中的json文件实现的，它的路径是 `sco
 
 然后每个软件库都是一个git仓库，所以我们可以用git操作来使得软件库退回到特定的版本
 
-我们拿extras仓库举例(路径是`scoop\buckets\extras`)，通过git仓库找到vscode的旧版本
+我们拿extras仓库举例(路径是 `scoop\buckets\extras`)，通过git仓库找到vscode的旧版本
 
-首先我们得找到特定版本的`commit hash`值，这个操作可以用`git log -S"关键词"`实现
-所以我们可以通过命令行在软件库使用`git log -S"vscode"`查找到与vscode有关的提交信息
+首先我们得找到特定版本的 `commit hash`值，这个操作可以用 `git log -S"关键词"`实现
+所以我们可以通过命令行在软件库使用 `git log -S"vscode"`查找到与vscode有关的提交信息
 当然，如果你有会使用的git图形化工具，那也是可以的
+
 ```bash
 commit fb6af57934c019ca66e4126be7cc44bb025a42a3
 Author: Ilja Nosik <ilja.nosik@outlook.com>
@@ -33,12 +34,14 @@ Date:   Fri Sep 9 11:35:53 2016 +0200
 
     * Check the version of VS Code at GitHub
 ```
-注意到这个的提交信息是`Update VS Code to 1.5.1`,这就是我们要找的，把commit的后面的哈希值复制出来
 
-然后`git checkout fb6af57934c019ca66e4126be7cc44bb025a42a3`,这样我们就能把git仓库暂时回退到这个版本。进入`\scoop\buckets\extras\bucket`这个文件夹，把`vscode.json`这个文件,复制出来。
-成功之后，要记得用`git checkout master`将软件库复原
+注意到这个的提交信息是 `Update VS Code to 1.5.1`,这就是我们要找的，把commit的后面的哈希值复制出来
 
-最后使用`scoop install vscode.json`安装指定版本的vscode
+然后 `git checkout fb6af57934c019ca66e4126be7cc44bb025a42a3`,这样我们就能把git仓库暂时回退到这个版本。进入 `\scoop\buckets\extras\bucket`这个文件夹，把 `vscode.json`这个文件,复制出来。
+成功之后，要记得用 `git checkout master`将软件库复原
+
+最后使用 `scoop install vscode.json`安装指定版本的vscode
 
 ## 结语
+
 通过以上的操作,其实你只要理解了scoop安装软件是通过一个json文件实现的，就知道如何安装特定版本的软件
