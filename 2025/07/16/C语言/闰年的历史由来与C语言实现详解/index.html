@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>闰年的历史由来与C语言实现详解 | 木人舟的博客</title><meta name="author" content="木人舟"><meta name="copyright" content="木人舟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言最近在研究RTC，所以难以避免需要计算日历的时间，但不是每一年都是365天,所以必须考虑闰年的情况，这篇文章我除了会讲述程序，还会详细阐述闰年的历史故事及其由来，因为我认为学习任何一个东西，在知道“怎么用”以后，下一步就是知道“底层原理是什么” 如果你是着急知道程序怎么写，那可以先跳过闰年的历史以及计算规则的原理，等以后再去了解 程序实现满足两大规则即可  能被 4 整除，但不能被 100 整">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闰年的历史由来与C语言实现详解">
+<meta property="og:url" content="https://kashima19960.github.io/2025/07/16/C%E8%AF%AD%E8%A8%80/%E9%97%B0%E5%B9%B4%E7%9A%84%E5%8E%86%E5%8F%B2%E7%94%B1%E6%9D%A5%E4%B8%8EC%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="木人舟的博客">
+<meta property="og:description" content="前言最近在研究RTC，所以难以避免需要计算日历的时间，但不是每一年都是365天,所以必须考虑闰年的情况，这篇文章我除了会讲述程序，还会详细阐述闰年的历史故事及其由来，因为我认为学习任何一个东西，在知道“怎么用”以后，下一步就是知道“底层原理是什么” 如果你是着急知道程序怎么写，那可以先跳过闰年的历史以及计算规则的原理，等以后再去了解 程序实现满足两大规则即可  能被 4 整除，但不能被 100 整">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg">
+<meta property="article:published_time" content="2025-07-16T06:56:00.000Z">
+<meta property="article:modified_time" content="2025-07-16T07:31:01.037Z">
+<meta property="article:author" content="木人舟">
+<meta property="article:tag" content="C语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg"><link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2024/05/01/03/27/hands-8731277_640.png"><link rel="canonical" href="https://kashima19960.github.io/2025/07/16/C%E8%AF%AD%E8%A8%80/%E9%97%B0%E5%B9%B4%E7%9A%84%E5%8E%86%E5%8F%B2%E7%94%B1%E6%9D%A5%E4%B8%8EC%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 木人舟","link":"链接: ","source":"来源: 木人舟的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '闰年的历史由来与C语言实现详解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-07-16 15:31:01'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="木人舟的博客"><img class="site-icon" src="https://www.logosc.cn/oss/icons/2022/10/18/Yt1NwjSZdkXXe0s.png"/><span class="site-name">木人舟的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电源</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">闰年的历史由来与C语言实现详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-16T06:56:00.000Z" title="发表于 2025-07-16 14:56:00">2025-07-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-16T07:31:01.037Z" title="更新于 2025-07-16 15:31:01">2025-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="闰年的历史由来与C语言实现详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在研究RTC，所以难以避免需要计算日历的时间，但不是每一年都是365天,所以必须考虑闰年的情况，这篇文章我除了会讲述程序，还会详细阐述闰年的历史故事及其由来，因为我认为学习任何一个东西，在知道“怎么用”以后，下一步就是知道“底层原理是什么” 如果你是着急知道程序怎么写，那可以先跳过闰年的历史以及计算规则的原理，等以后再去了解</p>
+<h2 id="程序实现"><a href="#程序实现" class="headerlink" title="程序实现"></a>程序实现</h2><p>满足两大规则即可</p>
+<ol>
+<li><p>能被 4 整除，但<strong>不能</strong>被 100 整除。</p>
+<ul>
+<li>例如：<code>2024</code> 年能被 4 整除，但不能被 100 整除，所以是闰年。</li>
+<li>例如：<code>1900</code> 年能被 4 整除，也能被 100 整除，不满足这个条件。</li>
+</ul>
+</li>
+<li><p>能被 400 整除。</p>
+<ul>
+<li>例如：<code>2000</code> 年能被 400 整除，所以是闰年（这个条件优先于“能被100整除”的规则）。</li>
+</ul>
+</li>
+</ol>
+<p>总结成一句话就是：<strong>四年一闰，百年不闰，四百年再闰</strong>。</p>
+<pre><code class="c">#include &lt;stdio.h&gt; // 引入标准输入输出库，这样我们才能使用 printf 和 scanf 函数
+
+int main(void) &#123;
+    // 1. 声明一个整型变量，用于存储用户输入的年份
+    int year;
+
+    // 2. 提示用户输入年份
+    printf(&quot;请输入一个年份 (例如: 2024): &quot;);
+
+    // 3. 读取用户从键盘输入的内容
+    // scanf(&quot;%d&quot;, &amp;year);
+    // - &quot;%d&quot; 表示我们期望读取一个十进制整数。
+    // - &amp;year 表示将读取到的整数存放到变量 year 的内存地址中。
+    //   注意：scanf 的变量参数前一定要加 &#39;&amp;&#39; 地址符（数组名除外）。
+    if (scanf(&quot;%d&quot;, &amp;year) != 1) &#123;
+        // 一个简单的输入验证，如果用户输入的不是数字，scanf会返回0或EOF
+        printf(&quot;输入无效，请输入一个有效的年份数字。\n&quot;);
+        return 1; // 返回一个非零值，表示程序出错退出
+    &#125;
+
+
+    // 判断是否为闰年的核心代码, 有两种写法，我这里比较推荐写法1，代码简洁很多，而且能跟两大规则契合，写法2没那么直观
+    //写法1
+    if (((year % 4 == 0) &amp;&amp; (year % 100 != 0)) || (year % 400 == 0)) &#123;
+        printf(&quot;%d 年是闰年。\n&quot;, year);
+    &#125; else &#123;
+        printf(&quot;%d 年是平年。\n&quot;, year);
+    &#125;
+    //写法2
+    // if (year % 4 == 0)
+    // &#123;
+    //     if (year % 100 == 0)
+    //     &#123;
+    //         if (year % 400 == 0)
+    //             printf(&quot;%d 年是闰年。\n&quot;, year);
+    //         else
+    //             printf(&quot;%d 年是平年。\n&quot;, year);
+    //     &#125;
+    //     else
+    //         printf(&quot;%d 年是闰年。\n&quot;, year);
+    // &#125;
+    // else
+    //     printf(&quot;%d 年是平年。\n&quot;, year);
+    return 0;
+&#125;
+
+## 闰年计算规则的底层原理
+不感兴趣或者时间有限的话，这部分可以不看
+
+### **前因：最根本的矛盾 —— 地球公转与日历的“对不齐”**
+
+我们故事的起点，是宇宙中一个非常基本但又有点“逼死强迫症”的事实：
+
+**地球围绕太阳公转一周的精确时间（天文学上称为“回归年”），并不是一个整数。**
+
+这个精确时间大约是 **365.2422 天**。
+
+而我们人类日常使用的日历，为了方便，一年是 **365 天**。
+
+你看，矛盾就出现了：
+`365.2422 - 365 = 0.2422` 天
+
+每年，我们的日历都会比地球的实际公转周期**快了 0.2422 天**（大约是5小时48分46秒）。这个误差看起来很小，但时间一长，后果会非常严重。
+
+* **1年后**，日历比季节快了约 0.2422 天。
+* **4年后**，日历比季节快了约 `0.2422 * 4 ≈ 0.9688` 天，**差不多整整 1 天**。
+* **100年后**，日历会比季节快了 **24.22 天**！
+
+这意味着，如果不做任何修正，几百年后，本该是炎炎夏日的七月，可能会变成春寒料峭的时节。日历上的日期和实际的季节（春分、夏至、秋分、冬至）会完全错位。
+
+为了让日历年和回归年能够对齐，保证日历能准确反映季节变化，人类必须想办法“填”上这个误差。**“闰年”就是为了这个目的而诞生的。**
+
+---
+
+### **第一步：早期粗略的解决方案 —— 儒略历 (Julian Calendar)**
+
+**时间：** 公元前46年
+**人物：** 罗马共和国的统治者，尤利乌斯·凯撒 (Julius Caesar)
+
+凯撒和他的天文学家们（如索西琴尼）已经认识到了这个问题。他们进行了当时最精确的计算，得出的回归年长度是 **365.25 天**。
+
+`365.25` 这个数字非常好处理。`0.25` 不就是 `1/4` 吗？
+
+于是，他们制定了第一条简单而优雅的规则：
+
+**“每四年设置一个闰年。”**
+
+在闰年这一年，增加一天（放在二月底），使得这一年有366天。我们来算一下这种方法下，平均每年的天数：
+`(365 + 365 + 365 + 366) / 4 = 1461 / 4 = 365.25` 天。
+
+完美！这套历法被称为“儒略历”，它在接下来的1600多年里，成为了欧洲的标准。
+
+---
+
+### **第二步：新矛盾的出现 —— 儒略历的微小误差累积成大问题**
+
+儒略历是一个巨大的进步，但它并非完美。还记得吗？
+
+* **儒略历的平均年长**：`365.25` 天
+* **地球的实际回归年**：`365.2422` 天
+
+两者之间仍然存在一个微小的误差：
+`365.25 - 365.2422 = 0.0078` 天
+
+儒略历的每年，实际上比回归年**长了 0.0078 天**。这意味着，儒略历走得**太慢了**，每过一年，季节的实际节点（比如春分）就会在日历上提前一点点。
+
+这个误差有多大呢？
+* 大约每 `1 / 0.0078 ≈ 128` 年，就会累积出 **1天** 的误差。
+* 到了16世纪（公元1500多年），儒略历已经实行了超过1600年。累积的误差大约是 `0.0078 * 1600 ≈ 12.5` 天。
+
+这个误差在当时造成了一个非常具体且严重的问题，尤其对于基督教世界。复活节的日期是根据“春分月圆之后”来计算的。而当时日历上的春分（3月21日）和天文学上实际的春分，已经**差了十几天**！这让教会无法准确地确定这个最重要的宗教节日。
+
+---
+
+### **第三步：终极的精准修正 —— 格里高利历 (Gregorian Calendar) 的诞生**
+
+**时间：** 公元1582年
+**人物：** 罗马教皇格里高利十三世 (Pope Gregory XIII)
+
+为了解决这个迫在眉睫的问题，教皇格里高利十三世召集了顶尖的天文学家和数学家（如克拉维乌斯），进行了历法改革。这次改革有两个目标：
+
+1.  **修正存量错误**：把过去1600年累积的误差一次性抹掉。
+2.  **改进规则，防止未来再犯**：设计一套更精确的闰年规则。
+
+**修正存量错误的方法简单粗暴**：教皇下令，在1582年10月4日之后，直接跳到10月15日。于是，历史凭空消失了10天，使得第二天的春分重新对准了3月21日。
+
+**改进规则的方法则充满了数学智慧**，这就是我们今天所用规则的由来：
+
+1.  **分析问题**：问题的根源是儒略历的闰年**太多了**。它每400年里，会设置100个闰年。而累积的误差 `0.0078` 天/年，在400年里会造成 `0.0078 * 400 ≈ 3.12` 天的误差。
+
+2.  **找到方案**：这意味着，我们大约需要在**每400年里，减少3个闰年**。
+
+3.  **设计规则**：怎么才能巧妙地、有规律地在400年里减少3个闰年呢？
+    * 首先，保留儒略历的基本规则：“**能被4整除的是闰年**”。这保证了大部分情况是正确的。
+    * 然后，想办法去掉3个闰年。一个很自然的想法是在世纪年份（1700, 1800, 1900, 2000...）上做文章。
+    * 于是，补充规则诞生了：“**能被100整除的年份，不再是闰年**”。
+        * 这样一来，在400年里（比如从1601到2000），1700、1800、1900、2000这四个年份本来是闰年，现在都变成了平年。我们成功地去掉了**4个**闰年。
+    * 但我们的目标是去掉**3个**。现在多去掉了1个，怎么办？再加回来一个！
+    * 最终的补充规则来了：“**虽然能被100整除的不是闰年，但如果它还能被400整除，那么它依然是闰年**”。
+        * 这样，在1700, 1800, 1900, 2000这四年中，前三年（不能被400整除）被排除在闰年之外，但第四年（2000年，能被400整除）被重新“豁免”，恢复了闰年身份。
+        * 完美！我们不多不少，正好在400年里去掉了3个闰年。
+
+这就是我们今天使用的“格里高利历”（简称公历）的闰年判断法则。
+
+我们再来算一下公历的平均年长：
+* 在400年里，共有 `100 - 3 = 97` 个闰年。
+* 总天数 = `(365 * 400) + 97 = 146000 + 97 = 146097` 天。
+* 平均年长 = `146097 / 400 = 365.2425` 天。
+
+这个数字 `365.2425` 与地球回归年的精确值 `365.2422` 已经非常非常接近了，误差小到每3000多年才会产生1天的偏差。对于人类文明来说，这已经足够精确了。
+
+### **结论**
+所以，闰年的规则并不是凭空想出来的，而是人类为了弥合“人为规定的日历”与“客观的宇宙规律”之间的缝隙，历经上千年，通过不断观察、计算和修正，最终总结出的一套极其精妙的数学与天文规则。它清晰地展现了从一个粗略模型（儒略历）到一个精准模型（格里高利历）的科学演进过程。
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io">木人舟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://kashima19960.github.io/2025/07/16/C%E8%AF%AD%E8%A8%80/%E9%97%B0%E5%B9%B4%E7%9A%84%E5%8E%86%E5%8F%B2%E7%94%B1%E6%9D%A5%E4%B8%8EC%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/">https://kashima19960.github.io/2025/07/16/C语言/闰年的历史由来与C语言实现详解/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kashima19960.github.io" target="_blank">木人舟的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/06/16/%E8%A7%A3%E5%86%B3WPS%20Office%E4%BB%BB%E5%8A%A1%E6%A0%8F%E9%A2%84%E8%A7%88%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" title="解决WPS Office任务栏预览窗口会显示多个窗口的问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">解决WPS Office任务栏预览窗口会显示多个窗口的问题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/14/C%E8%AF%AD%E8%A8%80/%E8%A7%A3%E6%9E%90main%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="解析main函数的参数的作用与应用场景"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-14</div><div class="title">解析main函数的参数的作用与应用场景</div></div></a></div><div><a href="/2024/12/03/C%E8%AF%AD%E8%A8%80/%E8%A7%A3%E5%86%B3Vscode%E4%B8%AD%E4%BD%BF%E7%94%A8netdb.h%E7%9A%84getaddrinfo%E5%92%8Caddrinfo%E4%BC%9A%E6%8A%A5%E9%94%99%E7%9A%84%E6%96%B9%E6%B3%95/" title="解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-03</div><div class="title">解决Vscode中使用netdb.h的getaddrinfo和addrinfo会报错的方法</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/%E5%85%B6%E4%BB%96/86.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">木人舟</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/kashima19960"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kashima19960" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/CodingCV@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">阅读文章遇到问题可以发消息到我的邮箱——CodingCV@outlook.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">程序实现</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/16/C%E8%AF%AD%E8%A8%80/%E9%97%B0%E5%B9%B4%E7%9A%84%E5%8E%86%E5%8F%B2%E7%94%B1%E6%9D%A5%E4%B8%8EC%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/" title="闰年的历史由来与C语言实现详解">闰年的历史由来与C语言实现详解</a><time datetime="2025-07-16T06:56:00.000Z" title="发表于 2025-07-16 14:56:00">2025-07-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/16/%E8%A7%A3%E5%86%B3WPS%20Office%E4%BB%BB%E5%8A%A1%E6%A0%8F%E9%A2%84%E8%A7%88%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98/" title="解决WPS Office任务栏预览窗口会显示多个窗口的问题">解决WPS Office任务栏预览窗口会显示多个窗口的问题</a><time datetime="2025-06-16T02:30:00.000Z" title="发表于 2025-06-16 10:30:00">2025-06-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/17/stm32/%E4%B8%80%E4%B8%AAstm32%E5%B7%A5%E7%A8%8B%E4%BB%8E%E5%BA%95%E5%B1%82%E4%B8%8A%E9%83%BD%E9%9C%80%E8%A6%81%E7%94%B1%E5%93%AA%E4%BA%9B%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90/" title="一个stm32工程从底层上都需要由哪些文件构成">一个stm32工程从底层上都需要由哪些文件构成</a><time datetime="2025-05-17T02:00:00.000Z" title="发表于 2025-05-17 10:00:00">2025-05-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/05/openharmony/%E8%A7%A3%E5%86%B3%E7%94%A8Deveco%20device%20tool%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5local%20pc/" title="解决用Deveco device tool无法连接local pc">解决用Deveco device tool无法连接local pc</a><time datetime="2025-05-05T05:43:00.000Z" title="发表于 2025-05-05 13:43:00">2025-05-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/27/openharmony/3.%E8%BD%BB%E9%87%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BC%96%E8%AF%91%E6%9E%84%E5%BB%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" title="3.在Openharmony编写hello world">3.在Openharmony编写hello world</a><time datetime="2025-03-27T04:02:00.000Z" title="发表于 2025-03-27 12:02:00">2025-03-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 木人舟</div><div class="footer_custom_text">木人舟 ALL RIGHTS RESERVED.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://kashima19960.github.io/2025/07/16/C%E8%AF%AD%E8%A8%80/%E9%97%B0%E5%B9%B4%E7%9A%84%E5%8E%86%E5%8F%B2%E7%94%B1%E6%9D%A5%E4%B8%8EC%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/'
+    this.page.identifier = '/2025/07/16/C%E8%AF%AD%E8%A8%80/%E9%97%B0%E5%B9%B4%E7%9A%84%E5%8E%86%E5%8F%B2%E7%94%B1%E6%9D%A5%E4%B8%8EC%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3/'
+    this.page.title = '闰年的历史由来与C语言实现详解'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
