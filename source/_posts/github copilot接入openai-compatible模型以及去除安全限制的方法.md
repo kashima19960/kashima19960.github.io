@@ -41,6 +41,8 @@ git clone -b  feat-ui https://github.com/relic-yuexi/vscode-copilot-chat.git
 
 安装依赖
 
+>   2025-7-31更新:这里要有下载isual studio的C++环境，不然安装过程中的编译sqlite3会失败导致安装失败
+
 ```bash
 npm install
 ```
