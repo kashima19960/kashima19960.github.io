@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>STM32复位电路解析</title>
+      <link href="/2025/08/03/stm32/stm32%E5%A4%8D%E4%BD%8D%E7%94%B5%E8%B7%AF%E8%A7%A3%E6%9E%90/"/>
+      <url>/2025/08/03/stm32/stm32%E5%A4%8D%E4%BD%8D%E7%94%B5%E8%B7%AF%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天讲讲STM32的复位电路。单片机基本都有复位功能，做开发板的厂商都需要做复位电路来确保复位功能可用，我写这篇文章主要有两个原因😎</p><ol><li>因为这个复位电路其实是很简单的，所以中文互联网下关于复位电路的解析太少</li><li>大多数教程都不讲人话，对不懂电路设计的新手很难看懂<br>所以我结合了以往的经验，用最简单的方式实现讲讲复位电路的原理</li></ol><h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>可以看这张图，是一个经典的复位电路设计，我截取了正点原子的stm32精英开发板的设计，这里先说结论，你先记住：<strong>这个电路是采取低电平复位的</strong>。<br>他一共只会有两种状态</p><ol><li>上电复位</li><li>手动按下按键进行复位</li></ol><p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/stm32/reset_circult.png" alt="复位电路示意图"></p><h3 id="功能一：上电复位-Power-On-Reset"><a href="#功能一：上电复位-Power-On-Reset" class="headerlink" title="功能一：上电复位 (Power-On Reset)"></a>功能一：上电复位 (Power-On Reset)</h3><p>这个功能，就好比给MCU一个“开机启动流程”，确保它在刚通电的时候，能在一个稳定、可预测的状态下“醒来”，而不是迷迷糊糊地乱跑。</p><ol><li><strong>通电瞬间 (t&#x3D;0)——“电容还没睡醒”</strong>：我们先把复位按键那一路就擦掉，先不看，可以看到，VCC3.3经过R2电阻后，一条前往了RESET通往stm32芯片内部，一条前往了C10电容接地，当VCC3.3V电源刚接通的那一刹那，电容器C10两端的电压可不能“突变”(这里电容的一个非常重要的特性)！因为它还没来得及充电呢，所以电压还是<strong>0V</strong>。</li></ol><p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/stm32/reset_circult1.png"></p><ol><li><strong>芯片进入复位状态</strong>：由于 C10 连接在 <code>RESET</code> 引脚和 GND 之间，根据并联电路电压相等的规律，所以 <code>RESET</code> 引脚在通电瞬间的电压也为 0V（低电平）。STM32 芯片检测到 <code>RESET</code> 引脚为低电平，就会<strong>进入并保持在复位状态</strong>。</li><li><strong>RC充电延时</strong>：紧接着，电流从 VCC3.3 通过上拉电阻 R2 开始向电容 C10 充电。<code>RESET</code> 引脚上的电压（即C10两端的电压）会按照 RC 充电曲线逐渐上升。</li><li><strong>芯片解除复位</strong>：当 <code>RESET</code> 引脚的电压上升到超过 STM32 芯片的<strong>复位阈值电压</strong>（一个特定的电压值，例如 1.8V）时，芯片的复位逻辑便会释放，CPU 开始从启动地址执行程序。</li></ol><p><strong>这个延时的意义是什么？</strong> 它确保了在 CPU 开始工作之前，系统的电源（VCC3.3）已经<strong>完全稳定</strong>下来，避免了因电源不稳而导致的程序启动异常。这个延时的时间由 R2 和 C10 的值决定，不过鉴于是新手向，这里我们不深入探讨这两个值与延时时间的关系</p><h3 id="功能二：手动复位-Manual-Reset"><a href="#功能二：手动复位-Manual-Reset" class="headerlink" title="功能二：手动复位 (Manual Reset)"></a>功能二：手动复位 (Manual Reset)</h3><p>这个功能就更直接了，它允许咱们用户或者外部设备，随时随地都能强制STM32“重启”一次。</p><ol><li><strong>正常工作时</strong>：按键没有被按下。C10 已经充满电,如下图所示，我们可以直接认为电容那一路是断路，说人话就是电流不会从C10电容那一路通过，VCC3.3经过R2电阻与&#96;&#96;RESET<code>相连，</code>RESET&#96; 引脚被 R2 稳定地保持在 3.3V 高电平，MCU 正常运行。</li></ol><p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/stm32/reset_circult2.png"></p><ol start="2"><li><strong>按下按键时</strong>：当按下按键，开关闭合，它会立即将 <code>RESET</code> 引脚<strong>直接连接到 GND</strong>。</li></ol><blockquote><p>  这里我懒得P图了，你就脑部一下按键是按下的状态吧😋</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kashima19960/img@master/stm32/reset_circult3.png"></p><ol start="3"><li><p><strong>芯片进入复位状态</strong>：还是根据电路的并联电压相等规律，VCC3.3V被直接接到了GND，<code>RESET</code> 引脚的电平瞬间被拉低到 0V。同时，电容 C10 通过这个闭合的开关被<strong>快速放电</strong>。芯片检测到低电平后，立即进入复位状态。</p></li><li><p><strong>松开按键时</strong>：当用户松开按键，开关断开。此时的情况就和“上电复位”完全一样了：<code>RESET</code> 引脚为 0V，R2 再次开始对 C10 充电，直到电压超过复位阈值，芯片才会重新启动。</p></li></ol><h4 id="附加功能：滤波抗干扰"><a href="#附加功能：滤波抗干扰" class="headerlink" title="附加功能：滤波抗干扰"></a><strong>附加功能：滤波抗干扰</strong></h4><p>电容 C10 的存在，使得 <code>RESET</code> 引脚对电源或空间中的一些微小、快速的噪声脉冲不那么敏感。一个短暂的负向毛刺信号可能没有足够的能量将 C10 的电压拉到复位阈值以下，从而避免了意外的复位，增强了系统的稳定性。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实这个不单止是stm32的复位电路解析，基本上在思路上，所有单片机都是复位电路都是适用的，只要你明白了其中的原理，就能快速判断出这个单片机是低电平复位还是高电平复位</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> STM32 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>github copilot接入openai-compatible模型以及去除安全限制的方法</title>
       <link href="/2025/07/28/github%20copilot%E6%8E%A5%E5%85%A5openai-compatible%E6%A8%A1%E5%9E%8B%E4%BB%A5%E5%8F%8A%E5%8E%BB%E9%99%A4%E5%AE%89%E5%85%A8%E9%99%90%E5%88%B6%E7%9A%84%E6%96%B9%E6%B3%95/"/>
       <url>/2025/07/28/github%20copilot%E6%8E%A5%E5%85%A5openai-compatible%E6%A8%A1%E5%9E%8B%E4%BB%A5%E5%8F%8A%E5%8E%BB%E9%99%A4%E5%AE%89%E5%85%A8%E9%99%90%E5%88%B6%E7%9A%84%E6%96%B9%E6%B3%95/</url>
