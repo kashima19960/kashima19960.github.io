@@ -7,6 +7,11 @@ tags: 其他
 
 本文具有时效性，请注意检查信息的正确性！
 
+### 2025-10-12更新
+现在官方明确copilot接入第三方openai-compatible模型是不会上线正式版，并且关闭了相关issue，想要体验这个功能只能使用vscode insider(一个前瞻的测试版)，所以现在想要使用这个功能就只有两个选择
+1. 按照这篇文章的教程自行打包带有接入第三方模型功能的 copilot 的扩展
+2. 使用一个叫做 OAI Compatible Provider for Copilot的扩展，具体可以看这位博主的文章 ：https://blog.csdn.net/johnny0316/article/details/152900115?fromshare=blogdetail&sharetype=blogdetail&sharerId=152900115&sharerefer=PC&sharesource=Johnny0316&sharefrom=from_link
+
 ## 前言
 
 copilot只支持那几家国外的模型提供商，除了openrouter以外我们都很难进行访问和支付，以及copilot系统提示词会拒绝回答非编程的问题，这点也让我很苦恼
